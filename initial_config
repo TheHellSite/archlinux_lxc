@@ -18,5 +18,13 @@ echo 'Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch' >| /etc/pa
 pacman-key --init
 pacman-key --populate archlinux
 trust extract-compat
-pacman -Sy archlinux-keyring
-########pacman-key --refresh-keys
+pacman -Syy archlinux-keyring --noconfirm
+#######pacman-key --refresh-keys
+echo 8
+echo 8
+echo 8
+sleep 5
+
+echo Updating system
+echo ===============
+pacman -Syyu
