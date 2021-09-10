@@ -1,5 +1,7 @@
-echo 1
-echo 2
-echo 3
-sleep 5
-echo 6
+echo 01. configure locales and set timezone
+echo 01.01 echo "LC_ALL=de_DE.UTF-8" >> /etc/environment && echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && echo "LANG=de_DE.UTF-8" >> /etc/locale.conf
+echo "LC_ALL=de_DE.UTF-8" >> /etc/environment && echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && echo "LANG=de_DE.UTF-8" >> /etc/locale.conf
+echo 01.02 locale-gen
+locale-gen
+echo 01.03 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
