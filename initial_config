@@ -1,7 +1,28 @@
+######################
+# start of functions #
+######################
+enter_to_continue()
+{
+    read -n1 -s -r -p $'Press ENTER to continue...\n' key
+
+    if [ "$key" = '' ]; then
+        # ENTER pressed, do something
+        # echo [$key] is empty when SPACE is pressed # uncomment to trace
+    else
+        # Anything else pressed, do whatever else.
+        # echo [$key] not empty
+    fi
+}
+
+###################
+# start of script #
+###################
+
 echo Setting timezone...
 echo ===================
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 date
+enter_to_continue
 echo
 
 echo Configuring locales...
@@ -10,6 +31,7 @@ echo 'LC_ALL=de_DE.UTF-8' >| /etc/environment
 echo 'de_DE.UTF-8 UTF-8' >| /etc/locale.gen
 echo 'LANG=de_DE.UTF-8' >| /etc/locale.conf
 locale-gen
+enter_to_continue
 echo
 
 echo Updating and configuring mirrorlist...
@@ -20,14 +42,17 @@ pacman-key --populate archlinux
 trust extract-compat
 pacman -Syy archlinux-keyring --noconfirm
 pacman-key --refresh-keys
+enter_to_continue
 echo
 
 echo Updating system...
 echo ==================
 pacman -Syyu
+enter_to_continue
 echo
 
 echo =======================
 echo = Rebooting system... =
 echo =======================
+enter_to_continue
 reboot
