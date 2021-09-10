@@ -1,7 +1,26 @@
-echo 01. configure locales and set timezone
-echo 01.01 echo "LC_ALL=de_DE.UTF-8" >> /etc/environment && echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && echo "LANG=de_DE.UTF-8" >> /etc/locale.conf
-echo "LC_ALL=de_DE.UTF-8" >> /etc/environment && echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && echo "LANG=de_DE.UTF-8" >> /etc/locale.conf
-echo 01.02 locale-gen
-locale-gen
-echo 01.03 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+echo Setting timezone...
+echo ===================
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+echo
+
+echo Configuring locales...
+echo ======================
+echo
+#echo "LC_ALL=de_DE.UTF-8" >> /etc/environment
+#echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen
+#echo "LANG=de_DE.UTF-8" >> /etc/locale.conf
+echo "LC_ALL=de_DE.UTF-8" >> /root/environment
+echo "de_DE.UTF-8 UTF-8" >> /root/locale.gen
+echo "LANG=de_DE.UTF-8" >> /root/locale.conf
+locale-gen
+echo
+
+echo Updating and configuring mirrorlist
+echo ===================================
+#curl -o /etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/all/
+#nano /etc/pacman.d/mirrorlist
+#pacman-key --init
+#pacman-key --populate archlinux
+#trust extract-compat
+#pacman -Sy archlinux-keyring
+########pacman-key --refresh-keys
