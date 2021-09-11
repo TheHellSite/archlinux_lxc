@@ -1,8 +1,5 @@
 #!/bin/bash
 
-###################
-# start of script #
-###################
 clear
 echo "=========================================="
 echo "== Arch Linux LXC initial configuration =="
@@ -70,7 +67,3 @@ echo "======================="
 echo
 read -p "Press ENTER to reboot"
 reboot
-
-#################
-# end of script #
-#################
