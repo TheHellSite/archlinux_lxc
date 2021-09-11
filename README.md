@@ -4,4 +4,4 @@
 
 2. Run the script inside of the Arch Linux LXC using the command below:
 
-                       bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/initial_config?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX)
+       bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/initial_config?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX)
