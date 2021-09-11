@@ -1,7 +1,7 @@
 # Arch Linux LXC initial config script
 
-1. Get a download token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
+1. Get a script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
 
 2. Run the script inside of the Arch Linux LXC using the command below:
 
-       bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/initial_config.sh?token=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX)
+       bash <(curl -s URL)
