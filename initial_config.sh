@@ -4,14 +4,16 @@
 # start of script #
 ###################
 clear
-echo
-echo
+echo "=========================================="
+echo "== Arch Linux LXC initial configuration =="
+echo "=========================================="
 echo
 echo "This script will perform the inital configuration of an Arch Linux LXC."
 read -p "Press ENTER to start the script."
 echo
 echo
 echo
+
 echo "Setting timezone..."
 echo "==================="
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
