@@ -6,6 +6,7 @@ echo "== Arch Linux LXC initial configuration =="
 echo "=========================================="
 echo
 echo "This script will perform the inital configuration of an Arch Linux LXC."
+echo
 read -p "Press ENTER to start the script."
 echo
 echo
