@@ -7,7 +7,7 @@
 echo
 echo
 echo
-echo This script is doing the inital configuration of an Arch Linux LXC.
+echo "This script is doing the inital configuration of an Arch Linux LXC."
 read -p "Press ENTER to start the script."
 echo
 echo
