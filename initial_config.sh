@@ -4,14 +4,16 @@
 # start of script #
 ###################
 
-
-echo This script will do the initial configuration of an Arch Linux LXC.
+echo
+echo
+echo
+echo "This script is doing the inital configuration of an Arch Linux LXC."
 read -p "Press ENTER to start the script."
 echo
 echo
 echo
-echo Setting timezone...
-echo ===================
+echo "Setting timezone..."
+echo "==================="
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 date
 echo
@@ -20,8 +22,8 @@ echo
 echo
 echo
 
-echo Configuring locales...
-echo ======================
+echo "Configuring locales..."
+echo "======================"
 echo 'LC_ALL=de_DE.UTF-8' >| /etc/environment
 echo 'de_DE.UTF-8 UTF-8' >| /etc/locale.gen
 echo 'LANG=de_DE.UTF-8' >| /etc/locale.conf
@@ -32,13 +34,12 @@ echo
 echo
 echo
 
-echo Updating and configuring mirrorlist...
-echo ======================================
-echo Provide Pacman mirror URL.
-echo !!! Only the URL, without "Server = " !!!
-echo Example: 'https://mirror.domain.com/archlinux/$repo/os/$arch'
-echo -e Latest mirrors: '\e]8;;https://archlinux.org/mirrorlist/all/https/\ahttps://archlinux.org/mirrorlist/all/https/\e]8;;\a'
-echo Latest Mirrors: 'https://archlinux.org/mirrorlist/all/https/'
+echo "Updating and configuring mirrorlist..."
+echo "======================================"
+echo "Provide Pacman mirror URL."
+echo "!!! Only the URL, without "Server = " !!!"
+echo "Example: 'https://mirror.domain.com/archlinux/$repo/os/$arch'"
+echo "Latest Mirrors: 'https://archlinux.org/mirrorlist/all/https/'"
 read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
 pacman-key --init
@@ -53,8 +54,8 @@ echo
 echo
 
 
-echo Updating system...
-echo ==================
+echo "Updating system..."
+echo "=================="
 pacman -Syyu
 echo
 read -p "Press ENTER to continue..."
@@ -63,9 +64,9 @@ echo
 echo
 
 
-echo =======================
-echo = Rebooting system... =
-echo =======================
+echo "======================="
+echo "= Rebooting system... ="
+echo "======================="
 echo
 read -p "Press ENTER to reboot"
 reboot
