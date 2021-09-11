@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ######################
 # start of functions #
 ######################
@@ -40,7 +42,12 @@ echo
 
 echo Updating and configuring mirrorlist...
 echo ======================================
-echo 'Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch' >| /etc/pacman.d/mirrorlist
+echo Provide Pacman mirror URL.
+echo !!! Only the URL, without "Server = " !!!
+echo Example: https://mirror.domain.com/archlinux/$repo/os/$arch
+echo Latest Mirrors: https://archlinux.org/mirrorlist/?country=all&protocol=https&ip_version=4&ip_version=6
+read mirror_url
+echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
 pacman-key --init
 pacman-key --populate archlinux
 trust extract-compat
