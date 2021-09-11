@@ -55,7 +55,6 @@ echo
 echo
 echo
 
-
 echo "Updating system..."
 echo "=================="
 pacman -Syyu
@@ -64,7 +63,6 @@ read -p "Press ENTER to continue..."
 echo
 echo
 echo
-
 
 echo "======================="
 echo "= Rebooting system... ="
