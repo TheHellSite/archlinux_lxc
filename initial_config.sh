@@ -3,11 +3,11 @@
 ###################
 # start of script #
 ###################
-
+clear
 echo
 echo
 echo
-echo "This script is doing the inital configuration of an Arch Linux LXC."
+echo "This script will perform the inital configuration of an Arch Linux LXC."
 read -p "Press ENTER to start the script."
 echo
 echo
@@ -39,7 +39,7 @@ echo "======================================"
 echo "Provide Pacman mirror URL."
 echo '!!! Only the URL, without "Server = " !!!'
 echo 'Example mirror URL: https://mirror.domain.com/archlinux/$repo/os/$arch'
-echo 'Latest mirrors: https://archlinux.org/mirrorlist/all/https/'
+echo "Latest mirrors: https://archlinux.org/mirrorlist/all/https/"
 read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
 pacman-key --init
