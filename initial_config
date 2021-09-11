@@ -4,6 +4,9 @@
 # start of script #
 ###################
 
+
+echo This script will do the initial configuration of an Arch Linux LXC.
+read -p "Press ENTER to start the script."
 echo
 echo
 echo
@@ -12,7 +15,7 @@ echo ===================
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 date
 echo
-read -p "Press ENTER to continue"
+read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -24,7 +27,7 @@ echo 'de_DE.UTF-8 UTF-8' >| /etc/locale.gen
 echo 'LANG=de_DE.UTF-8' >| /etc/locale.conf
 locale-gen
 echo
-read -p "Press ENTER to continue"
+read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -43,7 +46,7 @@ trust extract-compat
 pacman -Syy archlinux-keyring --noconfirm
 pacman-key --refresh-keys
 echo
-read -p "Press ENTER to continue"
+read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -53,7 +56,7 @@ echo Updating system...
 echo ==================
 pacman -Syyu
 echo
-read -p "Press ENTER to continue"
+read -p "Press ENTER to continue..."
 echo
 echo
 echo
