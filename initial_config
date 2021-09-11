@@ -14,6 +14,10 @@ enter_to_continue()
     fi
 }
 
+####################
+# end of functions #
+####################
+
 ###################
 # start of script #
 ###################
@@ -56,3 +60,7 @@ echo = Rebooting system... =
 echo =======================
 enter_to_continue
 reboot
+
+#################
+# end of script #
+#################
