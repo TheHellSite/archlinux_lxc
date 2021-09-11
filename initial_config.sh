@@ -37,9 +37,9 @@ echo
 echo "Updating and configuring mirrorlist..."
 echo "======================================"
 echo "Provide Pacman mirror URL."
-echo "!!! Only the URL, without "Server = " !!!"
-echo "Example: 'https://mirror.domain.com/archlinux/$repo/os/$arch'"
-echo "Latest Mirrors: 'https://archlinux.org/mirrorlist/all/https/'"
+echo '!!! Only the URL, without "Server = " !!!'
+echo 'Example mirror URL: https://mirror.domain.com/archlinux/$repo/os/$arch'
+echo 'Latest mirrors: https://archlinux.org/mirrorlist/all/https/'
 read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
 pacman-key --init
