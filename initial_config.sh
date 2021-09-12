@@ -49,7 +49,7 @@ read -p 'Mirror URL: ' mirror_url_var
 echo "$mirror_url_var" >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
-sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist_' /etc/pacman.conf
+sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist etc/pacman.conf_' /etc/pacman.conf
 echo 
 echo "Initializing, populating and updating keyring..."
 echo
