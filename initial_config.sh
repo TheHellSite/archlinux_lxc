@@ -49,7 +49,7 @@ read -p 'Mirror URL: ' mirror_url_var
 echo "$mirror_url_var" >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
-sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist etc/pacman.conf_' /etc/pacman.conf
+sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.conf etc/pacman.d/mirrorlist_' /etc/pacman.conf
 echo 
 echo "Initializing, populating and updating keyring..."
 echo
@@ -114,7 +114,7 @@ sed -i 's_# %wheel ALL=(ALL) ALL_%wheel ALL=(ALL) ALL_' /etc/sudoers
 echo
 echo 'Creating new user that is a member of group "wheel"...'
 read -p 'Username: ' username_var
-read -p 'Password: ' password_var
+read -s -p 'Password: ' password_var
 #useradd -m -G wheel -s /bin/bash $username_var
 useradd -m -g users -G wheel -s /bin/bash $username_var
 echo "$username_var:$password_var" | chpasswd
