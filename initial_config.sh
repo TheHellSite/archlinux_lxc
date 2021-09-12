@@ -44,6 +44,8 @@ echo "Latest mirrors: https://archlinux.org/mirrorlist/all/https/"
 echo
 read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
+echo 'Disabling extraction of "mirrorlist.pacnew"...'
+sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist_' /etc/pacman.conf
 echo 
 echo "Initializing, populating and updating keyring..."
 echo
@@ -77,12 +79,15 @@ echo
 echo "Configuring Pacman Reflector"
 echo "============================"
 pacman -S reflector --noconfirm
+echo "" > /etc/xdg/reflector/reflector.conf
 echo "--age 12" >> /etc/xdg/reflector/reflector.conf
 echo "--country Germany" >> /etc/xdg/reflector/reflector.conf
+echo "--latest 10" >> /etc/xdg/reflector/reflector.conf
 echo "--protocol https" >> /etc/xdg/reflector/reflector.conf
 echo "--save /etc/pacman.d/mirrorlist" >> /etc/xdg/reflector/reflector.conf
 echo "--sort rate" >> /etc/xdg/reflector/reflector.conf
 systemctl enable reflector.timer
+systemctl restart reflector.service
 echo
 read -p "Press ENTER to continue..."
 echo
