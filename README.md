@@ -19,4 +19,8 @@
 
 2. Clone Jellyfin AUR repository and install Jellyfin.
 
-       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc
+       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin && makepkg -sirc
+
+3. Enable and start Jellyfin.
+
+       systemctl enable --now jellyfin
