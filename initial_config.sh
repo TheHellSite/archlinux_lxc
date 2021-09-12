@@ -35,17 +35,38 @@ echo
 echo
 echo
 
-echo "Updating and configuring mirrorlist..."
-echo "======================================"
-echo "Provide Pacman mirror URL."
+echo "Configuring Pacman..."
+echo "====================="
+echo "Enter a Pacman mirror URL."
 echo '!!! Only the URL, without "Server = " !!!'
 echo 'Example mirror URL: https://mirror.domain.com/archlinux/$repo/os/$arch'
 echo "Latest mirrors: https://archlinux.org/mirrorlist/all/https/"
+echo
 read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
+echo 
+echo "Initializing, populating and updating keyring..."
+echo
 pacman-key --init
 pacman-key --populate archlinux
 pacman -Syy archlinux-keyring --noconfirm
+echo
+read -p "Press ENTER to continue..."
+echo
+echo
+echo
+
+echo "Updating system"
+echo "==============="
+pacman -Syyu --noconfirm
+echo
+read -p "Press ENTER to continue..."
+echo
+echo
+echo
+
+echo "Refreshing Pacman keys"
+echo "======================"
 pacman-key --refresh-keys
 echo
 read -p "Press ENTER to continue..."
@@ -53,9 +74,15 @@ echo
 echo
 echo
 
-echo "Updating system..."
-echo "=================="
-pacman -Syyu
+echo "Configuring Pacman Reflector"
+echo "============================"
+pacman -S reflector --noconfirm
+echo "--age 12" >> /etc/xdg/reflector/reflector.conf
+echo "--country Germany" >> /etc/xdg/reflector/reflector.conf
+echo "--protocol https" >> /etc/xdg/reflector/reflector.conf
+echo "--save /etc/pacman.d/mirrorlist" >> /etc/xdg/reflector/reflector.conf
+echo "--sort rate" >> /etc/xdg/reflector/reflector.conf
+systemctl enable reflector.timer
 echo
 read -p "Press ENTER to continue..."
 echo
