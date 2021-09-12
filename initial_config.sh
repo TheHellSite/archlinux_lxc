@@ -45,8 +45,8 @@ echo "Enter an up-to-date Pacman mirror URL."
 echo 'For example: "Server = https://mirror.domain.com/archlinux/$repo/os/$arch"'
 echo "Latest mirrors are available here: https://archlinux.org/mirrorlist/all/https/"
 echo
-read -p 'Mirror URL: ' mirror_url
-echo "$mirror_url" >| /etc/pacman.d/mirrorlist
+read -p 'Mirror URL: ' mirror_url_var
+echo "$mirror_url_var" >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
 sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist_' /etc/pacman.conf
@@ -108,13 +108,16 @@ echo "==============="
 read -p "Press ENTER to start..."
 echo
 echo 'Installing "sudo"...'
-pacman -S sudo
+pacman -S sudo --noconfirm
 echo 'Allowing members of group "wheel" to use "sudo"...'
-sed -i 's_# %wheel ALL=(ALL) ALL_%wheel ALL=(ALL) ALL' /etc/sudoers
-echo "Type in the name of the new user and hit ENTER"
-read mirror_url
-echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
-useradd -m -G wheel -s /bin/bash username
+sed -i 's_# %wheel ALL=(ALL) ALL_%wheel ALL=(ALL) ALL_' /etc/sudoers
+echo
+echo 'Creating new user that is a member of group "wheel"...'
+read -p 'Username: ' username_var
+read -p 'Password: ' password_var
+#useradd -m -G wheel -s /bin/bash $username_var
+useradd -m -g users -G wheel -s /bin/bash $username_var
+echo "$username_var:$password_var" | chpasswd
 echo
 echo
 echo
