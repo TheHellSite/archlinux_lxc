@@ -15,6 +15,8 @@ echo
 
 echo "Setting timezone..."
 echo "==================="
+read -p "Press ENTER to start..."
+echo
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 date
 echo
@@ -25,6 +27,8 @@ echo
 
 echo "Configuring locales..."
 echo "======================"
+read -p "Press ENTER to start..."
+echo
 echo 'LC_ALL=en_GB.UTF-8' >| /etc/environment
 echo 'en_GB.UTF-8 UTF-8' >| /etc/locale.gen
 echo 'LANG=en_GB.UTF-8' >| /etc/locale.conf
@@ -37,6 +41,8 @@ echo
 
 echo "Configuring Pacman..."
 echo "====================="
+read -p "Press ENTER to start..."
+echo
 echo "Enter a Pacman mirror URL."
 echo '!!! Only the URL, without "Server = " !!!'
 echo 'Example mirror URL: https://mirror.domain.com/archlinux/$repo/os/$arch'
@@ -60,6 +66,8 @@ echo
 
 echo "Updating system"
 echo "==============="
+read -p "Press ENTER to start..."
+echo
 pacman -Syyu --noconfirm
 echo
 read -p "Press ENTER to continue..."
@@ -69,6 +77,8 @@ echo
 
 echo "Refreshing Pacman keys"
 echo "======================"
+read -p "Press ENTER to start..."
+echo
 pacman-key --refresh-keys
 echo
 read -p "Press ENTER to continue..."
@@ -78,6 +88,8 @@ echo
 
 echo "Configuring Pacman Reflector"
 echo "============================"
+read -p "Press ENTER to start..."
+echo
 pacman -S reflector --noconfirm
 echo "" > /etc/xdg/reflector/reflector.conf
 echo "--age 12" >> /etc/xdg/reflector/reflector.conf
@@ -100,6 +112,5 @@ echo
 echo "======================="
 echo "= Rebooting system... ="
 echo "======================="
-echo
 read -p "Press ENTER to reboot"
 reboot
