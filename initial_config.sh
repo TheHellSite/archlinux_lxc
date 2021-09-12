@@ -45,7 +45,6 @@ read mirror_url
 echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
 pacman-key --init
 pacman-key --populate archlinux
-trust extract-compat
 pacman -Syy archlinux-keyring --noconfirm
 pacman-key --refresh-keys
 echo
