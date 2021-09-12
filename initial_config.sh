@@ -127,4 +127,6 @@ echo "======================="
 echo "= Rebooting system... ="
 echo "======================="
 read -p "Press ENTER to reboot"
+cat /dev/null > ~/.bash_history
+history -c
 reboot
