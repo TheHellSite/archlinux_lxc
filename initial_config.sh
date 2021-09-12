@@ -20,7 +20,6 @@ echo
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 date
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -34,7 +33,6 @@ echo 'en_GB.UTF-8 UTF-8' >| /etc/locale.gen
 echo 'LANG=en_GB.UTF-8' >| /etc/locale.conf
 locale-gen
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -59,7 +57,6 @@ pacman-key --init
 pacman-key --populate archlinux
 pacman -Syy archlinux-keyring --noconfirm
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -70,7 +67,6 @@ read -p "Press ENTER to start..."
 echo
 pacman -Syyu --noconfirm
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -81,7 +77,6 @@ read -p "Press ENTER to start..."
 echo
 pacman-key --refresh-keys
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
@@ -104,7 +99,6 @@ systemctl restart reflector.service
 echo
 cat /etc/pacman.d/mirrorlist
 echo
-read -p "Press ENTER to continue..."
 echo
 echo
 echo
