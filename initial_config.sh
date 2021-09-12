@@ -87,7 +87,10 @@ echo "--protocol https" >> /etc/xdg/reflector/reflector.conf
 echo "--save /etc/pacman.d/mirrorlist" >> /etc/xdg/reflector/reflector.conf
 echo "--sort rate" >> /etc/xdg/reflector/reflector.conf
 systemctl enable reflector.timer
+echo "Generating new mirrorlist using Reflector..."
 systemctl restart reflector.service
+echo
+cat /etc/pacman.d/mirrorlist
 echo
 read -p "Press ENTER to continue..."
 echo
