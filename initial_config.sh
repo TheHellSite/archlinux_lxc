@@ -41,13 +41,13 @@ echo "Configuring Pacman..."
 echo "====================="
 read -p "Press ENTER to start..."
 echo
-echo "Enter a Pacman mirror URL."
-echo '!!! Only the URL, without "Server = " !!!'
-echo 'Example mirror URL: https://mirror.domain.com/archlinux/$repo/os/$arch'
-echo "Latest mirrors: https://archlinux.org/mirrorlist/all/https/"
+echo "Enter an up-to-date Pacman mirror URL."
+echo 'For example: "Server = https://mirror.domain.com/archlinux/$repo/os/$arch"'
+echo "Latest mirrors are available here: https://archlinux.org/mirrorlist/all/https/"
 echo
-read mirror_url
-echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
+read -p 'Mirror URL: ' mirror_url
+echo "$mirror_url" >| /etc/pacman.d/mirrorlist
+echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
 sed -i 's_#NoExtract   =_NoExtract   = etc/pacman.d/mirrorlist_' /etc/pacman.conf
 echo 
@@ -98,6 +98,23 @@ echo "Generating new mirrorlist using Reflector..."
 systemctl restart reflector.service
 echo
 cat /etc/pacman.d/mirrorlist
+echo
+echo
+echo
+echo
+
+echo "Adding new user"
+echo "==============="
+read -p "Press ENTER to start..."
+echo
+echo 'Installing "sudo"...'
+pacman -S sudo
+echo 'Allowing members of group "wheel" to use "sudo"...'
+sed -i 's_# %wheel ALL=(ALL) ALL_%wheel ALL=(ALL) ALL' /etc/sudoers
+echo "Type in the name of the new user and hit ENTER"
+read mirror_url
+echo "Server = $mirror_url" >| /etc/pacman.d/mirrorlist
+useradd -m -G wheel -s /bin/bash username
 echo
 echo
 echo
