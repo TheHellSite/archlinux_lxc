@@ -23,11 +23,17 @@ echo
 echo
 echo
 
-echo " required packages..."
-echo "==============================="
+echo "Building Jellyfin from Git repository..."
+echo "========================================"
+echo "https://aur.archlinux.org/jellyfin.git"
+echo
 read -p "Press ENTER to start..."
 echo
-pacman -Syyu git base-devel --noconfirm
+mkdir git
+cd git
+git clone https://aur.archlinux.org/jellyfin.git
+cd jellyfin
+makepkg -sirc
 echo
 echo
 echo
