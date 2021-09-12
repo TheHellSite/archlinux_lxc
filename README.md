@@ -19,8 +19,17 @@
 
 2. Clone Jellyfin AUR repository and install Jellyfin.
 
-       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin && makepkg -sirc
+       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc
+       or
+       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin-bin && makepkg -sirc
 
 3. Enable and start Jellyfin.
 
-       systemctl enable --now jellyfin
+       systemctl enable jellyfin
+
+4. Mount NAS share.
+
+       pacman -Syyu cifs-utils
+       sudo mkdir /mnt/nas
+       sudo mount -t cifs -o user=USER,pass=PASSWORD //10.13.54.251/nas /mnt/nas
+       /mnt/nas cifs user=USER,pass=PASSWORD,vers=3.11,uid=vod,_netdev 0 0
