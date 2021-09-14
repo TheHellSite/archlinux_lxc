@@ -13,23 +13,24 @@
 
 # Jellyfin installation (run as non-root user)
 
-1. Prepare AUR environment.
+1. Mount NAS share.
+
+       sudo pacman -Syyu cifs-utils
+       sudo mkdir /mnt/nas
+       echo '//NAS/nas /mnt/nas cifs _netdev,noatime,uid=vod,gid=users,user=SMBUSER,pass=SMBPASSWORD 0 0' | sudo tee -a /etc/fstab
+       sudo mount -a && ls mnt/nas
+
+2. Prepare AUR environment.
 
        sudo pacman -Syyu git base-devel --noconfirm
 
-2. Clone Jellyfin AUR repository and install Jellyfin.
+3. Clone Jellyfin AUR repository and install Jellyfin.
 
+       #
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc
        or
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin-bin && makepkg -sirc
 
-3. Enable and start Jellyfin.
+4. Enable and start Jellyfin.
 
-       systemctl enable jellyfin
-
-4. Mount NAS share.
-
-       pacman -Syyu cifs-utils
-       sudo mkdir /mnt/nas
-       sudo mount -t cifs -o user=USER,pass=PASSWORD //10.13.54.251/nas /mnt/nas
-       /mnt/nas cifs user=USER,pass=PASSWORD,vers=3.11,uid=vod,_netdev 0 0
+       systemctl enable --now jellyfin && systemctl status jellyfin
