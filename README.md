@@ -32,4 +32,4 @@
 
 4. Enable and start Jellyfin.
 
-       systemctl enable --now jellyfin && systemctl status jellyfin
+       sudo systemctl enable --now jellyfin && sudo systemctl status jellyfin
