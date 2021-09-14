@@ -18,7 +18,7 @@
        sudo pacman -Syyu cifs-utils
        sudo mkdir /mnt/nas
        echo '//NAS/nas /mnt/nas cifs _netdev,noatime,uid=vod,gid=users,user=SMBUSER,pass=SMBPASSWORD 0 0' | sudo tee -a /etc/fstab
-       sudo mount -a && ls mnt/nas
+       sudo mount -a && ls /mnt/nas
 
 2. Prepare AUR environment.
 
@@ -26,9 +26,8 @@
 
 3. Clone Jellyfin AUR repository and install Jellyfin.
 
-       #
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc
-       or
+       # or
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin-bin && makepkg -sirc
 
 4. Enable and start Jellyfin.
