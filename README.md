@@ -15,7 +15,7 @@
 
 1. Mount NAS share.
 
-       sudo pacman -Syyu cifs-utils
+       sudo pacman -Syyu cifs-utils --noconfirm
        sudo mkdir /mnt/nas
        echo '//NAS/nas /mnt/nas cifs _netdev,noatime,uid=vod,gid=users,user=SMBUSER,pass=SMBPASSWORD 0 0' | sudo tee -a /etc/fstab
        sudo mount -a && ls /mnt/nas
