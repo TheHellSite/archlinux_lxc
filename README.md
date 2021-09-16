@@ -73,4 +73,8 @@
 
        pacman -Syyu mesa --noconfirm && reboot
 
-6. Jellyfin: 
+6. Jellyfin: Enable VAPI.
+
+       Go to: Admin --> Server --> Dashboard --> Playback
+       Hardware acceleration: VAAPI
+       VA API Device: /dev/dri/renderD128
