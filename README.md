@@ -50,30 +50,14 @@
        
        lxc.cgroup2.devices.allow: c 226:0 rwm
        lxc.cgroup2.devices.allow: c 226:128 rwm
-       lxc.autodev: 1
-       lxc.hook.autodev:/var/lib/lxc/LXC_ID/mount_hook.sh
+       lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
+       lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 
-3. **Proxmox Host:** Create the shell script that mounts the GPU when the LXC starts.
-
-       nano /var/lib/lxc/LXC_ID/mount_hook.sh
-       add the lines below...
-       
-       #!/bin/bash
-       mkdir -p ${LXC_ROOTFS_MOUNT}/dev/dri
-       mknod -m 666 ${LXC_ROOTFS_MOUNT}/dev/dri/card0 c 226 0
-       mknod -m 666 ${LXC_ROOTFS_MOUNT}/dev/dri/renderD128 c 226 128
-       # only necessary for Intel iGPU
-       # mknod -m 666 ${LXC_ROOTFS_MOUNT}/dev/fb0 c 29 0
-
-4. **Proxmox Host:** Make the script executable.
-
-       chmod 0755 /var/lib/lxc/LXC_ID/mount_hook.sh
-
-5. **LXC Guest:** Start the LXC, install the latest Mesa drivers and reboot the LXC.
+3. **LXC Guest:** Start the LXC, install the latest Mesa drivers and reboot the LXC.
 
        pacman -Syyu mesa --noconfirm && reboot
 
-6. **Jellyfin:** Enable VAAPI.
+4. **Jellyfin:** Enable VAAPI.
 
        Go to: Admin --> Server --> Dashboard --> Playback
        Hardware acceleration: VAAPI
