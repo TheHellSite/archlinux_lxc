@@ -39,11 +39,11 @@
 
 # Jellyfin LXC GPU passthrough
 
-1. Proxmox Host: Find GPUs on the Proxmox host machine.
+1. **Proxmox Host:** Find the GPU device number.
 
        ls -l /dev/dri
 
-2. Proxmox Host: Add them to the LXC configuration file.
+2. **Proxmox Host:** Add them to the LXC configuration file.
 
        nano /etc/pve/lxc/LXC_ID.conf
        add the lines below...
@@ -53,7 +53,7 @@
        lxc.autodev: 1
        lxc.hook.autodev:/var/lib/lxc/LXC_ID/mount_hook.sh
 
-3. Proxmox Host: Create the shell script that mounts the GPU when the LXC starts.
+3. **Proxmox Host:** Create the shell script that mounts the GPU when the LXC starts.
 
        nano /var/lib/lxc/LXC_ID/mount_hook.sh
        add the lines below...
@@ -65,15 +65,15 @@
        # only necessary for Intel iGPU
        # mknod -m 666 ${LXC_ROOTFS_MOUNT}/dev/fb0 c 29 0
 
-4. Proxmox Host: Make the script executable.
+4. **Proxmox Host:** Make the script executable.
 
        chmod 0755 /var/lib/lxc/LXC_ID/mount_hook.sh
 
-5. LXC Guest: Start the LXC, install the latest Mesa drivers and reboot the LXC.
+5. **LXC Guest:** Start the LXC, install the latest Mesa drivers and reboot the LXC.
 
        pacman -Syyu mesa --noconfirm && reboot
 
-6. Jellyfin: Enable VAPI.
+6. **Jellyfin:** Enable VAPI.
 
        Go to: Admin --> Server --> Dashboard --> Playback
        Hardware acceleration: VAAPI
