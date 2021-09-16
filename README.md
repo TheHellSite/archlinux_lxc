@@ -73,7 +73,7 @@
 
        pacman -Syyu mesa --noconfirm && reboot
 
-6. **Jellyfin:** Enable VAPI.
+6. **Jellyfin:** Enable VAAPI.
 
        Go to: Admin --> Server --> Dashboard --> Playback
        Hardware acceleration: VAAPI
