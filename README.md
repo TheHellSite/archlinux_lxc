@@ -30,7 +30,8 @@
 
 2. Enable Vaultwarden webinterface.
 
-       sudo pacman -Syyu git base-devel --noconfirm
+       sed -i 's@# WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@' /etc/vaultwarden.env && sed -i 's@WEB_VAULT_ENABLED=false@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
+       systemctl enable --now vaultwarden
 
 
 
