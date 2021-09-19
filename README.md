@@ -21,6 +21,19 @@
        bash <(curl -s URL)
 
 
+
+# Vaultwarden installation (run commands as root user)
+
+1. Install Vaultwarden and Vaultwarden-Web.
+
+       pacman -S vaultwarden vaultwarden-web
+
+2. Enable Vaultwarden webinterface.
+
+       sudo pacman -Syyu git base-devel --noconfirm
+
+
+
 # Jellyfin installation (run commands as non-root user)
 
 1. Mount NAS share.
