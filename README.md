@@ -24,14 +24,12 @@
 
 # Vaultwarden installation (run commands as root user)
 
-1. Install Vaultwarden and Vaultwarden-Web.
+1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/vaultwarden_install.sh
 
-       pacman -S vaultwarden vaultwarden-web
+2. Run the script inside of the Arch Linux LXC.
 
-2. Enable Vaultwarden webinterface.
+       bash <(curl -s URL)
 
-       sed -i 's@# WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@' /etc/vaultwarden.env && sed -i 's@WEB_VAULT_ENABLED=false@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
-       systemctl enable --now vaultwarden
 
 
 
