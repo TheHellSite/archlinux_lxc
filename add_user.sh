@@ -5,14 +5,14 @@ echo "============================="
 echo "== Arch Linux LXC add user =="
 echo "============================="
 echo
-echo "This script adds a user to"
-echo "your Arch Linux system."
+echo "This script adds a new user"
+echo "to your Arch Linux LXC and"
+echo "adds it to group wheel."
 echo
 read -p "Press ENTER to start the script."
 echo
 echo
 echo
-
 
 echo "Adding new user"
 echo "==============="
