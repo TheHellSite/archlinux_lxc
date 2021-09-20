@@ -35,8 +35,8 @@ sed -i 's@# WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@WEB_VAULT_FOLDER
 sed -i 's@WEB_VAULT_ENABLED=false@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
 echo
 echo "Enabling HTTPS..."
-# ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN 
-sed -i 's@WEB_VAULT_ENABLED=false@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
-sed -i 's@WEB_VAULT_ENABLED=false@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
-# ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN # ANPASSEN 
+sed -i 's@# ROCKET_PORT=80  # Defaults to 80 in the Docker images, or 8000 otherwise.@ROCKET_PORT=443@' /etc/vaultwarden.env
+sed -i 's@# ROCKET_TLS={certs="/path/to/certs.pem",key="/path/to/key.pem"}@ROCKET_TLS={certs="/var/lib/vaultwarden/ssl/cert.pem",key="/var/lib/vaultwarden/ssl/key.pem"}@' /etc/vaultwarden.env
+echo
+echo "Enabling and starting Vaultwarden..."
 systemctl enable --now vaultwarden
