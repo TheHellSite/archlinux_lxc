@@ -51,7 +51,8 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R vaultwarden:vaultwarden /var/lib/vaultwarden/ssl
 echo
 
-echo "Enabling HTTPS..."
+echo "Configuring Rocket web framework..."
+sed -i 's@^# ROCKET_ADDRESS=.*@ROCKET_ADDRESS=0.0.0.0@' /etc/vaultwarden.env
 sed -i 's@^# ROCKET_PORT=.*@ROCKET_PORT=443@' /etc/vaultwarden.env
 sed -i 's@^# ROCKET_TLS=.*@ROCKET_TLS={certs="/var/lib/vaultwarden/ssl/cert.pem",key="/var/lib/vaultwarden/ssl/key.pem"}@' /etc/vaultwarden.env
 echo
