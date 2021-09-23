@@ -35,7 +35,6 @@ echo
 echo "Enabling Admin Interface..."
 admin_token_var=`openssl rand -base64 48`
 sed -i "s@^# ADMIN_TOKEN=.*@ADMIN_TOKEN=$admin_token_var@" /etc/vaultwarden.env
-echo "You Admin Token is: $admin_token_var"
 echo
 
 echo "Configuring Domain..."
@@ -68,7 +67,9 @@ echo
 echo "!!! Attention !!!"
 echo 'Unable to save passwords as they might contain special characters which "sed" can not handle properly.'
 echo 'Please provide the correct password using "nano /etc/vaultwarden.env".'
-read -p "Press ENTER to continue..."
+echo "!!! Attention !!!"
+echo
+read -p "Press ENTER to finish configuring SMTP..."
 sed -i "s;^# SMTP_HOST=.*;SMTP_HOST=$smtp_server_var;" /etc/vaultwarden.env
 sed -i "s;^# SMTP_FROM=.*;SMTP_FROM=$smtp_email_address_var;" /etc/vaultwarden.env
 sed -i 's@^# SMTP_FROM_NAME=.*@SMTP_FROM_NAME=Vaultwarden@' /etc/vaultwarden.env
@@ -77,9 +78,9 @@ sed -i 's@^# SMTP_SSL=.*@SMTP_SSL=true@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_EXPLICIT_TLS=.*@SMTP_EXPLICIT_TLS=false@' /etc/vaultwarden.env
 sed -i "s;^# SMTP_USERNAME=.*;SMTP_USERNAME=$smtp_email_address_var;" /etc/vaultwarden.env
 sed -i "s@^# SMTP_PASSWORD=.*@SMTP_PASSWORD=$smtp_password_var@" /etc/vaultwarden.env
-# sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
+sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_AUTH_MECHANISM=.*@SMTP_AUTH_MECHANISM="Login"@' /etc/vaultwarden.env
-# sed -i 's@^# HELO_NAME=.*@HELO_NAME=@' /etc/vaultwarden.env
+sed -i 's@^# HELO_NAME=.*@HELO_NAME=@' /etc/vaultwarden.env
 echo
 
 echo "Enabling and starting Vaultwarden..."
