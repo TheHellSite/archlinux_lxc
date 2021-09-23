@@ -21,7 +21,7 @@ echo
 echo 'Installing "sudo"...'
 pacman -S sudo --noconfirm
 echo 'Allowing members of group "wheel" to use "sudo"...'
-sed -i 's_# %wheel ALL=(ALL) ALL_%wheel ALL=(ALL) ALL_' /etc/sudoers
+sed -i 's@^# %wheel ALL=(ALL) ALL@%wheel ALL=(ALL) ALL@' /etc/sudoers
 echo
 echo 'Creating new user that is a member of group "wheel"...'
 read -p 'Username: ' username_var
