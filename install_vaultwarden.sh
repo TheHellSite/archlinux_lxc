@@ -63,14 +63,14 @@ echo
 read -p 'SMTP Server: ' smtp_server_var
 read -p 'Email Address: ' smtp_email_address_var
 read -p 'Password: ' smtp_password_var
-sed -i "s@^# SMTP_HOST=.*@SMTP_HOST=$smtp_server_var@" /etc/vaultwarden.env
-sed -i "s@^# SMTP_FROM=.*@SMTP_FROM=$smtp_email_address_var@" /etc/vaultwarden.env
+sed -i "s ^# SMTP_HOST=.* SMTP_HOST=$smtp_server_var " /etc/vaultwarden.env
+sed -i "s ^# SMTP_FROM=.* SMTP_FROM=$smtp_email_address_var " /etc/vaultwarden.env
 sed -i 's@^# SMTP_FROM_NAME=.*@SMTP_FROM_NAME=Vaultwarden@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_PORT=.*@SMTP_PORT=587@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_SSL=.*@SMTP_SSL=true@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_EXPLICIT_TLS=.*@SMTP_EXPLICIT_TLS=false@' /etc/vaultwarden.env
-sed -i "s@^# SMTP_USERNAME=.*@SMTP_USERNAME=$smtp_email_address_var@" /etc/vaultwarden.env
-sed -i "s@^# SMTP_PASSWORD=.*@SMTP_PASSWORD=$smtp_password_var@" /etc/vaultwarden.env
+sed -i "s ^# SMTP_USERNAME=.* SMTP_USERNAME=$smtp_email_address_var " /etc/vaultwarden.env
+sed -i "s ^# SMTP_PASSWORD=.* SMTP_PASSWORD=$smtp_password_var " /etc/vaultwarden.env
 sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_AUTH_MECHANISM=.*@SMTP_AUTH_MECHANISM="Login"@' /etc/vaultwarden.env
 sed -i 's@^# HELO_NAME=.*@# HELO_NAME=@' /etc/vaultwarden.env
