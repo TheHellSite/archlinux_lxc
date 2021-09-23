@@ -40,3 +40,8 @@ sed -i 's@# ROCKET_TLS={certs="/path/to/certs.pem",key="/path/to/key.pem"}@ROCKE
 echo
 echo "Enabling and starting Vaultwarden..."
 systemctl enable --now vaultwarden
+echo
+echo "Waiting 5 seconds for Vaultwarden to start..."
+sleep 5
+echo
+systemctl status vaultwarden
