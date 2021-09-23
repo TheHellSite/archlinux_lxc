@@ -29,7 +29,7 @@ echo
 echo "Enabling Web Vault..."
 sed -i 's@^# IP_HEADER=.*@IP_HEADER=X-Forwarded-For@' /etc/vaultwarden.env
 sed -i 's@^# WEB_VAULT_FOLDER=.*@WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@' /etc/vaultwarden.env
-sed -i 's@^# WEB_VAULT_ENABLED=.*@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
+sed -i 's@^WEB_VAULT_ENABLED=.*@WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
 echo
 
 echo "Enabling Admin Interface..."
@@ -63,7 +63,12 @@ echo
 read -p 'SMTP Server: ' smtp_server_var
 read -p 'Email Address: ' smtp_email_address_var
 # read -p 'Password: ' smtp_password_var
-read -p 'Unable to also input the password as it might contain special characters. Please "nano /etc/vaultwarden.env"'
+smtp_password_var=`password`
+echo
+echo "!!! Attention !!!"
+echo 'Unable to save passwords as they might contain special characters which "sed" can not handle properly.'
+echo 'Please provide the correct password using "nano /etc/vaultwarden.env".'
+read -p "Press ENTER to continue..."
 sed -i "s;^# SMTP_HOST=.*;SMTP_HOST=$smtp_server_var;" /etc/vaultwarden.env
 sed -i "s;^# SMTP_FROM=.*;SMTP_FROM=$smtp_email_address_var;" /etc/vaultwarden.env
 sed -i 's@^# SMTP_FROM_NAME=.*@SMTP_FROM_NAME=Vaultwarden@' /etc/vaultwarden.env
@@ -71,10 +76,10 @@ sed -i 's@^# SMTP_PORT=.*@SMTP_PORT=587@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_SSL=.*@SMTP_SSL=true@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_EXPLICIT_TLS=.*@SMTP_EXPLICIT_TLS=false@' /etc/vaultwarden.env
 sed -i "s;^# SMTP_USERNAME=.*;SMTP_USERNAME=$smtp_email_address_var;" /etc/vaultwarden.env
-# sed -i "s@^# SMTP_PASSWORD=.*@SMTP_PASSWORD=$smtp_password_var@" /etc/vaultwarden.env
-sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
+sed -i "s@^# SMTP_PASSWORD=.*@SMTP_PASSWORD=$smtp_password_var@" /etc/vaultwarden.env
+# sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_AUTH_MECHANISM=.*@SMTP_AUTH_MECHANISM="Login"@' /etc/vaultwarden.env
-sed -i 's@^# HELO_NAME=.*@# HELO_NAME=@' /etc/vaultwarden.env
+# sed -i 's@^# HELO_NAME=.*@HELO_NAME=@' /etc/vaultwarden.env
 echo
 
 echo "Enabling and starting Vaultwarden..."
