@@ -66,7 +66,7 @@ read -p 'Email Address: ' smtp_email_address_var
 smtp_password_var=`password`
 echo
 echo "!!! Attention !!!"
-echo 'Unable to save passwords as they might contain special characters which "sed" can not handle properly.'
+echo 'Unable to save passwords as they might contain special characters which "sed" cannot handle properly.'
 echo 'Please provide the correct password using "nano /etc/vaultwarden.env".'
 echo "!!! Attention !!!"
 echo
