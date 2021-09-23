@@ -63,7 +63,7 @@ echo
 read -p 'SMTP Server: ' smtp_server_var
 read -p 'Email Address: ' smtp_email_address_var
 # read -p 'Password: ' smtp_password_var
-smtp_password_var=`password`
+smtp_password_var="password"
 echo
 echo "!!! Attention !!!"
 echo 'Unable to save passwords as they might contain special characters which "sed" cannot handle properly.'
