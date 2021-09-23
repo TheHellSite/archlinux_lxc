@@ -73,6 +73,7 @@ sed -i "s@^# SMTP_USERNAME=.*@SMTP_USERNAME=$smtp_email_address_var@" /etc/vault
 sed -i "s@^# SMTP_PASSWORD=.*@SMTP_PASSWORD=$smtp_password_var@" /etc/vaultwarden.env
 sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_AUTH_MECHANISM=.*@SMTP_AUTH_MECHANISM="Login"@' /etc/vaultwarden.env
+sed -i 's@^# HELO_NAME=.*@# HELO_NAME=@' /etc/vaultwarden.env
 echo
 
 echo "Enabling and starting Vaultwarden..."
