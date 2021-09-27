@@ -77,6 +77,7 @@
 3. **LXC Guest:** Start the LXC, change group of render device, install the latest Mesa drivers and reboot the LXC.
 
        chgrp render /dev/dri/*
+       usermod -aG render jellyfin
        pacman -Syyu mesa --noconfirm && reboot
        
 
