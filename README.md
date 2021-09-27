@@ -64,7 +64,7 @@
 
        ls -l /dev/dri
 
-2. **Proxmox Host:** Add them to the LXC configuration file.
+2. **Proxmox Host:** Add it to the LXC configuration file.
 
        nano /etc/pve/lxc/LXC_ID.conf
        add the lines below...
@@ -74,9 +74,11 @@
        lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
        lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 
-3. **LXC Guest:** Start the LXC, install the latest Mesa drivers and reboot the LXC.
+3. **LXC Guest:** Start the LXC, change group of render device, install the latest Mesa drivers and reboot the LXC.
 
+       chgrp render /dev/dri/*
        pacman -Syyu mesa --noconfirm && reboot
+       
 
 4. **Jellyfin:** Enable VAAPI.
 
