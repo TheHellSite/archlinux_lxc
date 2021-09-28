@@ -26,19 +26,9 @@
 
 1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/install_jellyfin.sh
 
-1. Prepare AUR environment.
+2. Run the script inside of the Arch Linux LXC.
 
-       sudo pacman -Syyu git base-devel --noconfirm
-
-2. Clone Jellyfin AUR repository and install Jellyfin.
-
-       # https://aur.archlinux.org/packages/jellyfin-bin/ (usually more up-to-date)
-       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin-bin && makepkg -sirc && cd && sudo rm -r git
-       
-       # or
-       
-       # https://aur.archlinux.org/packages/jellyfin/ (sometimes a bit out-of-date)
-       mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc && cd && sudo rm -r git
+       bash <(curl -s URL)
 
 3. (optional) Mount NAS media share as read-only and mount a transcodes folder as read-write.
 
@@ -48,9 +38,9 @@
        echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' | sudo tee -a /etc/fstab
        sudo mount -a && ls /mnt/media
 
-4. Enable and start Jellyfin.
+4. Restart Jellyfin.
 
-       sudo systemctl enable --now jellyfin && sudo systemctl status jellyfin
+       sudo systemctl restart jellyfin && sudo systemctl status jellyfin
 
 
 
@@ -63,25 +53,37 @@
 2. **Proxmox Host:** Add it to the LXC configuration file.
 
        nano /etc/pve/lxc/LXC_ID.conf
-       
+
        lxc.cgroup2.devices.allow: c 226:128 rwm
        lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+       
+       { echo "lxc.cgroup2.devices.allow: c 226:128 rwm" ; echo "lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file" ; } >> /etc/pve/lxc/LXC_ID.conf
+       
+       # echo "lxc.cgroup2.devices.allow: c 226:128 rwm" >> /etc/pve/lxc/LXC_ID.conf
+       # echo "lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file" >> /etc/pve/lxc/LXC_ID.conf
 
 3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
 
-       chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin
-       pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot
+       chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin && pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot
 
 4. **Jellyfin:** Enable VAAPI.
 
        Go to: Admin --> Server --> Dashboard --> Playback
+       
        Hardware acceleration: VAAPI
        VA API Device: /dev/dri/renderD128
+       Enable hardware decoding for: Check all codecs supported by your GPU.
 
 5. **LXC Guest:** (optional) Check if transcoding is working, f.e. by playing and downscaling a video.
 
+       Option 1
+       ========
        pacman -S radeontop --noconfirm && radeontop
        --> You should see activity, f.e. at the "Graphics pipe".
+       
+       Option 2
+       ========
+       Watch the transcodes folder for files.
 
 
 
