@@ -55,7 +55,7 @@ echo "Initializing, populating and updating keyring..."
 echo
 pacman-key --init
 pacman-key --populate archlinux
-pacman -Syy archlinux-keyring --noconfirm
+pacman -Syy --noconfirm archlinux-keyring
 echo
 echo
 echo
@@ -85,7 +85,7 @@ echo "Configuring Pacman Reflector"
 echo "============================"
 read -p "Press ENTER to start..."
 echo
-pacman -S reflector --noconfirm
+pacman -S --noconfirm reflector
 echo "" > /etc/xdg/reflector/reflector.conf
 echo "--age 12" >> /etc/xdg/reflector/reflector.conf
 echo "--country Germany" >> /etc/xdg/reflector/reflector.conf
