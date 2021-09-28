@@ -1,5 +1,4 @@
-# Arch Linux LXC initial config script
-# (run commands as root user inside the LXC)
+# Arch Linux LXC initial config script (run as root inside the LXC)
 
 1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
 
@@ -13,7 +12,7 @@
 
 
 
-# Arch Linux LXC add user (run commands as root user inside the LXC)
+# Arch Linux LXC add user (run as root inside the LXC)
 
 1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
 
@@ -23,7 +22,7 @@
 
 
 
-# Jellyfin Arch Linux installation (run commands as non-root user inside the LXC)
+# Jellyfin Arch Linux installation (run as non-root inside the LXC)
 
 1. Mount NAS share. (optional)
 
@@ -52,7 +51,7 @@
 
 
 
-# Jellyfin LXC GPU passthrough (run commands as root user)
+# Jellyfin LXC GPU passthrough (run as root)
 
 1. **Proxmox Host:** Find the GPU device number.
 
@@ -84,7 +83,7 @@
 
 
 
-# Vaultwarden installation (run commands as root user inside the LXC)
+# Vaultwarden installation (run as root inside the LXC)
 
 1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/install_vaultwarden.sh
 
