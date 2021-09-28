@@ -45,7 +45,7 @@ echo "Enter an up-to-date Pacman mirror URL."
 echo 'For example: "Server = https://mirror.domain.com/archlinux/$repo/os/$arch"'
 echo "Latest mirrors are available here: https://archlinux.org/mirrorlist/all/https/"
 echo
-read -p 'Mirror URL: ' mirror_url_var
+read -p 'Mirror: ' mirror_url_var
 echo "$mirror_url_var" >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
