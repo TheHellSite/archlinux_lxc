@@ -22,17 +22,6 @@
 
 
 
-# Vaultwarden installation (run commands as root user)
-
-1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/install_vaultwarden.sh
-
-2. Run the script inside of the Arch Linux LXC.
-
-       bash <(curl -s URL)
-
-
-
-
 # Jellyfin installation (run commands as non-root user)
 
 1. Mount NAS share.
@@ -86,3 +75,13 @@
        Go to: Admin --> Server --> Dashboard --> Playback
        Hardware acceleration: VAAPI
        VA API Device: /dev/dri/renderD128
+
+
+
+# Vaultwarden installation (run commands as root user)
+
+1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/install_vaultwarden.sh
+
+2. Run the script inside of the Arch Linux LXC.
+
+       bash <(curl -s URL)
