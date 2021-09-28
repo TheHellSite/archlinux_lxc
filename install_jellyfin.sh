@@ -64,6 +64,8 @@ sudo sed -i 's@^  <RequireHttps>false</RequireHttps>@  <RequireHttps>true</Requi
 echo
 echo "Starting Jellyfin..."
 sudo systemctl start jellyfin
+echo
 echo "Waiting 5 seconds for Jellyfin to start..."
 sleep 5
+echo
 sudo systemctl status jellyfin
