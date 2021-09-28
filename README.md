@@ -24,6 +24,8 @@
 
 # Jellyfin Arch Linux installation (run as non-root user inside the LXC)
 
+1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/install_jellyfin.sh
+
 1. Prepare AUR environment.
 
        sudo pacman -Syyu git base-devel --noconfirm
