@@ -41,8 +41,8 @@
 3. Mount NAS share. (optional)
 
        sudo pacman -Syyu cifs-utils --noconfirm
-       sudo mkdir /mnt/media
-       echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' | sudo tee -a /etc/fstab
+       sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
+       echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' | sudo tee -a /etc/fstab
        echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' | sudo tee -a /etc/fstab
        sudo mount -a && ls /mnt/nas
 
