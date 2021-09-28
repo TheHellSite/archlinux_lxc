@@ -75,7 +75,8 @@
        
        Method 2
        ========
-       Watch the transcodes folder for files.
+       Watch the transcodes folder.
+       --> Jellyfin should constantly create new files during playback and delete them afterwards.
 
 
 
