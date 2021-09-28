@@ -13,13 +13,14 @@ read -p "Press ENTER to start the script."
 echo
 echo
 echo
+echo
 
 echo "Adding new user"
 echo "==============="
 read -p "Press ENTER to start..."
 echo
 echo 'Installing "sudo"...'
-pacman -S sudo --noconfirm
+pacman -S --noconfirm sudo
 echo 'Allowing members of group "wheel" to use "sudo"...'
 sed -i 's@^# %wheel ALL=(ALL) ALL@%wheel ALL=(ALL) ALL@' /etc/sudoers
 echo
