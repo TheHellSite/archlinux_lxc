@@ -38,7 +38,7 @@
        # https://aur.archlinux.org/packages/jellyfin/ (sometimes a bit out-of-date)
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc && cd && sudo rm -r git
 
-3. Mount NAS share. (optional)
+3. (optional) Mount NAS media share as read-only and mount a transcodes folder as read-write.
 
        sudo pacman -Syyu cifs-utils --noconfirm
        sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
@@ -76,7 +76,7 @@
        Hardware acceleration: VAAPI
        VA API Device: /dev/dri/renderD128
 
-5. **LXC Guest:** Check if transcoding is working, f.e. by playing and downscaling a video. (optional)
+5. **LXC Guest:** (optional) Check if transcoding is working, f.e. by playing and downscaling a video.
 
        pacman -S radeontop --noconfirm && radeontop
        --> You should see activity, f.e. at the "Graphics pipe".
