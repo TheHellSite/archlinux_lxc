@@ -24,19 +24,11 @@
 
 # Jellyfin Arch Linux installation (run as non-root user inside the LXC)
 
-1. Mount NAS share. (optional)
-
-       sudo pacman -Syyu cifs-utils --noconfirm
-       sudo mkdir /mnt/media
-       echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' | sudo tee -a /etc/fstab
-       echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' | sudo tee -a /etc/fstab
-       sudo mount -a && ls /mnt/nas
-
-2. Prepare AUR environment.
+1. Prepare AUR environment.
 
        sudo pacman -Syyu git base-devel --noconfirm
 
-3. Clone Jellyfin AUR repository and install Jellyfin.
+2. Clone Jellyfin AUR repository and install Jellyfin.
 
        https://aur.archlinux.org/packages/jellyfin-bin/ (usually more up-to-date)
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin-bin.git && cd jellyfin-bin && makepkg -sirc
@@ -46,6 +38,13 @@
        https://aur.archlinux.org/packages/jellyfin/ (sometimes a bit out-of-date)
        mkdir git && cd git && git clone https://aur.archlinux.org/jellyfin.git && cd jellyfin && makepkg -sirc
 
+3. Mount NAS share. (optional)
+
+       sudo pacman -Syyu cifs-utils --noconfirm
+       sudo mkdir /mnt/media
+       echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' | sudo tee -a /etc/fstab
+       echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' | sudo tee -a /etc/fstab
+       sudo mount -a && ls /mnt/nas
 
 4. Enable and start Jellyfin.
 
