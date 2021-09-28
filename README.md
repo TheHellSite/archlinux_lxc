@@ -1,4 +1,4 @@
-# Arch Linux LXC initial config script (run as root inside the LXC)
+# Arch Linux LXC initial config (run as root inside the LXC)
 
 1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
 
@@ -12,7 +12,7 @@
 
 
 
-# Arch Linux LXC add user (run as root inside the LXC)
+# Arch Linux LXC add non-root user with sudo privileges (run as root inside the LXC)
 
 1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
 
