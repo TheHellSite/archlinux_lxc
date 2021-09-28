@@ -1,4 +1,5 @@
-# Arch Linux LXC initial config script (run commands as root user inside the LXC)
+# Arch Linux LXC initial config script
+# (run commands as root user inside the LXC)
 
 1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
 
