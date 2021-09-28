@@ -68,7 +68,7 @@
 3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
 
        chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin
-       pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot       
+       pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot
 
 4. **Jellyfin:** Enable VAAPI.
 
