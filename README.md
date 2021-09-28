@@ -30,7 +30,7 @@
 
        bash <(curl -s URL)
 
-3. (optional) Mount NAS media share as read-only and mount a transcodes folder as read-write.
+3. (optional) Mount NAS media share as read-only and mount transcodes folder as read-write.
 
        sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
        
