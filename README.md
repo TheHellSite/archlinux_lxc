@@ -52,15 +52,7 @@
 
 2. **Proxmox Host:** Add it to the LXC configuration file.
 
-       nano /etc/pve/lxc/LXC_ID.conf
-
-       lxc.cgroup2.devices.allow: c 226:128 rwm
-       lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
-       
        { echo "lxc.cgroup2.devices.allow: c 226:128 rwm" ; echo "lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file" ; } >> /etc/pve/lxc/LXC_ID.conf
-       
-       # echo "lxc.cgroup2.devices.allow: c 226:128 rwm" >> /etc/pve/lxc/LXC_ID.conf
-       # echo "lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file" >> /etc/pve/lxc/LXC_ID.conf
 
 3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
 
@@ -76,12 +68,12 @@
 
 5. **LXC Guest:** (optional) Check if transcoding is working, f.e. by playing and downscaling a video.
 
-       Option 1
+       Method 1
        ========
        pacman -S radeontop --noconfirm && radeontop
        --> You should see activity, f.e. at the "Graphics pipe".
        
-       Option 2
+       Method 2
        ========
        Watch the transcodes folder for files.
 
