@@ -65,9 +65,9 @@
        lxc.cgroup2.devices.allow: c 226:128 rwm
        lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
 
-3. **LXC Guest:** Start the LXC, change group of render device, install the latest Mesa drivers and reboot the LXC.
+3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
 
-       chown root:render /dev/dri/*
+       chown root:render /dev/dri/renderD128
        usermod -aG render jellyfin
        pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot       
 
