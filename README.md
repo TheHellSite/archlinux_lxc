@@ -66,7 +66,7 @@
        VA API Device: /dev/dri/renderD128
        Enable hardware decoding for: Check all codecs supported by your GPU.
 
-5. **LXC Guest:** (optional) Check if transcoding is working, f.e. by playing and downscaling a video.
+5. **(optional) LXC Guest:** Check if transcoding is working, f.e. by playing and downscaling a video.
 
        Method 1
        ========
