@@ -24,7 +24,7 @@
 
 # Jellyfin installation (run commands as non-root user)
 
-1. Mount NAS share.
+1. Mount NAS share. (optional)
 
        sudo pacman -Syyu cifs-utils --noconfirm
        sudo mkdir /mnt/nas
