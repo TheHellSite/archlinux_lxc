@@ -11,12 +11,14 @@ read -p "Press ENTER to start the script."
 echo
 echo
 echo
+echo
 
 echo "Preparing AUR..."
 echo "================"
 read -p "Press ENTER to start..."
 echo
 sudo pacman -Syyu --noconfirm git base-devel
+echo
 echo
 echo
 echo
@@ -32,6 +34,7 @@ cd jellyfin-bin
 makepkg -sirc --noconfirm
 cd
 sudo rm -r git
+echo
 echo
 echo
 echo
