@@ -34,8 +34,7 @@
 
        sudo pacman -Syyu cifs-utils --noconfirm
        sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
-       echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' | sudo tee -a /etc/fstab
-       echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' | sudo tee -a /etc/fstab
+       { echo '//NAS/nas/Media/ /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' ; echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' } | sudo tee -a /etc/fstab
        sudo mount -a && ls /mnt/media
 
 4. Restart Jellyfin.
@@ -52,11 +51,11 @@
 
 2. **Proxmox Host:** Add it to the LXC configuration file.
 
-       { echo "lxc.cgroup2.devices.allow: c 226:128 rwm" ; echo "lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file" ; } >> /etc/pve/lxc/LXC_ID.conf
+       { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; } >> /etc/pve/lxc/LXC_ID.conf
 
 3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
 
-       chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin && pacman -Syyu mesa libva-mesa-driver --noconfirm && reboot
+       chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin && pacman -Syyu --noconfirm mesa libva-mesa-driver && reboot
 
 4. **Jellyfin:** Enable VAAPI.
 
