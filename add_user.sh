@@ -26,7 +26,6 @@ echo
 echo 'Creating new user that is a member of group "wheel"...'
 read -p 'Username: ' username_var
 read -s -p 'Password: ' password_var
-#useradd -m -G wheel -s /bin/bash $username_var
 useradd -m -g users -G wheel -s /bin/bash $username_var
 echo "$username_var:$password_var" | chpasswd
 echo
