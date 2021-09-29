@@ -15,7 +15,7 @@ echo
 
 echo "Installing Vaultwarden..."
 echo "========================="
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 pacman -S --noconfirm vaultwarden vaultwarden-web
 echo
@@ -25,7 +25,7 @@ echo
 
 echo "Configuring Vaultwarden..."
 echo "=========================="
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 echo "Enabling Web Vault..."
 sed -i 's@^# IP_HEADER=.*@IP_HEADER=X-Forwarded-For@' /etc/vaultwarden.env
@@ -88,7 +88,7 @@ echo "===================================="
 echo "The installation and configuration of Vaultwarden is complete."
 echo "Proceed to start Vaultwarden and display the service status."
 echo
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 systemctl enable --now vaultwarden
 echo "Waiting 5 seconds for Vaultwarden to start..."
