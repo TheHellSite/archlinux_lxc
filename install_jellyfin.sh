@@ -15,7 +15,7 @@ echo
 
 echo "Preparing AUR..."
 echo "================"
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 sudo pacman -Syyu --noconfirm git base-devel
 echo
@@ -25,7 +25,7 @@ echo
 
 echo "Installing Jellyfin..."
 echo "======================"
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 mkdir git
 cd git
@@ -41,10 +41,10 @@ echo
 
 echo "Configuring Jellyfin..."
 echo "======================="
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting Jellyfin to generate config files..."
-sudo systemctl enable --now jellyfin
+sudo systemctl start jellyfin
 echo
 echo "Waiting 10 seconds for Jellyfin to start..."
 sleep 10
@@ -62,9 +62,15 @@ sudo sed -i 's@^  <CertificatePath />@  <CertificatePath>/var/lib/jellyfin/ssl/c
 sudo sed -i 's@^  <EnableHttps>false</EnableHttps>@  <EnableHttps>true</EnableHttps>@' /var/lib/jellyfin/config/network.xml
 sudo sed -i 's@^  <RequireHttps>false</RequireHttps>@  <RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
 echo
-echo "Starting Jellyfin..."
-sudo systemctl start jellyfin
+
+echo "Enabling and starting Jellyfin..."
+echo "================================="
+echo "The installation and configuration of Jellyfin is complete."
+echo "Proceed to start Jellyfin and display the service status."
 echo
+read -p "Press ENTER to continue..."
+echo
+sudo systemctl enable --now jellyfin
 echo "Waiting 5 seconds for Jellyfin to start..."
 sleep 5
 echo
