@@ -17,7 +17,7 @@ echo
 
 echo "Adding new user"
 echo "==============="
-read -p "Press ENTER to start..."
+read -p "Press ENTER to continue..."
 echo
 echo 'Installing "sudo"...'
 pacman -S --noconfirm sudo
