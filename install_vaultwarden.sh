@@ -79,9 +79,18 @@ sed -i 's@^# SMTP_TIMEOUT=.*@SMTP_TIMEOUT=15@' /etc/vaultwarden.env
 sed -i 's@^# SMTP_AUTH_MECHANISM=.*@SMTP_AUTH_MECHANISM="Login"@' /etc/vaultwarden.env
 sed -i 's@^# HELO_NAME=.*@HELO_NAME=@' /etc/vaultwarden.env
 echo
-echo "Enabling and starting Vaultwarden..."
-systemctl enable --now vaultwarden
 echo
+echo
+echo
+
+echo "Enabling and starting Vaultwarden..."
+echo "===================================="
+echo "The installation and configuration of Vaultwarden is complete."
+echo "Proceed to start Vaultwarden and display the service status."
+echo
+read -p "Press ENTER to start..."
+echo
+systemctl enable --now vaultwarden
 echo "Waiting 5 seconds for Vaultwarden to start..."
 sleep 5
 echo
