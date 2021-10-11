@@ -1,9 +1,9 @@
 #!/bin/bash
 
 clear
-echo "=========================================="
-echo "== Arch Linux LXC Jellyfin installation =="
-echo "=========================================="
+echo "======================================="
+echo "== Arch Linux LXC Jellyfin Installer =="
+echo "======================================="
 echo
 echo "This script will install Jellyfin."
 echo
