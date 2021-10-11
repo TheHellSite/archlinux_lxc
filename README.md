@@ -74,10 +74,6 @@
 
        { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
 
-   **!!! Adjust "LXC_ID" at the end of the command !!! (necessary)**\
-   !!! Adjust the render device ID !!! *(if necessary)*\
-   !!! Adjust the GID in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
-
    <details>
    <summary><b>Command explanation</b></summary>
      
@@ -90,6 +86,12 @@
      4. Change UID and GID of the render device to root:render in the LXC during every start of it.  
         ```lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"```
    </details>
+
+   **!!! Adjust "LXC_ID" at the end of the command !!! (necessary)**\
+   !!! Adjust the render device ID !!! *(if necessary)*\
+   !!! Adjust the GID in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
+
+
 
 3. **LXC Guest:** Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
 
