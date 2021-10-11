@@ -27,13 +27,11 @@ echo "Installing Jellyfin..."
 echo "======================"
 read -p "Press ENTER to continue..."
 echo
-mkdir git
-cd git
 git clone https://aur.archlinux.org/jellyfin-bin.git
 cd jellyfin-bin
 makepkg -sirc --noconfirm
 cd
-sudo rm -r git
+sudo rm -r jellyfin-bin
 echo
 echo
 echo
