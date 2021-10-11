@@ -103,8 +103,9 @@ echo
 echo
 echo
 
-echo "======================="
-echo "= Rebooting system... ="
-echo "======================="
+echo "Rebooting system..."
+echo "==================="
+echo "The initial configuration of your Arch Linux LXC is complete."
+echo
 read -p "Press ENTER to reboot"
 reboot
