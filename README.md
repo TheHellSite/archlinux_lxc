@@ -50,13 +50,21 @@
 
        ls -l /dev/dri
 
-2. **Proxmox Host:** Shutdown the LXC and add the render device to the LXC configuration file.
+2. **Proxmox Host:** Shutdown the LXC, change the LXC configuration and start the LXC.
 
        { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
+       
+       !!! Adjust "LXC_ID" at of the command !!!
+       
+       The above command adds some lines to the LXC configuration that cause the following:
+       --> 1. grant the LXC access to the render device of the PVE host
+       --> 2. mount the render device in the LXC
+       --> 3. enable "lxc.autodev" for the LXC (necessary in order to use "lxc.hook.autodev")
+       --> 4. change UID and GID of the render device to root:render in the LXC during every start of it
 
-3. **LXC Guest:** Start the LXC, assign render device to group render, install the latest Mesa drivers and reboot the LXC.
+3. **LXC Guest:** Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
 
-       chown root:render /dev/dri/renderD128 && usermod -aG render jellyfin && pacman -Syyu --noconfirm mesa libva-mesa-driver && reboot
+       usermod -aG render jellyfin && pacman -Syyu --noconfirm mesa libva-mesa-driver && reboot
 
 4. **Jellyfin:** Enable VAAPI.
 
