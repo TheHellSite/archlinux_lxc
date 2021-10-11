@@ -1,44 +1,53 @@
 # Arch Linux LXC: initial configuration (run as root user inside the LXC)
 
-1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
+### 1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
 
    ```
    trust extract-compat
    ```
 
-2. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
+### 2. Get the script URL with a valid token by visiting:
+https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
 
-3. Run the script inside of the Arch Linux LXC.
+### 3. Run the script inside of the Arch Linux LXC.
 
    ```
    bash <(curl -s URL)
    ```
 
-
+<br />
+<br />
+<br />
+<br />
 
 # Arch Linux LXC: add non-root user (run as root user inside the LXC)
 
-1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
+### 1. Get the script URL with a valid token by visiting:
+https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
 
-2. Run the script inside of the Arch Linux LXC.
+### 2. Run the script inside of the Arch Linux LXC.
 
    ```
    bash <(curl -s URL)
    ```
 
-
+<br />
+<br />
+<br />
+<br />
 
 # Jellyfin Arch Linux installation (run as non-root user inside the LXC)
 
-1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
+### 1. Get the script URL with a valid token by visiting:
+https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 
-2. Run the script inside of the Arch Linux LXC.
+### 2. Run the script inside of the Arch Linux LXC.
 
    ```
    bash <(curl -s URL)
    ```
 
-3. (optional) Mount NAS media share as read-only and mount transcodes folder as read-write.
+### 3. (optional) Mount NAS media share as read-only and mount transcodes folder as read-write.
 
    ```
    sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
@@ -50,11 +59,14 @@
    sudo systemctl start jellyfin && sudo systemctl status jellyfin
    ```
 
-
+<br />
+<br />
+<br />
+<br />
 
 # Jellyfin LXC GPU passthrough (run as root user)
 
-1. **PVE Host:** Get the render device ID.
+### 1. PVE Host: Get the render device ID.
 
    ```
    ls -l /dev/dri
@@ -70,7 +82,7 @@
    --> In this case "226,128" is the render device ID.
    ```
 
-2. **PVE Host:** Shutdown the LXC, change the LXC configuration and start the LXC.
+### 2. PVE Host: Shutdown the LXC, change the LXC configuration and start the LXC.
 
        { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
 
@@ -93,13 +105,13 @@
 
 
 
-3. **LXC Guest:** Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
+### 3. LXC Guest: Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
 
    ```
    usermod -aG render jellyfin && pacman -Syyu --noconfirm mesa libva-mesa-driver && reboot
    ```
 
-4. **Jellyfin:** Enable VAAPI.
+### 4. Jellyfin: Enable VAAPI.
 
    Go to: Admin --> Server --> Dashboard --> Playback
    ```
@@ -108,7 +120,7 @@
    Enable hardware decoding for: Check all codecs supported by your GPU.
    ```
 
-5. **(optional) LXC Guest:** Check if transcoding is working, f.e. by playing and downscaling a video.
+### 5. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
 
    **Method 1:** Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
    ```
@@ -117,13 +129,17 @@
 
    **Method 2:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
 
-
+<br />
+<br />
+<br />
+<br />
 
 # Vaultwarden installation (run as root user inside the LXC)
 
-1. Get the script URL with a valid token by visiting: https://github.com/TheHellSite/archlinux_lxc/raw/main/vaultwarden_installer.sh
+### 1. Get the script URL with a valid token by visiting:
+https://github.com/TheHellSite/archlinux_lxc/raw/main/vaultwarden_installer.sh
 
-2. Run the script inside of the Arch Linux LXC.
+### 2. Run the script inside of the Arch Linux LXC.
 
    ```
    bash <(curl -s URL)
