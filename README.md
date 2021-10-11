@@ -55,6 +55,8 @@
        { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
        
        !!! Adjust "LXC_ID" at of the command !!!
+       !!! Verify that the device numbers (226:128) match those of step one. !!!
+       !!! Verify that the GID in the "chown" command matches the group "render" GID of your LXC guest system. !!!
        
        The above command adds some lines to the LXC configuration that cause the following:
        --> 1. grant the LXC access to the render device of the PVE host
