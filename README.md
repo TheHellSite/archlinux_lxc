@@ -84,9 +84,9 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 
 ### 2. PVE Host: Shutdown the LXC, change the LXC configuration and start the LXC.
 
-```
+   ```
    { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
-```
+   ```
 
    <details>
    <summary><b>Command explanation</b></summary>
