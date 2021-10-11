@@ -56,6 +56,7 @@ echo
 pacman-key --init
 pacman-key --populate archlinux
 pacman -Syy --noconfirm archlinux-keyring
+pacman-key --refresh-keys
 echo
 echo
 echo
@@ -66,16 +67,6 @@ echo "==============="
 read -p "Press ENTER to continue..."
 echo
 pacman -Syyu --noconfirm
-echo
-echo
-echo
-echo
-
-echo "Refreshing Pacman keys"
-echo "======================"
-read -p "Press ENTER to continue..."
-echo
-pacman-key --refresh-keys
 echo
 echo
 echo
