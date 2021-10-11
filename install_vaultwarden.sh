@@ -1,9 +1,9 @@
 #!/bin/bash
 
 clear
-echo "============================================="
-echo "== Arch Linux LXC Vaultwarden installation =="
-echo "============================================="
+echo "=========================================="
+echo "== Arch Linux LXC Vaultwarden Installer =="
+echo "=========================================="
 echo
 echo "This script will install Vaultwarden."
 echo
