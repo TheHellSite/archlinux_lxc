@@ -42,7 +42,7 @@ After=network.target
 
 [Service]
 User=pyload
-ExecStart=/usr/bin/pyload --userdir /var/lib/pyload/
+ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
 Restart=on-abort
 TimeoutSec=20
 
@@ -52,6 +52,7 @@ EOF
 echo
 echo "Enabling and starting pyLoad to generate config files..."
 mkdir -p /var/lib/pyload
+chown -R pyload:pyload /var/lib/pyload
 systemctl enable --now pyload
 echo
 echo "Waiting 10 seconds for pyLoad to start..."
@@ -66,9 +67,14 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Enabling HTTPS..."
-#sudo sed -i 's@^  <CertificatePath />@  <CertificatePath>/var/lib/jellyfin/ssl/cert.pfx</CertificatePath>@' /var/lib/jellyfin/config/network.xml
-#sudo sed -i 's@^  <EnableHttps>false</EnableHttps>@  <EnableHttps>true</EnableHttps>@' /var/lib/jellyfin/config/network.xml
-#sudo sed -i 's@^  <RequireHttps>false</RequireHttps>@  <RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
+
+        file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem
+        file ssl_keyfile : "SSL Key" = /var/lib/pyload/key.pem
+        bool use_ssl : "Use HTTPS" = True
+
+sed -i 's@^        file ssl_certfile.*@        file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@^        file ssl_keyfile.*@        file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@^        bool use_ssl.*@        bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
 echo
 echo
 echo
