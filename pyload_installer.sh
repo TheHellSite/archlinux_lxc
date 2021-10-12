@@ -68,6 +68,7 @@ chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Enabling HTTPS..."
 
+        ip host : "IP address" = localhost
         file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem
         file ssl_keyfile : "SSL Key" = /var/lib/pyload/key.pem
         bool use_ssl : "Use HTTPS" = True
