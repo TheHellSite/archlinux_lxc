@@ -51,6 +51,7 @@ WantedBy=multi-user.target
 EOF
 echo
 echo "Enabling and starting pyLoad to generate config files..."
+mkdir -p /var/lib/pyload
 systemctl enable --now pyload
 echo
 echo "Waiting 10 seconds for pyLoad to start..."
