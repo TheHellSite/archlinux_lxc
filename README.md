@@ -19,6 +19,7 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
 <br />
 <br />
 <br />
+<hr>
 
 # Arch Linux LXC: add non-root user (run as root user inside the LXC)
 
@@ -35,6 +36,7 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
 <br />
 <br />
 <br />
+<hr>
 
 # Jellyfin Arch Linux installation (run as non-root user inside the LXC)
 
@@ -51,11 +53,14 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 
    ```
    sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
-   
+   ```
+   ```
    { echo '//NAS/nas/Media /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' ; echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' ; } | sudo tee -a /etc/fstab
-   
+   ```
+   ```
    sudo mount -a && ls /mnt/media
-   
+   ```
+   ```
    sudo systemctl start jellyfin && sudo systemctl status jellyfin
    ```
 
@@ -63,6 +68,7 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 <br />
 <br />
 <br />
+<hr>
 
 # Jellyfin LXC GPU passthrough (run as root user)
 
@@ -135,6 +141,7 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 <br />
 <br />
 <br />
+<hr>
 
 # Vaultwarden installation (run as root user inside the LXC)
 
