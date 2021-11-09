@@ -52,6 +52,7 @@
 
 ### 2. (optional) Mount NAS media folder as read-only and mount transcodes folder as read-write.
 
+   2.1
    ```
    sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
    ```
