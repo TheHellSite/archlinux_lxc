@@ -51,7 +51,7 @@ echo "Stopping Jellyfin to edit config files..."
 sudo systemctl stop jellyfin
 echo
 echo "Generating self-signed SSL certificate..."
-sudo mkdir /var/lib/jellyfin/ssl
+sudo mkdir -p /var/lib/jellyfin/ssl
 sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/jellyfin/ssl/key.pem -out /var/lib/jellyfin/ssl/cert.pem
 sudo openssl pkcs12 -export -inkey /var/lib/jellyfin/ssl/key.pem -in /var/lib/jellyfin/ssl/cert.pem -out /var/lib/jellyfin/ssl/cert.pfx -passout pass:
 sudo rm /var/lib/jellyfin/ssl/*.pem
