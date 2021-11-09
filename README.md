@@ -1,6 +1,6 @@
 # Arch Linux LXC: initial configuration (run as root user inside the LXC)
 
-### 1. Extract compatibility trust certificate bundles inside of the Arch Linux LXC.
+### 1. Extract compatibility trust certificate bundles.
 
    ```
    trust extract-compat
