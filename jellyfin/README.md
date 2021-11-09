@@ -34,6 +34,20 @@
 <br />
 <hr>
 
+# Jellyfin Arch Linux update installation (run as non-root user inside the LXC)
+
+### 1. Run the script inside of the Arch Linux LXC.
+
+  ```
+  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/jellyfin/jellyfin_updater.sh)
+  ```
+
+<br />
+<br />
+<br />
+<br />
+<hr>
+
 # Jellyfin LXC GPU passthrough (run as root user)
 
 ### 1. PVE Host: Get the render device ID.
