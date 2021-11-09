@@ -50,18 +50,24 @@
    bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/jellyfin/jellyfin_installer.sh)
    ```
 
-### 2. (optional) Mount NAS media folder as read-only and mount transcodes folder as read-write.
+### 2. (optional) Mount NAS media folder as read-only and mount NAS transcodes folder as read-write.
 
-   2.1
+   2.1 Stop Jellyfin, install `cifs-utils`, create the necessary folders and change owner.
    ```
-   sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
+   sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir -p /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
    ```
+
+   2.2 Automatically mount the shares at system startup. **!!! Adjust the CIFS credentials !!!**
    ```
    { echo '//NAS/nas/Media /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' ; echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' ; } | sudo tee -a /etc/fstab
    ```
+
+   2.3 Mount the shares.
    ```
    sudo mount -a && ls /mnt/media
    ```
+
+   2.4 Start Jellyfin
    ```
    sudo systemctl start jellyfin && sudo systemctl status jellyfin
    ```
@@ -90,7 +96,7 @@
    --> In this case "226,128" is the render device ID.
    ```
 
-### 2. PVE Host: Shutdown the LXC, change the LXC configuration and start the LXC.
+### 2. PVE Host: Shutdown the LXC, run the command below and start the LXC.
 
    ```
    { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
