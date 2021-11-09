@@ -62,7 +62,7 @@ echo "Stopping pyLoad to edit config files..."
 systemctl stop pyload
 echo
 echo "Generating self-signed SSL certificate..."
-mkdir /var/lib/pyload/ssl
+mkdir -p /var/lib/pyload/ssl
 
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem
 chown -R pyload:pyload /var/lib/pyload/ssl
