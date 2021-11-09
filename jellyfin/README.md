@@ -8,7 +8,7 @@
 
 ### 2. (optional) Mount NAS media folder as read-only and mount NAS transcodes folder as read-write.
 
-  Stop Jellyfin, install `cifs-utils`, create the necessary folders and change owner.
+  Stop Jellyfin, install `cifs-utils`, create the necessary folders and change ownership.
   ```
   sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir -p /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
   ```
