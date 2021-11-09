@@ -1,3 +1,13 @@
+# Things to know about Arch Linux LXCs on Proxmox
+
+1. Arch Linux LXCs need nesting enabled in order for networking to function properly.
+
+<br />
+<br />
+<br />
+<br />
+<hr>
+
 # Arch Linux LXC: initial configuration (run as root user inside the LXC)
 
 ### 1. Extract compatibility trust certificate bundles.
@@ -6,13 +16,10 @@
    trust extract-compat
    ```
 
-### 2. Get the script URL with a valid token by visiting:
-https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
-
-### 3. Run the script inside of the Arch Linux LXC.
+### 2. Run the script inside of the Arch Linux LXC.
 
    ```
-   bash <(curl -s URL)
+   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/archlinux/archlinux_initial_config.sh)
    ```
 
 <br />
@@ -23,13 +30,10 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/initial_config.sh
 
 # Arch Linux LXC: add non-root user (run as root user inside the LXC)
 
-### 1. Get the script URL with a valid token by visiting:
-https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
-
-### 2. Run the script inside of the Arch Linux LXC.
+### 1. Run the script inside of the Arch Linux LXC.
 
    ```
-   bash <(curl -s URL)
+   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/archlinux/archlinux_add_user.sh)
    ```
 
 <br />
@@ -40,16 +44,13 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/add_user.sh
 
 # Jellyfin Arch Linux installation (run as non-root user inside the LXC)
 
-### 1. Get the script URL with a valid token by visiting:
-https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
-
-### 2. Run the script inside of the Arch Linux LXC.
+### 1. Run the script inside of the Arch Linux LXC.
 
    ```
-   bash <(curl -s URL)
+   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/jellyfin/jellyfin_installer.sh)
    ```
 
-### 3. (optional) Mount NAS media share as read-only and mount transcodes folder as read-write.
+### 2. (optional) Mount NAS media folder as read-only and mount transcodes folder as read-write.
 
    ```
    sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
@@ -145,11 +146,8 @@ https://github.com/TheHellSite/archlinux_lxc/raw/main/jellyfin_installer.sh
 
 # Vaultwarden installation (run as root user inside the LXC)
 
-### 1. Get the script URL with a valid token by visiting:
-https://github.com/TheHellSite/archlinux_lxc/raw/main/vaultwarden_installer.sh
-
-### 2. Run the script inside of the Arch Linux LXC.
+### 1. Run the script inside of the Arch Linux LXC.
 
    ```
-   bash <(curl -s URL)
+   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/vaultwarden/vaultwarden_installer.sh)
    ```
