@@ -44,7 +44,7 @@ read -p 'Vaultwarden domain: ' domain_var
 sed -i "s@^# DOMAIN=.*@DOMAIN=$domain_var@" /etc/vaultwarden.env
 echo
 echo "Generating self-signed SSL certificate..."
-mkdir /var/lib/vaultwarden/ssl
+mkdir -p /var/lib/vaultwarden/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/vaultwarden/ssl/key.pem -out /var/lib/vaultwarden/ssl/cert.pem
 chown -R vaultwarden:vaultwarden /var/lib/vaultwarden/ssl
 echo
