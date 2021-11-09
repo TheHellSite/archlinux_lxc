@@ -1,6 +1,6 @@
 # Things to know about Arch Linux LXCs on Proxmox
 
-1. Arch Linux LXCs need nesting enabled in order for networking to function properly.
+1. Arch Linux LXCs need to have "nesting=enabled" in order for networking to function properly.
 
 <br />
 <br />
