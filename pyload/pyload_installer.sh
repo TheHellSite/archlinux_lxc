@@ -38,7 +38,7 @@ echo "Creating pyLoad service..."
 cat <<EOF >/usr/lib/systemd/system/pyload.service
 [Unit]
 Description=pyLoad
-After=network.target
+After=network.target mnt-downloads.mount
 
 [Service]
 User=pyload
