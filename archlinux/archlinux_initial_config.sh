@@ -28,9 +28,9 @@ echo "Configuring locales..."
 echo "======================"
 read -p "Press ENTER to continue..."
 echo
-echo 'LC_ALL=en_GB.UTF-8' >| /etc/environment
-echo 'en_GB.UTF-8 UTF-8' >| /etc/locale.gen
-echo 'LANG=en_GB.UTF-8' >| /etc/locale.conf
+echo 'LC_ALL=en_US.UTF-8' >| /etc/environment
+echo 'en_US.UTF-8 UTF-8' >| /etc/locale.gen
+echo 'LANG=en_US.UTF-8' >| /etc/locale.conf
 locale-gen
 echo
 echo
