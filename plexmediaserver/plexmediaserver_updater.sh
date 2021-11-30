@@ -14,7 +14,7 @@ echo
 echo
 
 echo "Updating Plex Media Server..."
-echo "===================="
+echo "============================="
 read -p "Press ENTER to continue..."
 echo
 echo "Stopping Plex Media Server.."
@@ -32,7 +32,7 @@ echo
 echo
 
 echo "Restarting Plex Media Server..."
-echo "======================"
+echo "==============================="
 echo "The Plex Media Server update is complete."
 echo "Proceed to start Plex Media Server and display the service status."
 echo
