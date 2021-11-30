@@ -42,7 +42,7 @@ echo "====================="
 read -p "Press ENTER to continue..."
 echo
 echo "Enter an up-to-date Pacman mirror URL."
-echo 'For example: "Server = https://mirror.domain.com/archlinux/$repo/os/$arch"'
+echo 'Example: Server = https://mirror.domain.com/archlinux/$repo/os/$arch'
 echo "Latest mirrors are available here: https://archlinux.org/mirrorlist/all/https/"
 echo
 read -p 'Mirror: ' mirror_url_var
@@ -86,9 +86,17 @@ echo "============================"
 read -p "Press ENTER to continue..."
 echo
 pacman -S --noconfirm reflector
+echo
+reflector --list-countries
+echo
+echo "Select the country closest to your location from the list above."
+echo "Enter the two-letter country code below."
+echo
+read -p 'Country: ' reflector_country
+echo
 echo "" > /etc/xdg/reflector/reflector.conf
 echo "--age 12" >> /etc/xdg/reflector/reflector.conf
-echo "--country Germany" >> /etc/xdg/reflector/reflector.conf
+echo "--country $reflector_country" >> /etc/xdg/reflector/reflector.conf
 echo "--latest 10" >> /etc/xdg/reflector/reflector.conf
 echo "--protocol https" >> /etc/xdg/reflector/reflector.conf
 echo "--save /etc/pacman.d/mirrorlist" >> /etc/xdg/reflector/reflector.conf
