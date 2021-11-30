@@ -2,6 +2,7 @@
 
 **!!! Make a backup of your LXC before running any of my scripts or commands in it. !!!**
 
+These scripts are only tested to be working on a freshly made Arch Linux LXC running on Proxmox.\
 Even though I tested these scripts to be working well on my system they can still misbehave on your system.\
 I take no responsibility at all for anything that happens to your system or your data.
 
@@ -11,7 +12,8 @@ I take no responsibility at all for anything that happens to your system or your
 
 # About this repository
 
-1. These scripts are only tested to be working on a freshly made Arch Linux LXC running on Proxmox.
+1. The "archlinux" subfolder contains the `archlinux_initial_config.sh` that will get your new Arch Linux LXC ready to be used for whatever purpose you like.\
+   You should run this script everytime you created a new Arch Linux LXC.
 
 2. Each subfolder contains an indiviual README.md file explaining how to install and configure certain services.
 
