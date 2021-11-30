@@ -25,7 +25,7 @@ I take no responsibility at all for anything that happens to your system or your
 
 # Things to know about Arch Linux LXCs on Proxmox
 
-1. Arch Linux LXCs need to have "nesting=enabled" in order for networking to function properly.
+1. Arch Linux LXCs need to have `nesting=enabled` in order for networking to function properly.
 
 2. Partial system / package updates are not supported (not advisable) on Arch Linux.\
    Because of that my scripts always perform a full LXC system upgrade while installing new packages.\
