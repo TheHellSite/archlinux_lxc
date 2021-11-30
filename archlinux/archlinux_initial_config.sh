@@ -17,7 +17,8 @@ echo "Setting timezone..."
 echo "==================="
 read -p "Press ENTER to continue..."
 echo
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+timedatectl set-timezone "$(curl -s --fail https://ipapi.co/timezone)"
+echo
 date
 echo
 echo
