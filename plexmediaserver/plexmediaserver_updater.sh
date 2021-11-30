@@ -13,16 +13,6 @@ echo
 echo
 echo
 
-echo "Preparing AUR..."
-echo "================"
-read -p "Press ENTER to continue..."
-echo
-sudo pacman -Syyu --noconfirm git base-devel
-echo
-echo
-echo
-echo
-
 echo "Updating Plex Media Server..."
 echo "===================="
 read -p "Press ENTER to continue..."
