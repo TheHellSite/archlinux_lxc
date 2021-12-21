@@ -83,12 +83,22 @@ echo
 echo "Enabling and starting Plex Media Server..."
 echo "=========================================="
 echo "The installation and configuration of Plex Media Server is complete."
-echo "Proceed to start Plex Media Server and display the service status."
+echo "Proceed to start Plex Media Server."
 echo
 read -p "Press ENTER to continue..."
 echo
 sudo systemctl start plexmediaserver
 echo "Waiting 5 seconds for Plex Media Server to start..."
 sleep 5
+echo
+echo "You can now access your Plex Media Server to perform the web setup."
+echo "http://$var_local_ip:32400/web/index.html"
+echo
+echo "After finishing the web setup you can also access your Plex Media Server using https."
+echo "https://$var_local_ip:32400/web/index.html"
+echo
+echo "Proceed to display the service status."
+echo
+read -p "Press ENTER to continue..."
 echo
 sudo systemctl status plexmediaserver
