@@ -41,6 +41,15 @@ echo "Configuring Plex Media Server..."
 echo "================================"
 read -p "Press ENTER to continue..."
 echo
+echo  "Configuring Plex Media Server network..."
+var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
+echo "Please enter a comma-separated list of IP addresses or networks that are allowed without authentication."
+echo "You should at least specify the network of the machine you are currently typing on in order to access the web interface after the installation."
+echo "For example: $var_local_ip,$var_local_subnet"
+echo
+read -p 'Local Subnets: ' var_no_auth
+sudo sed -i 's@'MetricsEpoch="1"'@'EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" customConnections="http://$var_local_ip/,https://$var_local_ip/" allowedNetworks="$var_no_auth" WebHooksEnabled="0"'@g' /var/lib/plex/Plex\ Media\ Server/Preferences.xml
 
 echo "Enabling and starting Plex Media Server..."
 echo "=========================================="
