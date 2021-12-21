@@ -42,7 +42,7 @@ echo "======================="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting Jellyfin to generate config files..."
-sudo systemctl start jellyfin
+sudo systemctl enable --now jellyfin
 echo
 echo "Waiting 10 seconds for Jellyfin to start..."
 sleep 10
@@ -73,7 +73,7 @@ echo "Proceed to start Jellyfin and display the service status."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl enable --now jellyfin
+sudo systemctl start jellyfin
 echo "Waiting 5 seconds for Jellyfin to start..."
 sleep 5
 echo
