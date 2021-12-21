@@ -21,7 +21,7 @@ echo "Installing dependencies..."
 pacman -Syyu --noconfirm gcc python-pip
 echo
 echo "Installing pyLoad..."
-pip install pyload-ng[plugins]
+pip install --pre pyload-ng[all]
 echo
 echo
 echo
@@ -38,7 +38,7 @@ echo "Creating pyLoad service..."
 cat <<EOF >/usr/lib/systemd/system/pyload.service
 [Unit]
 Description=pyLoad
-After=network.target mnt-downloads.mount
+After=network.target
 
 [Service]
 User=pyload
@@ -87,3 +87,6 @@ echo
 echo
 echo
 echo
+systemctl start pyload
+sleep 5
+systemctl status pyload
