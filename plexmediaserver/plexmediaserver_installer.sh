@@ -41,6 +41,15 @@ echo "Configuring Plex Media Server..."
 echo "================================"
 read -p "Press ENTER to continue..."
 echo
+echo "Enabling and starting Plex Media Server to generate config files..."
+sudo systemctl enable --now plexmediaserver
+echo
+echo "Waiting 10 seconds for Plex Media Server to start..."
+sleep 10
+echo
+echo "Stopping Plex Media Server to edit config files..."
+sudo systemctl stop plexmediaserver
+echo
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 echo "Please enter a comma-separated list of IPs or subnets that are allowed without authentication."
@@ -78,7 +87,7 @@ echo "Proceed to start Plex Media Server and display the service status."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl enable --now plexmediaserver
+sudo systemctl start plexmediaserver
 echo "Waiting 5 seconds for Plex Media Server to start..."
 sleep 5
 echo
