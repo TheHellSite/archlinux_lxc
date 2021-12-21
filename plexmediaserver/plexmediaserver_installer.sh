@@ -43,8 +43,8 @@ read -p "Press ENTER to continue..."
 echo
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
-echo "Please enter a comma-separated list of IP addresses or networks that are allowed without authentication."
-echo "You should at least specify the network of the machine you are currently typing on in order to access the web interface after the installation."
+echo "Please enter a comma-separated list of IPs or subnets that are allowed without authentication."
+echo "You should at least specify the IP or subnet of the machine you are currently typing on in order to access the web interface after the installation."
 echo "For example: $var_local_ip,$var_local_subnet"
 echo
 read -p 'No authentication IPs/Subnets: ' var_no_auth
@@ -54,14 +54,14 @@ echo "[OPTIONAL] For example: /mnt/transcodes"
 echo
 read -p 'Path (leave empty for default): ' var_transcodes
 var_search_string='MetricsEpoch="1"'
-if [ -z $var_transcodes ] then
+if [ -z "$var_transcodes" ]; then
     var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" customConnections="http://var_local_ip/,https://var_local_ip/" allowedNetworks="var_no_auth" WebHooksEnabled="0" TranscoderQuality="1"'
-    sudo sed -i 's@$var_search_string@$var_replace_string@g' /var/lib/plex/Plex\ Media\ Server/Preferences.xml
+    sudo sed -i "s@$var_search_string@$var_replace_string@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_local_ip@$var_local_ip@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_no_auth@$var_no_auth@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
 else
     var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" customConnections="http://var_local_ip/,https://var_local_ip/" allowedNetworks="var_no_auth" WebHooksEnabled="0" TranscoderQuality="1" TranscoderTempDirectory="var_transcodes"'
-    sudo sed -i 's@$var_search_string@$var_replace_string@g' /var/lib/plex/Plex\ Media\ Server/Preferences.xml
+    sudo sed -i "s@$var_search_string@$var_replace_string@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_local_ip@$var_local_ip@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_no_auth@$var_no_auth@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_transcodes@$var_transcodes@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
