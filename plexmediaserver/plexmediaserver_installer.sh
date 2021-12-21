@@ -91,10 +91,10 @@ sudo systemctl start plexmediaserver
 echo "Waiting 5 seconds for Plex Media Server to start..."
 sleep 5
 echo
-echo "You can now access your Plex Media Server to perform the web setup."
+echo "You can now access your Plex Media Server to start the web wizard."
 echo "http://$var_local_ip:32400/web/index.html"
 echo
-echo "After finishing the web setup you can also access your Plex Media Server using https."
+echo "After finishing the web wizard you can also access your Plex Media Server using https."
 echo "https://$var_local_ip:32400/web/index.html"
 echo
 echo "Proceed to display the service status."
