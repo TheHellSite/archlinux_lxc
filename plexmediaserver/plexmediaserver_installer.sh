@@ -47,7 +47,7 @@ echo "Please enter a comma-separated list of IPs or subnets that are allowed wit
 echo "You should at least specify the IP or subnet of the machine you are currently typing on in order to access the web interface after the installation."
 echo "For example: $var_local_ip,$var_local_subnet"
 echo
-read -p 'No authentication IPs/Subnets: ' var_no_auth
+read -p 'No auth IPs / subnets: ' var_no_auth
 echo
 echo "[OPTIONAL] Please provide a directory for temporary transcode files."
 echo "[OPTIONAL] For example: /mnt/transcodes"
