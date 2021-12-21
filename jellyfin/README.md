@@ -6,28 +6,6 @@
   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/jellyfin/jellyfin_installer.sh)
   ```
 
-### 2. (optional) Mount NAS media folder as read-only and mount NAS transcodes folder as read-write.
-
-  Stop Jellyfin, install `cifs-utils`, create the necessary folders and change ownership.
-  ```
-  sudo systemctl stop jellyfin && sudo pacman -Syyu cifs-utils --noconfirm && sudo mkdir -p /mnt/media /var/lib/jellyfin/transcodes && sudo chown jellyfin:jellyfin /mnt/media /var/lib/jellyfin/transcodes
-  ```
-
-  Automatically mount the shares at system startup. **!!! Adjust the CIFS credentials !!!**
-  ```
-  { echo '//NAS/nas/Media /mnt/media cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_R,pass=SMBPASSWORD_R 0 0' ; echo '//NAS/nas/Media/Transcodes /var/lib/jellyfin/transcodes cifs _netdev,noatime,uid=jellyfin,gid=jellyfin,user=SMBUSER_RW,pass=SMBUSER_RW 0 0' ; } | sudo tee -a /etc/fstab
-  ```
-
-  Mount the shares.
-  ```
-  sudo mount -a && ls /mnt/media
-  ```
-
-  Start Jellyfin.
-  ```
-  sudo systemctl start jellyfin && sudo systemctl status jellyfin
-  ```
-
 <br />
 <br />
 <br />
