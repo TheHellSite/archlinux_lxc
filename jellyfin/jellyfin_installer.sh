@@ -66,8 +66,8 @@ echo
 echo
 echo
 
-echo "Enabling and starting Jellyfin..."
-echo "================================="
+echo "Starting Jellyfin..."
+echo "===================="
 echo "The installation and configuration of Jellyfin is complete."
 echo "Proceed to start Jellyfin and display the service status."
 echo
@@ -76,5 +76,9 @@ echo
 sudo systemctl start jellyfin
 echo "Waiting 5 seconds for Jellyfin to start..."
 sleep 5
+echo
+echo "Proceed to display the service status and end the script."
+echo
+read -p "Press ENTER to continue..."
 echo
 sudo systemctl status jellyfin
