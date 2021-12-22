@@ -1,9 +1,9 @@
 #!/bin/bash
 
 clear
-echo "======================================="
+echo "====================================="
 echo "== Arch Linux LXC pyLoad Installer =="
-echo "======================================="
+echo "====================================="
 echo
 echo "This script will install pyLoad."
 echo
