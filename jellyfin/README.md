@@ -53,7 +53,7 @@
 ### 2. PVE Host: Shutdown the LXC, run the command below and start the LXC.
 
   ```
-  { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } >> /etc/pve/lxc/LXC_ID.conf
+  { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   ```
 
   <details>
