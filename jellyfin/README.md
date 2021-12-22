@@ -53,10 +53,10 @@
 ### 2. PVE Host: Shutdown the LXC, run one of the commands below and start the LXC.
 
   ```
-  # run the command below if you are using an unprivileged LXC
+  # use the command below if your LXC is unprivileged
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   
-  # run the command below if you are using a privileged LXC
+  # use the command below if your LXC is privileged
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   ```
 
