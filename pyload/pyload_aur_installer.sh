@@ -17,7 +17,40 @@ echo "Preparing AUR..."
 echo "================"
 read -p "Press ENTER to continue..."
 echo
-sudo pacman -Syyu --noconfirm git base-devel
+sudo pacman -Syu --noconfirm git base-devel --needed
+echo
+echo
+echo
+echo
+
+echo "Installing pyLoad dependencies..."
+echo "======================"
+read -p "Press ENTER to continue..."
+echo
+git clone https://aur.archlinux.org/python-bitmath.git
+cd python-bitmath
+makepkg -sirc --noconfirm
+cd
+sudo rm -r python-bitmath
+
+git clone https://aur.archlinux.org/python-cachelib.git
+cd python-cachelib
+makepkg -sirc --noconfirm
+cd
+sudo rm -r python-cachelib
+
+git clone https://aur.archlinux.org/python-flask-themes2.git
+cd python-flask-themes2
+makepkg -sirc --noconfirm
+cd
+sudo rm -r python-flask-themes2
+
+git clone https://aur.archlinux.org/python-flask-session.git
+cd python-flask-session
+makepkg -sirc --noconfirm
+cd
+sudo rm -r python-flask-session
+
 echo
 echo
 echo
