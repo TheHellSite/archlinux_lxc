@@ -50,9 +50,13 @@
   --> In this case "226,128" is the render device ID.
   ```
 
-### 2. PVE Host: Shutdown the LXC, run the command below and start the LXC.
+### 2. PVE Host: Shutdown the LXC, run one of the commands below and start the LXC.
 
   ```
+  # run the command below if you are using an unprivileged LXC
+  { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
+  
+  # run the command below if you are using a privileged LXC
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.autodev: 1' ; echo 'lxc.hook.autodev: sh -c "chown 0:989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
   ```
 
