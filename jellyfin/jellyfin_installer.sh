@@ -69,7 +69,7 @@ echo
 echo "Starting Jellyfin..."
 echo "===================="
 echo "The installation and configuration of Jellyfin is complete."
-echo "Proceed to start Jellyfin and display the service status."
+echo "Proceed to start Jellyfin."
 echo
 read -p "Press ENTER to continue..."
 echo
