@@ -18,7 +18,7 @@ echo "===================="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syyu --noconfirm gcc python-pip
+pacman -Syyu --needed --noconfirm gcc python-pip
 echo
 echo "Installing pyLoad..."
 pip install --pre pyload-ng[all]
