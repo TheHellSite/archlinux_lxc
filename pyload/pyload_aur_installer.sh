@@ -17,14 +17,14 @@ echo "Preparing AUR..."
 echo "================"
 read -p "Press ENTER to continue..."
 echo
-sudo pacman -Syu --noconfirm git base-devel --needed
+sudo pacman -Syyu --needed --noconfirm git base-devel
 echo
 echo
 echo
 echo
 
 echo "Installing pyLoad dependencies..."
-echo "======================"
+echo "================================="
 read -p "Press ENTER to continue..."
 echo
 git clone https://aur.archlinux.org/python-bitmath.git
