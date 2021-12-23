@@ -80,7 +80,7 @@
 ### 3. LXC Guest: Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
 
   ```
-  usermod -aG render jellyfin && pacman -Syyu --noconfirm mesa libva-mesa-driver && reboot
+  usermod -aG render jellyfin && pacman -Syyu --needed --noconfirm mesa libva-mesa-driver && reboot
   ```
 
 ### 4. Jellyfin: Enable VAAPI.
@@ -96,7 +96,7 @@
 
   **Method 1:** Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
   ```
-  pacman -S radeontop --noconfirm && radeontop
+  pacman -Syyu --needed --noconfirm radeontop && radeontop
   ```
 
   **Method 2:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
