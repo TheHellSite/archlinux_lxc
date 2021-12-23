@@ -17,7 +17,7 @@ echo "Installing Vaultwarden..."
 echo "========================="
 read -p "Press ENTER to continue..."
 echo
-pacman -Syyu --noconfirm vaultwarden vaultwarden-web
+pacman -Syyu --needed --noconfirm vaultwarden vaultwarden-web
 echo
 echo
 echo
