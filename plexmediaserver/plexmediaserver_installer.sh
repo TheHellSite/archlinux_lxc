@@ -17,7 +17,7 @@ echo "Preparing AUR..."
 echo "================"
 read -p "Press ENTER to continue..."
 echo
-sudo pacman -Syyu --noconfirm git base-devel
+sudo pacman -Syyu --needed --noconfirm git base-devel
 echo
 echo
 echo
