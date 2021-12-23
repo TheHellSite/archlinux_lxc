@@ -86,7 +86,7 @@ echo "Configuring Pacman Reflector"
 echo "============================"
 read -p "Press ENTER to continue..."
 echo
-pacman -S --noconfirm reflector
+pacman -S --needed --noconfirm reflector
 echo
 reflector --list-countries
 echo
