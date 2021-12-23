@@ -20,7 +20,7 @@ echo "==============="
 read -p "Press ENTER to continue..."
 echo
 echo 'Installing "sudo"...'
-pacman -S --noconfirm sudo
+pacman -Syyu --needed --noconfirm sudo
 echo 'Allowing members of group "wheel" to use "sudo"...'
 sed -i 's@^# %wheel ALL=(ALL) ALL@%wheel ALL=(ALL) ALL@' /etc/sudoers
 echo
