@@ -91,7 +91,7 @@ echo "You can now access the $var_service_friendly_name web interface to perform
 echo "https://$var_local_ip:$var_service_default_https_port/web/index.html"
 echo
 echo "If you are unable to access $var_service_friendly_name using HTTPS try using HTTP instead."
-echo "It will however redirect you to the HTTPS URL."
+echo "It will, however, redirect you to the HTTPS URL."
 echo "http://$var_local_ip:$var_service_default_http_port/web/index.html"
 echo
 echo "Proceed to display the service status and end the script."
