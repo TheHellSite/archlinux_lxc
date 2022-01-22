@@ -3,20 +3,17 @@
 # begin of variables
 var_service_name="plexmediaserver"
 var_service_friendly_name="Plex Media Server"
-var_headline_length="================="
+var_service_friendly_name_length="================="
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
 
 clear
-echo "====================$var_headline_length============="
+echo "====================$var_service_friendly_name_length============="
 echo "== Arch Linux LXC - $var_service_friendly_name Installer =="
-echo "====================$var_headline_length============="
+echo "====================$var_service_friendly_name_length============="
 echo
 echo "This script will install $var_service_friendly_name."
-
-echo "This script will install $var_service_name."
-
 echo
 read -p "Press ENTER to start the script."
 echo
@@ -35,7 +32,7 @@ echo
 echo
 
 echo "Installing $var_service_friendly_name..."
-echo "===========$var_headline_length==="
+echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 git clone https://aur.archlinux.org/plex-media-server.git
@@ -49,7 +46,7 @@ echo
 echo
 
 echo "Configuring $var_service_friendly_name..."
-echo "============$var_headline_length==="
+echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
@@ -88,7 +85,7 @@ echo
 echo
 
 echo "Starting $var_service_friendly_name..."
-echo "=========$var_headline_length==="
+echo "=========$var_service_friendly_name_length==="
 echo "The installation and configuration of $var_service_friendly_name is complete."
 echo "Proceed to start $var_service_friendly_name."
 echo
