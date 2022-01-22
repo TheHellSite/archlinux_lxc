@@ -4,8 +4,7 @@
 var_service_name="plexmediaserver"
 var_service_friendly_name="Plex Media Server"
 var_service_friendly_name_length="================="
-var_service_default_http_port="32400"
-var_service_default_https_port="32400"
+var_service_default_port="32400"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
@@ -98,10 +97,10 @@ echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
 echo "You can now access the $var_service_friendly_name web interface to perform the Server Setup."
-echo "http://$var_local_ip:$var_service_default_http_port/web/index.html"
+echo "http://$var_local_ip:$var_service_default_port/web/index.html"
 echo
 echo "After finishing the Server Setup you can also access the web interface using https."
-echo "https://$var_local_ip:$var_service_default_https_port/web/index.html"
+echo "https://$var_local_ip:$var_service_default_port/web/index.html"
 echo
 echo "Proceed to display the service status and end the script."
 echo
