@@ -63,30 +63,32 @@ systemctl stop pyload
 echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/pyload/ssl
-
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem
 chown -R pyload:pyload /var/lib/pyload/ssl
-
 echo
 echo "Enabling HTTPS..."
+sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@file ssl_certfile : "SSL Certificate" =.*@file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@file ssl_keyfile : "SSL Key" =.*@file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@bool use_ssl : "Use HTTPS" =.*@bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
+echo
+echo
+echo
+echo
 
-# default config
-#
-#        ip host : "IP address" = localhost
-#        file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem
-#        file ssl_keyfile : "SSL Key" = /var/lib/pyload/key.pem
-#        bool use_ssl : "Use HTTPS" = False
-#
-# default config
-
-sed -i 's@^        ip host.*@        ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@^        file ssl_certfile.*@        file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@^        file ssl_keyfile.*@        file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@^        bool use_ssl.*@        bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
+echo "Starting pyLoad..."
+echo "=================="
+echo "The installation and configuration of pyLoad is complete."
+echo "Proceed to start pyLoad."
 echo
+read -p "Press ENTER to continue..."
 echo
-echo
-echo
-systemctl start pyload
+sudo systemctl start pyload
+echo "Waiting 5 seconds for pyLoad to start..."
 sleep 5
-systemctl status pyload
+echo
+echo "Proceed to display the service status and end the script."
+echo
+read -p "Press ENTER to continue..."
+echo
+sudo systemctl status pyload
