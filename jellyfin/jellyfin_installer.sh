@@ -4,7 +4,7 @@
 var_service_name="jellyfin"
 var_service_friendly_name="Jellyfin"
 var_service_friendly_name_length="========"
-var_service_default_https_port="8920"
+var_service_default_port="8920"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
 
@@ -86,7 +86,7 @@ echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
 echo "You can now access the $var_service_friendly_name web interface to perform the final setup."
-echo "https://$var_local_ip:$var_service_default_https_port/web/index.html"
+echo "https://$var_local_ip:$var_service_default_port/web/index.html"
 echo
 echo "Proceed to display the service status and end the script."
 echo
