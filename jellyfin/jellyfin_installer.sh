@@ -88,10 +88,11 @@ echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
 echo "You can now access the $var_service_friendly_name web interface to perform the final."
-echo "http://$var_local_ip:$var_service_default_https_port/web/index.html"
+echo "https://$var_local_ip:$var_service_default_https_port/web/index.html"
 echo
-echo "If you are unable to access $var_service_friendly_name using HTTPS try using the HTTP."
-echo "https://$var_local_ip:$var_service_default_http_port/web/index.html"
+echo "If you are unable to access $var_service_friendly_name using HTTPS try using HTTP instead."
+echo "It will however redirect you to the HTTPS URL."
+echo "http://$var_local_ip:$var_service_default_http_port/web/index.html"
 echo
 echo "Proceed to display the service status and end the script."
 echo
