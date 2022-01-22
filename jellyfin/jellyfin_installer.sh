@@ -86,7 +86,7 @@ sudo systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
-echo "You can now access the $var_service_friendly_name web interface to perform the final."
+echo "You can now access the $var_service_friendly_name web interface to perform the final setup."
 echo "https://$var_local_ip:$var_service_default_https_port/web/index.html"
 echo
 echo "If you are unable to access $var_service_friendly_name using HTTPS try using HTTP instead."
