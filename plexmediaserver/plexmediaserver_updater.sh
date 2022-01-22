@@ -26,10 +26,11 @@ echo "Updating $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo "Stopping $var_service_friendly_name.."
+echo "Stopping $var_service_friendly_name..."
 sudo systemctl stop $var_service_name
 echo
-echo "Updating $var_service_friendly_name.."
+echo "Updating $var_service_friendly_name..."
+echo
 git clone https://aur.archlinux.org/plex-media-server.git
 cd plex-media-server
 makepkg -sirc --noconfirm
