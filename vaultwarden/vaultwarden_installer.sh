@@ -1,11 +1,19 @@
 #!/bin/bash
 
+# begin of variables
+var_service_name="vaultwarden"
+var_service_friendly_name="Vaultwarden"
+var_service_friendly_name_length="==========="
+var_service_default_https_port="8000"
+var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+# end of variables
+
 clear
-echo "=========================================="
-echo "== Arch Linux LXC Vaultwarden Installer =="
-echo "=========================================="
+echo "====================$var_service_friendly_name_length============="
+echo "== Arch Linux LXC - $var_service_friendly_name Installer =="
+echo "====================$var_service_friendly_name_length============="
 echo
-echo "This script will install Vaultwarden."
+echo "This script will install $var_service_friendly_name."
 echo
 read -p "Press ENTER to start the script."
 echo
@@ -13,8 +21,8 @@ echo
 echo
 echo
 
-echo "Installing Vaultwarden..."
-echo "========================="
+echo "Installing $var_service_friendly_name..."
+echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 pacman -Syyu --needed --noconfirm vaultwarden vaultwarden-web
@@ -23,8 +31,8 @@ echo
 echo
 echo
 
-echo "Configuring Vaultwarden..."
-echo "=========================="
+echo "Configuring $var_service_friendly_name..."
+echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling Web Vault..."
@@ -50,7 +58,9 @@ chown -R vaultwarden:vaultwarden /var/lib/vaultwarden/ssl
 echo
 echo "Configuring Rocket web framework..."
 sed -i 's@^# ROCKET_ADDRESS=.*@ROCKET_ADDRESS=0.0.0.0@' /etc/vaultwarden.env
-sed -i 's@^# ROCKET_PORT=.*@ROCKET_PORT=443@' /etc/vaultwarden.env
+
+#sed -i 's@^# ROCKET_PORT=.*@ROCKET_PORT=443@' /etc/vaultwarden.env
+
 sed -i 's@^# ROCKET_TLS=.*@ROCKET_TLS={certs="/var/lib/vaultwarden/ssl/cert.pem",key="/var/lib/vaultwarden/ssl/key.pem"}@' /etc/vaultwarden.env
 echo
 echo "Configuring SMTP..."
@@ -64,6 +74,7 @@ echo
 echo "!!! Attention !!!"
 echo 'Unable to save passwords as they might contain special characters which "sed" cannot handle properly.'
 echo 'Please provide the correct password using "nano /etc/vaultwarden.env".'
+echo 'Place the password in "SMTP_PASSWORD=password".'
 echo "!!! Attention !!!"
 echo
 read -p "Press ENTER to finish configuring SMTP..."
@@ -83,15 +94,22 @@ echo
 echo
 echo
 
-echo "Enabling and starting Vaultwarden..."
-echo "===================================="
-echo "The installation and configuration of Vaultwarden is complete."
-echo "Proceed to start Vaultwarden and display the service status."
+echo "Enabling and starting $var_service_friendly_name..."
+echo "======================$var_service_friendly_name_length==="
+echo "The installation and configuration of $var_service_friendly_name is complete."
+echo "Proceed to enable and start $var_service_friendly_name."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl enable --now vaultwarden
-echo "Waiting 5 seconds for Vaultwarden to start..."
+systemctl enable --now $var_service_name
+echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
-systemctl status vaultwarden
+echo "You can now access the $var_service_friendly_name web interface to perform the final setup."
+echo "https://$var_local_ip:$var_service_default_https_port"
+echo
+echo "Proceed to display the service status and end the script."
+echo
+read -p "Press ENTER to continue..."
+echo
+systemctl status $var_service_name
