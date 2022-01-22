@@ -93,7 +93,7 @@ echo "Proceed to start $var_service_friendly_name."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl start $var_service_name
+systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
@@ -104,4 +104,4 @@ echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl status $var_service_name
+systemctl status $var_service_name
