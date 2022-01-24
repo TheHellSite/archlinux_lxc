@@ -50,7 +50,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
-sudo systemctl enable --now $var_service_name
+sudo systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for $var_service_friendly_name to start..."
 sleep 10
@@ -60,7 +60,7 @@ sudo systemctl stop $var_service_name
 echo
 echo "Generating self-signed SSL certificate..."
 sudo mkdir -p /var/lib/jellyfin/ssl
-sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/jellyfin/ssl/key.pem -out /var/lib/jellyfin/ssl/cert.pem
+sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/jellyfin/ssl/key.pem -out /var/lib/jellyfin/ssl/cert.pem &> /dev/null
 sudo openssl pkcs12 -export -inkey /var/lib/jellyfin/ssl/key.pem -in /var/lib/jellyfin/ssl/cert.pem -out /var/lib/jellyfin/ssl/cert.pfx -passout pass:
 sudo rm /var/lib/jellyfin/ssl/*.pem
 sudo chown -R jellyfin:jellyfin /var/lib/jellyfin/ssl
