@@ -51,7 +51,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
-sudo systemctl enable --now $var_service_name
+sudo systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for $var_service_friendly_name to start..."
 sleep 10
