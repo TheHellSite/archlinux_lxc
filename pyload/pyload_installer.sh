@@ -62,7 +62,7 @@ echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
 mkdir -p /var/lib/pyload
 chown -R pyload:pyload /var/lib/pyload
-systemctl enable --now $var_service_name > /dev/null
+systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for $var_service_friendly_name to start..."
 sleep 10
@@ -72,7 +72,7 @@ systemctl stop $var_service_name
 echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/pyload/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem > /dev/null
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem &> /dev/null
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Configuring Download..."
