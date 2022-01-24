@@ -30,7 +30,7 @@ pacman -Syyu --needed --noconfirm gcc python-pip
 echo
 echo "Installing $var_service_friendly_name..."
 pip install --pre pyload-ng[all]
-#pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
+pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
 echo
 echo
 echo
@@ -72,10 +72,11 @@ systemctl stop $var_service_name
 echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/pyload/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem &> /dev/null
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Configuring Download..."
+mkdir -p /mnt/downloads/pyload
 sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@int chunks : "Maximum connections for one download" =.*@int chunks : "Maximum connections for one download" = 4@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@ip interface : "Download interface to bind (IP Address)" =.*@ip interface : "Download interface to bind (IP Address)" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
