@@ -109,7 +109,7 @@ echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
 echo "You can now access the $var_service_friendly_name web interface."
-echo "http://$var_local_ip:$var_service_default_port"
+echo "https://$var_local_ip:$var_service_default_port"
 echo
 echo "Proceed to display the service status and end the script."
 echo
