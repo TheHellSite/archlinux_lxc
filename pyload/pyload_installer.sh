@@ -96,7 +96,6 @@ echo
 echo
 echo
 echo
-#sed -i 's@.*@@' /var/lib/pyload/settings/pyload.cfg
 
 echo "Starting $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
