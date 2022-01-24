@@ -6,7 +6,6 @@ var_service_friendly_name="pyLoad"
 var_service_friendly_name_length="======"
 var_service_default_port="8000"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
 
 clear
@@ -31,7 +30,7 @@ pacman -Syyu --needed --noconfirm gcc python-pip
 echo
 echo "Installing $var_service_friendly_name..."
 pip install --pre pyload-ng[all]
-pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
+#pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
 echo
 echo
 echo
@@ -77,10 +76,20 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Enabling HTTPS..."
-sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =.*@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@file ssl_certfile : "SSL Certificate" =.*@file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@file ssl_keyfile : "SSL Key" =.*@file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@bool use_ssl : "Use HTTPS" =.*@bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
+echo
+echo "Configuring pyLoad..."
+sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@.*@@' /var/lib/pyload/settings/pyload.cfg
+
+file ssl_certchain : "CA's intermediate certificate bundle (optional)" =
+int chunks : "Maximum connections for one download" = 3
+
 echo
 echo
 echo
