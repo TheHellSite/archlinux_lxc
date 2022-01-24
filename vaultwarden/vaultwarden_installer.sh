@@ -53,7 +53,7 @@ sed -i "s@^# DOMAIN=.*@DOMAIN=$domain_var@" /etc/vaultwarden.env
 echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/vaultwarden/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/vaultwarden/ssl/key.pem -out /var/lib/vaultwarden/ssl/cert.pem
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/vaultwarden/ssl/key.pem -out /var/lib/vaultwarden/ssl/cert.pem &> /dev/null
 chown -R vaultwarden:vaultwarden /var/lib/vaultwarden/ssl
 echo
 echo "Configuring Rocket web framework..."
@@ -98,7 +98,7 @@ echo "Proceed to enable and start $var_service_friendly_name."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl enable --now $var_service_name
+systemctl enable --now $var_service_name &> /dev/null
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
