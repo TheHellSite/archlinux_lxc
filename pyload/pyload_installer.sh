@@ -5,7 +5,7 @@ var_service_name="pyload"
 var_service_friendly_name="pyLoad"
 var_service_friendly_name_length="======"
 var_service_default_port="8000"
-var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
 
 clear
@@ -75,25 +75,28 @@ mkdir -p /var/lib/pyload/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
-echo "Enabling HTTPS..."
+echo "Configuring Download..."
+sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@int chunks : "Maximum connections for one download" =.*@int chunks : "Maximum connections for one download" = 4@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@ip interface : "Download interface to bind (IP Address)" =.*@ip interface : "Download interface to bind (IP Address)" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@int max_downloads : "Maximum parallel downloads" =.*@int max_downloads : "Maximum parallel downloads" = 4@' /var/lib/pyload/settings/pyload.cfg
+echo
+echo "Configuring General..."
+sed -i 's@bool debug_mode : "Debug mode" =.*@bool debug_mode : "Debug mode" = False@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyLoad@' /var/lib/pyload/settings/pyload.cfg
+echo
+echo "Configuring Web Interface..."
 sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =.*@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@file ssl_certfile : "SSL Certificate" =.*@file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@file ssl_keyfile : "SSL Key" =.*@file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@bool use_ssl : "Use HTTPS" =.*@bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
 echo
-echo "Configuring pyLoad..."
-sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@.*@@' /var/lib/pyload/settings/pyload.cfg
-
-file ssl_certchain : "CA's intermediate certificate bundle (optional)" =
-int chunks : "Maximum connections for one download" = 3
-
 echo
 echo
 echo
-echo
+#sed -i 's@.*@@' /var/lib/pyload/settings/pyload.cfg
 
 echo "Starting $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
