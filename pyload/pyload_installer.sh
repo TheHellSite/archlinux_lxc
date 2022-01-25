@@ -41,8 +41,8 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Creating user "pyload"...'
-#useradd -rU -s /usr/bin/nologin pyload
-useradd -rU -d /var/lib/pyload/ -s /usr/bin/nologin pyload
+useradd -rU -s /usr/bin/nologin pyload
+#useradd -rU -d /var/lib/pyload/ -s /usr/bin/nologin pyload
 echo
 echo 'Creating service "pyload"...'
 cat <<EOF >/usr/lib/systemd/system/pyload.service
@@ -52,8 +52,8 @@ After=network.target
 
 [Service]
 User=pyload
-ExecStart=/usr/bin/pyload
-#ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
+#ExecStart=/usr/bin/pyload
+ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
 Restart=on-abort
 TimeoutSec=20
 
