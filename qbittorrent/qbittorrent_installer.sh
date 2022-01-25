@@ -25,12 +25,8 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo "Installing dependencies..."
-pacman -Syyu --needed --noconfirm gcc python-pip
-echo
 echo "Installing $var_service_friendly_name..."
-pip install --pre pyload-ng[all]
-pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
+pacman -Syyu --needed --noconfirm qbittorrent-nox
 echo
 echo
 echo
