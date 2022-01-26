@@ -53,8 +53,8 @@ After=network.target
 [Service]
 User=pyload
 Group=pyload
-#ExecStart=/usr/bin/pyload
-ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
+ExecStart=/usr/bin/pyload
+#ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
 Restart=on-abort
 TimeoutSec=20
 
