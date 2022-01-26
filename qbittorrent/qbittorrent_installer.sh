@@ -69,9 +69,9 @@ echo "Stopping $var_service_friendly_name to edit config files..."
 systemctl stop $var_service_name
 echo
 echo "Generating self-signed SSL certificate..."
-#mkdir -p /var/lib/pyload/ssl
-#openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem &> /dev/null
-#chown -R pyload:pyload /var/lib/pyload/ssl
+mkdir -p /var/lib/qbittorrent/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/qbittorrent/ssl/key.pem -out /var/lib/qbittorrent/ssl/cert.pem &> /dev/null
+chown -R pyload:pyload /var/lib/qbittorrent/ssl
 echo
 echo "Configuring Download..."
 #mkdir -p /mnt/downloads/pyload
