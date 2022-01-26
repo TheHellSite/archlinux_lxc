@@ -37,7 +37,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Creating user "qbittorrent"...'
-useradd -rU -s /usr/bin/nologin qbittorrent
+useradd -rU -d /var/lib/qbittorrent -s /usr/bin/nologin qbittorrent
 echo
 echo 'Creating service "qbittorrent"...'
 cat <<EOF >/etc/systemd/system/qbittorrent.service
