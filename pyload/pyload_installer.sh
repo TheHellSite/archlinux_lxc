@@ -26,7 +26,7 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syyu --needed --noconfirm gcc python-pip p7zip
+pacman -Syyu --needed --noconfirm gcc p7zip python-pip
 echo
 echo "Installing $var_service_friendly_name..."
 pip install --pre pyload-ng[plugins]
