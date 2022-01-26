@@ -45,7 +45,7 @@ echo 'Creating user "pyload"...'
 useradd -rU -d /var/lib/pyload -s /usr/bin/nologin pyload
 echo
 echo 'Creating service "pyload"...'
-cat <<EOF >/usr/lib/systemd/system/pyload.service
+cat <<EOF >/etc/systemd/system/pyload.service
 [Unit]
 Description=pyLoad
 After=network.target
