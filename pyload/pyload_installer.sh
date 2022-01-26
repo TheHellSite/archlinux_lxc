@@ -78,14 +78,14 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R pyload:pyload /var/lib/pyload/ssl
 echo
 echo "Configuring Download..."
-mkdir -p /mnt/downloads/pyload
+mkdir -p /tmp/pyload
 sed -i 's@int chunks : "Maximum connections for one download" =.*@int chunks : "Maximum connections for one download" = 4@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@ip interface : "Download interface to bind (IP Address)" =.*@ip interface : "Download interface to bind (IP Address)" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
 sed -i 's@int max_downloads : "Maximum parallel downloads" =.*@int max_downloads : "Maximum parallel downloads" = 4@' /var/lib/pyload/settings/pyload.cfg
 echo
 echo "Configuring General..."
 sed -i 's@bool debug_mode : "Debug mode" =.*@bool debug_mode : "Debug mode" = False@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
+sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /tmp/pyload@' /var/lib/pyload/settings/pyload.cfg
 echo
 echo "Configuring Web Interface..."
 sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
