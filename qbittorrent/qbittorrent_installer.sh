@@ -73,23 +73,92 @@ mkdir -p /var/lib/qbittorrent/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/qbittorrent/ssl/key.pem -out /var/lib/qbittorrent/ssl/cert.pem &> /dev/null
 chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
 echo
-echo "Configuring Download..."
-#mkdir -p /mnt/downloads/pyload
-#sed -i 's@int chunks : "Maximum connections for one download" =.*@int chunks : "Maximum connections for one download" = 4@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@ip interface : "Download interface to bind (IP Address)" =.*@ip interface : "Download interface to bind (IP Address)" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@int max_downloads : "Maximum parallel downloads" =.*@int max_downloads : "Maximum parallel downloads" = 4@' /var/lib/pyload/settings/pyload.cfg
-echo
-echo "Configuring General..."
-#sed -i 's@bool debug_mode : "Debug mode" =.*@bool debug_mode : "Debug mode" = False@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /mnt/downloads/pyload@' /var/lib/pyload/settings/pyload.cfg
-echo
-echo "Configuring Web Interface..."
-#sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =.*@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@file ssl_certfile : "SSL Certificate" =.*@file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@file ssl_keyfile : "SSL Key" =.*@file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
-#sed -i 's@bool use_ssl : "Use HTTPS" =.*@bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
+echo "Configuring qBittorrent..."
+cat <<EOF >/var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf
+[AutoRun]
+enabled=false
+program=
+
+[BitTorrent]
+Session\AddExtensionToIncompleteFiles=true
+Session\AlternativeGlobalDLSpeedLimit=512
+Session\AlternativeGlobalUPSpeedLimit=512
+Session\AnonymousModeEnabled=true
+Session\DefaultSavePath=/mnt/downloads/torrent
+Session\DisableAutoTMMByDefault=false
+Session\GlobalUPSpeedLimit=512
+Session\IgnoreLimitsOnLAN=true
+Session\IgnoreSlowTorrentsForQueueing=true
+Session\IncludeOverheadInLimits=false
+Session\LSDEnabled=false
+Session\MaxActiveDownloads=-1
+Session\MaxActiveTorrents=-1
+Session\MaxActiveUploads=2
+Session\MaxRatioAction=1
+Session\Port=40252
+Session\Preallocation=true
+Session\QueueingSystemEnabled=true
+Session\SlowTorrentsDownloadRate=128
+Session\TempPath=/mnt/downloads/torrent
+
+[Core]
+AutoDeleteAddedTorrentFile=Never
+
+[Meta]
+MigrationVersion=2
+
+[Network]
+Cookies=@Invalid()
+PortForwardingEnabled=false
+Proxy\OnlyForTorrents=false
+
+[Preferences]
+Advanced\RecheckOnCompletion=true
+Advanced\trackerPort=9000
+Connection\ResolvePeerCountries=true
+DynDNS\DomainName=changeme.dyndns.org
+DynDNS\Enabled=false
+DynDNS\Password=
+DynDNS\Service=DynDNS
+DynDNS\Username=
+General\Locale=en
+MailNotification\email=
+MailNotification\enabled=false
+MailNotification\password=
+MailNotification\req_auth=true
+MailNotification\req_ssl=false
+MailNotification\sender=qBittorrent_notification@example.com
+MailNotification\smtp_server=smtp.changeme.com
+MailNotification\username=
+WebUI\Address=*
+WebUI\AlternativeUIEnabled=false
+WebUI\AuthSubnetWhitelist=@Invalid()
+WebUI\AuthSubnetWhitelistEnabled=false
+WebUI\BanDuration=3600
+WebUI\CSRFProtection=true
+WebUI\ClickjackingProtection=true
+WebUI\CustomHTTPHeaders=
+WebUI\CustomHTTPHeadersEnabled=false
+WebUI\HTTPS\CertificatePath=/var/lib/qbittorrent/ssl/cert.pem
+WebUI\HTTPS\Enabled=true
+WebUI\HTTPS\KeyPath=/var/lib/qbittorrent/ssl/key.pem
+WebUI\HostHeaderValidation=true
+WebUI\LocalHostAuth=true
+WebUI\MaxAuthenticationFailCount=5
+WebUI\Port=8080
+WebUI\ReverseProxySupportEnabled=false
+WebUI\RootFolder=
+WebUI\SecureCookie=true
+WebUI\ServerDomains=*
+WebUI\SessionTimeout=3600
+WebUI\TrustedReverseProxiesList=
+WebUI\UseUPnP=true
+WebUI\Username=admin
+
+[RSS]
+AutoDownloader\DownloadRepacks=true
+AutoDownloader\SmartEpisodeFilter=s(\\d+)e(\\d+), (\\d+)x(\\d+), "(\\d{4}[.\\-]\\d{1,2}[.\\-]\\d{1,2})", "(\\d{1,2}[.\\-]\\d{1,2}[.\\-]\\d{4})"
+EOF
 echo
 echo
 echo
