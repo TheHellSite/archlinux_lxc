@@ -58,8 +58,8 @@ WantedBy=multi-user.target
 EOF
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
-#mkdir -p /var/lib/pyload
-#chown -R pyload:pyload /var/lib/pyload
+mkdir -p /var/lib/qbittorrent
+chown -R qbittorrent:qbittorrent /var/lib/qbittorrent
 systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for $var_service_friendly_name to start..."
