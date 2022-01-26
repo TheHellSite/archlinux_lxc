@@ -71,7 +71,7 @@ echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/qbittorrent/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/qbittorrent/ssl/key.pem -out /var/lib/qbittorrent/ssl/cert.pem &> /dev/null
-chown -R pyload:pyload /var/lib/qbittorrent/ssl
+chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
 echo
 echo "Configuring Download..."
 #mkdir -p /mnt/downloads/pyload
