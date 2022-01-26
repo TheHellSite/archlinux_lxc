@@ -1,0 +1,14 @@
+[Unit]
+Description=qBittorrent-nox
+After=network.target
+
+[Service]
+Type=simple
+User=qbittorrent
+Group=qbittorrent
+ExecStart=/usr/bin/qbittorrent-nox
+Restart=on-abort
+TimeoutSec=20
+
+[Install]
+WantedBy=multi-user.target
