@@ -48,7 +48,7 @@ After=network.target
 [Service]
 Type=simple
 User=qbittorrent
-User=qbittorrent
+Group=qbittorrent
 ExecStart=/usr/bin/qbittorrent-nox
 Restart=on-abort
 TimeoutSec=20
