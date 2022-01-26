@@ -153,7 +153,7 @@ WebUI\SecureCookie=true
 WebUI\ServerDomains=*
 WebUI\SessionTimeout=3600
 WebUI\TrustedReverseProxiesList=
-WebUI\UseUPnP=true
+WebUI\UseUPnP=false
 WebUI\Username=admin
 
 [RSS]
