@@ -51,6 +51,7 @@ Description=pyLoad
 After=network.target
 
 [Service]
+Type=simple
 User=pyload
 Group=pyload
 ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
