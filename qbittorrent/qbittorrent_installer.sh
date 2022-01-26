@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # begin of variables
-var_service_name="qbittorrent-nox"
+var_service_name="qbittorrent"
 var_service_friendly_name="qBittorrent-nox"
 var_service_friendly_name_length="==============="
 var_service_default_port="8080"
