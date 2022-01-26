@@ -29,9 +29,8 @@ echo "Installing dependencies..."
 pacman -Syyu --needed --noconfirm gcc python-pip
 echo
 echo "Installing $var_service_friendly_name..."
-pip install pyload-ng[plugins]
-#pip install --pre pyload-ng[plugins]
-#pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
+pip install --pre pyload-ng[plugins]
+pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
 echo
 echo
 echo
