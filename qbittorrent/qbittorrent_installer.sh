@@ -74,6 +74,7 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
 echo
 echo "Configuring qBittorrent..."
+mkdir -p /tmp/torrent
 cat <<EOF >/var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf
 [AutoRun]
 enabled=false
@@ -84,7 +85,7 @@ Session\AddExtensionToIncompleteFiles=true
 Session\AlternativeGlobalDLSpeedLimit=512
 Session\AlternativeGlobalUPSpeedLimit=512
 Session\AnonymousModeEnabled=true
-Session\DefaultSavePath=/mnt/downloads/torrent
+Session\DefaultSavePath=/tmp/torrent
 Session\DisableAutoTMMByDefault=false
 Session\GlobalUPSpeedLimit=512
 Session\IgnoreLimitsOnLAN=true
@@ -99,7 +100,7 @@ Session\Port=40252
 Session\Preallocation=true
 Session\QueueingSystemEnabled=true
 Session\SlowTorrentsDownloadRate=128
-Session\TempPath=/mnt/downloads/torrent
+Session\TempPath=/tmp/torrent
 
 [Core]
 AutoDeleteAddedTorrentFile=Never
