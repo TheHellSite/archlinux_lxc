@@ -72,15 +72,15 @@ echo
 echo
 echo
 
-echo "Refreshing Pacman keys"
-echo "======================"
-read -p "Press ENTER to continue..."
-echo
-pacman-key --refresh-keys
-echo
-echo
-echo
-echo
+#echo "Refreshing Pacman keys"
+#echo "======================"
+#read -p "Press ENTER to continue..."
+#echo
+#pacman-key --refresh-keys
+#echo
+#echo
+#echo
+#echo
 
 echo "Configuring Pacman Reflector"
 echo "============================"
