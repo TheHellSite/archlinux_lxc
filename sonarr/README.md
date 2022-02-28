@@ -3,7 +3,7 @@
 ### 1. Run the script inside of the Arch Linux LXC.
 
   ```
-  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/sonarr/radarr_installer.sh)
+  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/sonarr/sonarr_installer.sh)
   ```
 
 <br />
