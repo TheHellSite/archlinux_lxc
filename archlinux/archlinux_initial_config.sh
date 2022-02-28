@@ -76,8 +76,7 @@ echo "Refreshing Pacman keys"
 echo "======================"
 read -p "Press ENTER to continue..."
 echo
-# currently affected by a timeout
-#pacman-key --refresh-keys
+pacman-key --refresh-keys
 echo
 echo
 echo
