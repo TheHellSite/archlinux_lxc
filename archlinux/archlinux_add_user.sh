@@ -22,6 +22,7 @@ echo
 echo 'Installing "sudo"...'
 pacman -Syyu --needed --noconfirm sudo
 echo 'Allowing members of group "wheel" to use "sudo"...'
+sed -i 's@^# %wheel ALL=(ALL:ALL) ALL@%wheel ALL=(ALL:ALL) ALL' /etc/sudoers
 sed -i 's@^# %wheel ALL=(ALL) ALL@%wheel ALL=(ALL) ALL@' /etc/sudoers
 echo
 echo 'Creating new user that is a member of group "wheel"...'
