@@ -52,6 +52,10 @@
 
 ### 2. PVE Host: Shutdown the LXC, run one of the commands below and start the LXC.
 
+  **!!! Adjust "LXC_ID" at the end of the command !!! (necessary)**\
+  !!! Adjust the render device ID !!! *(if necessary)*\
+  !!! Adjust the GID in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
+
   ```
   # use the command below if your LXC is unprivileged
   { echo 'lxc.cgroup2.devices.allow: c 226:128 rwm' ; echo 'lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file' ; echo 'lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"' ; } | tee -a /etc/pve/lxc/LXC_ID.conf
@@ -70,12 +74,6 @@
     3. Change UID and GID of the render device to root:render on the PVE host during each start of the LXC.  
        ```lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"```
   </details>
-
-  **!!! Adjust "LXC_ID" at the end of the command !!! (necessary)**\
-  !!! Adjust the render device ID !!! *(if necessary)*\
-  !!! Adjust the GID in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
-
-
 
 ### 3. LXC Guest: Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
 
