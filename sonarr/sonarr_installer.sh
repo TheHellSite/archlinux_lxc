@@ -4,7 +4,7 @@
 var_service_name="sonarr"
 var_service_friendly_name="Sonarr"
 var_service_friendly_name_length="======"
-var_service_default_port="8989"
+var_service_default_port="9898"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
@@ -59,7 +59,18 @@ echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
-# asd
+echo "Generating self-signed SSL certificate..."
+mkdir -p /var/lib/sonarr/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
+openssl rsa -in /var/lib/sonarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/sonarr/ssl/key.pvk &> /dev/null
+openssl x509 -inform pem -in /var/lib/sonarr/ssl/cert.pem -outform der -out /var/lib/sonarr/ssl/cert.crt &> /dev/null
+rm /var/lib/sonarr/ssl/*.pem
+chown -R sonarr:sonarr /var/lib/sonarr/ssl
+chmod 0750 /var/lib/sonarr/ssl
+chmod 0640 /var/lib/sonarr/ssl/*
+echo
+echo "Enabling HTTPS..."
+su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
 echo
 echo
 echo
