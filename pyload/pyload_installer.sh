@@ -76,7 +76,7 @@ echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/pyload/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/pyload/ssl/key.pem -out /var/lib/pyload/ssl/cert.pem &> /dev/null
 chown -R pyload:pyload /var/lib/pyload/ssl
-chmod -R 0755 /var/lib/pyload/ssl
+chmod 0750 /var/lib/pyload/ssl
 chmod 0640 /var/lib/pyload/ssl/*
 echo
 echo "Configuring Download..."
