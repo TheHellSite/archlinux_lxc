@@ -55,7 +55,7 @@ echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/vaultwarden/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/vaultwarden/ssl/key.pem -out /var/lib/vaultwarden/ssl/cert.pem &> /dev/null
 chown -R vaultwarden:vaultwarden /var/lib/vaultwarden/ssl
-chmod 0750 /var/lib/vaultwarden/ssl
+chmod 0755 /var/lib/vaultwarden/ssl
 chmod 0640 /var/lib/vaultwarden/ssl/*
 echo
 echo "Configuring Rocket web framework..."
