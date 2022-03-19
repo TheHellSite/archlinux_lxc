@@ -60,17 +60,22 @@ echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
 echo "Generating self-signed SSL certificate..."
-mkdir -p /var/lib/sonarr/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
-openssl rsa -in /var/lib/sonarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/sonarr/ssl/key.pvk &> /dev/null
-openssl x509 -inform pem -in /var/lib/sonarr/ssl/cert.pem -outform der -out /var/lib/sonarr/ssl/cert.crt &> /dev/null
-rm /var/lib/sonarr/ssl/*.pem
-chown -R sonarr:sonarr /var/lib/sonarr/ssl
-chmod 0750 /var/lib/sonarr/ssl
-chmod 0640 /var/lib/sonarr/ssl/*
+sudo mkdir -p /var/lib/sonarr/ssl
+sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
+sudo openssl rsa -in /var/lib/sonarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/sonarr/ssl/key.pvk &> /dev/null
+sudo openssl x509 -inform pem -in /var/lib/sonarr/ssl/cert.pem -outform der -out /var/lib/sonarr/ssl/cert.crt &> /dev/null
+sudo rm /var/lib/sonarr/ssl/*.pem
+sudo chown -R sonarr:sonarr /var/lib/sonarr/ssl
+sudo chmod 0750 /var/lib/sonarr/ssl
+sudo chmod 0640 /var/lib/sonarr/ssl/*
 echo
 echo "Enabling HTTPS..."
-su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
+sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
+sudo sed -i 's@^   <EnableSsl>False</EnableSsl>@   <EnableSsl>True</EnableSsl>@' /var/lib/sonarr/config.xml
+# temp temp temp /var/lib/sonarr/config.xml
+#   <EnableSsl>False</EnableSsl>
+sudo systemctl start $var_service_name
+# temp temp temp
 echo
 echo
 echo
