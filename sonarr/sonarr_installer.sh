@@ -75,8 +75,10 @@ echo
 echo "Enabling HTTPS..."
 sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
 sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/sonarr/config.xml
-#   <EnableSsl>False</EnableSsl>
-#/var/lib/sonarr/config.xml
+echo
+echo "Disabling Analytics..."
+sudo grep -q '<AnalyticsEnabled>False</AnalyticsEnabled>' /var/lib/sonarr/config.xml || sudo sed -i "`wc -l < /var/lib/sonarr/config.xml`i\\  <AnalyticsEnabled>False</AnalyticsEnabled>\\" /var/lib/sonarr/config.xml
+sudo grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/sonarr/config.xml && sudo sed -i 's@<AnalyticsEnabled>True</AnalyticsEnabled>@<AnalyticsEnabled>False</AnalyticsEnabled>@' /var/lib/sonarr/config.xml
 # temp temp temp
 sudo systemctl start sonarr
 # temp temp temp
