@@ -74,7 +74,6 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
 chmod 0750 /var/lib/qbittorrent/ssl
 chmod 0640 /var/lib/qbittorrent/ssl/*
-
 echo
 echo "Configuring qBittorrent..."
 mkdir -p /tmp/torrent
