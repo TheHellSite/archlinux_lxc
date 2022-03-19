@@ -68,9 +68,9 @@ sudo chmod 0750 /var/lib/jellyfin/ssl
 sudo chmod 0640 /var/lib/jellyfin/ssl/*
 echo
 echo "Enabling HTTPS..."
-sudo sed -i 's@^  <CertificatePath />@  <CertificatePath>/var/lib/jellyfin/ssl/cert.pfx</CertificatePath>@' /var/lib/jellyfin/config/network.xml
-sudo sed -i 's@^  <EnableHttps>false</EnableHttps>@  <EnableHttps>true</EnableHttps>@' /var/lib/jellyfin/config/network.xml
-sudo sed -i 's@^  <RequireHttps>false</RequireHttps>@  <RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
+sudo sed -i 's@<CertificatePath />@<CertificatePath>/var/lib/jellyfin/ssl/cert.pfx</CertificatePath>@' /var/lib/jellyfin/config/network.xml
+sudo sed -i 's@<EnableHttps>false</EnableHttps>@<EnableHttps>true</EnableHttps>@' /var/lib/jellyfin/config/network.xml
+sudo sed -i 's@<RequireHttps>false</RequireHttps>@<RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
 echo
 echo
 echo
