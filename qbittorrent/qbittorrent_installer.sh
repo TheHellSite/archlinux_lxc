@@ -72,7 +72,7 @@ echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/qbittorrent/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/qbittorrent/ssl/key.pem -out /var/lib/qbittorrent/ssl/cert.pem &> /dev/null
 chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
-chmod 0750 /var/lib/qbittorrent/ssl
+chmod 0755 /var/lib/qbittorrent/ssl
 chmod 0640 /var/lib/qbittorrent/ssl/*
 echo
 echo "Configuring qBittorrent..."
