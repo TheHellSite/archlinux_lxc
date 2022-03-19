@@ -59,6 +59,9 @@ echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
+# temp temp temp
+sudo systemctl start sonarr
+# temp temp temp
 echo "Generating self-signed SSL certificate..."
 sudo mkdir -p /var/lib/sonarr/ssl
 sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
@@ -72,9 +75,10 @@ echo
 echo "Enabling HTTPS..."
 sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
 sudo sed -i 's@^   <EnableSsl>False</EnableSsl>@   <EnableSsl>True</EnableSsl>@' /var/lib/sonarr/config.xml
-# temp temp temp /var/lib/sonarr/config.xml
 #   <EnableSsl>False</EnableSsl>
-sudo systemctl start $var_service_name
+#/var/lib/sonarr/config.xml
+# temp temp temp
+sudo systemctl start sonarr
 # temp temp temp
 echo
 echo
