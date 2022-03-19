@@ -69,7 +69,7 @@ sudo openssl rsa -in /var/lib/sonarr/ssl/key.pem -outform pvk -pvk-none -out /va
 sudo openssl x509 -inform pem -in /var/lib/sonarr/ssl/cert.pem -outform der -out /var/lib/sonarr/ssl/cert.crt &> /dev/null
 sudo rm /var/lib/sonarr/ssl/*.pem
 sudo chown -R sonarr:sonarr /var/lib/sonarr/ssl
-sudo chmod 0750 /var/lib/sonarr/ssl
+sudo chmod 0755 /var/lib/sonarr/ssl
 sudo chmod 0640 /var/lib/sonarr/ssl/*
 echo
 echo "Enabling HTTPS..."
