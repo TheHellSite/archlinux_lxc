@@ -64,7 +64,8 @@ sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -ke
 sudo openssl pkcs12 -export -inkey /var/lib/jellyfin/ssl/key.pem -in /var/lib/jellyfin/ssl/cert.pem -out /var/lib/jellyfin/ssl/cert.pfx -passout pass:
 sudo rm /var/lib/jellyfin/ssl/*.pem
 sudo chown -R jellyfin:jellyfin /var/lib/jellyfin/ssl
-sudo chmod -R 0750 /var/lib/jellyfin/ssl
+sudo chmod 0750 /var/lib/jellyfin/ssl
+sudo chmod 0640 /var/lib/jellyfin/ssl/*
 echo
 echo "Enabling HTTPS..."
 sudo sed -i 's@^  <CertificatePath />@  <CertificatePath>/var/lib/jellyfin/ssl/cert.pfx</CertificatePath>@' /var/lib/jellyfin/config/network.xml
