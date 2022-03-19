@@ -59,9 +59,6 @@ echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
-# temp temp temp
-sudo systemctl stop sonarr
-# temp temp temp
 echo "Generating self-signed SSL certificate..."
 sudo mkdir -p /var/lib/sonarr/ssl
 sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
@@ -79,9 +76,6 @@ echo
 echo "Disabling Analytics..."
 sudo grep -q '<AnalyticsEnabled>False</AnalyticsEnabled>' /var/lib/sonarr/config.xml || sudo sed -i "`wc -l < /var/lib/sonarr/config.xml`i\\  <AnalyticsEnabled>False</AnalyticsEnabled>\\" /var/lib/sonarr/config.xml
 sudo grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/sonarr/config.xml && sudo sed -i 's@<AnalyticsEnabled>True</AnalyticsEnabled>@<AnalyticsEnabled>False</AnalyticsEnabled>@' /var/lib/sonarr/config.xml
-# temp temp temp
-sudo systemctl start sonarr
-# temp temp temp
 echo
 echo
 echo
