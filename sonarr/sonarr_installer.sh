@@ -60,7 +60,7 @@ echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
 # temp temp temp
-sudo systemctl start sonarr
+sudo systemctl stop sonarr
 # temp temp temp
 echo "Generating self-signed SSL certificate..."
 sudo mkdir -p /var/lib/sonarr/ssl
