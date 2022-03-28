@@ -68,11 +68,11 @@
   <summary><b>Command explanation</b></summary>
     
     1. Grant the LXC access to the render device of the PVE host.  
-       ```lxc.cgroup2.devices.allow: c 226:128 rwm```
+       lxc.cgroup2.devices.allow: c 226:128 rwm
     2. Mount the render device in the LXC.  
-       ```lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file```
+       lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
     3. Change UID and GID of the render device to root:render on the PVE host during each start of the LXC.  
-       ```lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"```
+       lxc.hook.pre-start: sh -c "chown 0:100989 /dev/dri/renderD128"
   </details>
 
 ### 3. LXC Guest: Start the LXC, add user "jellyfin" to group "render", install the latest Mesa drivers and reboot the LXC.
