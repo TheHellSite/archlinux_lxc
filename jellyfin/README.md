@@ -34,6 +34,8 @@
 
 # Jellyfin LXC GPU passthrough (run as root user)
 
+The GPU passthrough guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
+
 ### 1. PVE Host: Get the render device ID.
 
   ```
