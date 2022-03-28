@@ -56,7 +56,7 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
 
   **!!! Adjust "LXC_ID" at the end of the command !!! (necessary)**\
   !!! Adjust the render device ID !!! *(if necessary)*\
-  !!! Adjust the GID in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
+  !!! Adjust the GID=989 in the "chown" command to match the GID of group "render" in your LXC !!! *(if necessary)*
 
   ```
   # use the command below if your LXC is unprivileged
