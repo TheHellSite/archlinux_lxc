@@ -59,25 +59,17 @@ echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
-echo "Please enter a comma-separated list of IPs or subnets that are allowed without authentication."
-echo "You should at least specify the IP or subnet of the machine you are currently typing on in order to access the web interface after the installation."
-echo "For example: $var_local_ip,$var_local_subnet"
-echo
-read -p 'No auth IPs / subnets: ' var_no_auth
-echo
 echo "[OPTIONAL] Please provide a directory for temporary transcode files."
 echo "[OPTIONAL] For example: /mnt/transcodes"
 echo
 read -p 'Path (leave empty for default): ' var_transcodes
 var_search_string='MetricsEpoch="1"'
 if [ -z "$var_transcodes" ]; then
-    var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" allowedNetworks="var_no_auth" WebHooksEnabled="0" TranscoderQuality="1"'
+    var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" WebHooksEnabled="0" TranscoderQuality="1"'
     sudo sed -i "s@$var_search_string@$var_replace_string@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
-    sudo sed -i "s@var_no_auth@$var_no_auth@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
 else
-    var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" allowedNetworks="var_no_auth" WebHooksEnabled="0" TranscoderQuality="1" TranscoderTempDirectory="var_transcodes"'
+    var_replace_string='MetricsEpoch="1" EnableIPv6="0" secureConnections="0" DisableTLSv1_0="1" GdmEnabled="0" RelayEnabled="0" WebHooksEnabled="0" TranscoderQuality="1" TranscoderTempDirectory="var_transcodes"'
     sudo sed -i "s@$var_search_string@$var_replace_string@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
-    sudo sed -i "s@var_no_auth@$var_no_auth@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
     sudo sed -i "s@var_transcodes@$var_transcodes@g" /var/lib/plex/Plex\ Media\ Server/Preferences.xml
 fi
 echo
