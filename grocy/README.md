@@ -1,5 +1,10 @@
 # !!! DO NOT USE !!! WORK IN PROGRESS !!!
 
+<br />
+<br />
+<br />
+<br />
+
 # Grocy Arch Linux installation (run as non-root user inside the LXC)
 
 ### 1. Run the script inside of the Arch Linux LXC.
