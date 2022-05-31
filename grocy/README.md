@@ -1,24 +1,3 @@
-# !!! DO NOT USE !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
-# !!! DO NOT USE !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
-# !!! DO NOT USE !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
 # Grocy Arch Linux installation (run as non-root user inside the LXC)
 
 ### 1. Run the script inside of the Arch Linux LXC.
@@ -32,6 +11,27 @@
 <br />
 <br />
 <hr>
+
+# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
+
+<br />
+<br />
+<br />
+<br />
+
+# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
+
+<br />
+<br />
+<br />
+<br />
+
+# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
+
+<br />
+<br />
+<br />
+<br />
 
 # Grocy Arch Linux update installation (run as non-root user inside the LXC)
 
