@@ -4,9 +4,7 @@
 var_service_name="grocy"
 var_service_friendly_name="Grocy"
 var_service_friendly_name_length="====="
-var_service_default_port="9898"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
 
 clear
@@ -22,11 +20,12 @@ echo
 echo
 echo
 
-echo "Preparing AUR..."
-echo "================"
+echo "Installing dependencies..."
+echo "=========================="
 read -p "Press ENTER to continue..."
 echo
-sudo pacman -Syyu --needed --noconfirm git base-devel
+echo "Installing dependencies..."
+pacman -Syyu --needed --noconfirm nginx php-fpm php-gd php-intl php-sqlite sqlite unzip wget
 echo
 echo
 echo
@@ -36,50 +35,87 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-git clone https://aur.archlinux.org/grocy.git
-cd grocy
-makepkg -sirc --noconfirm
-cd
-sudo rm -r grocy
+echo "Downloading $var_service_friendly_name..."
+wget https://releases.grocy.info/latest &> /dev/null
+echo
+echo "Installing $var_service_friendly_name..."
+unzip -q latest -d /var/lib/grocy
+rm latest
+cp /var/lib/grocy/config-dist.php /var/lib/grocy/data/config.php
+chown -R http:http /var/lib/grocy
 echo
 echo
 echo
 echo
 
-#echo "Configuring $var_service_friendly_name..."
-#echo "============$var_service_friendly_name_length==="
-#read -p "Press ENTER to continue..."
-#echo
-#echo "Enabling and starting $var_service_friendly_name to generate config files..."
-#sudo systemctl enable --now $var_service_name &> /dev/null
-#echo
-#echo "Waiting 10 seconds for $var_service_friendly_name to start..."
-#sleep 10
-#echo
-#echo "Stopping $var_service_friendly_name to edit config files..."
-#sudo systemctl stop $var_service_name
-#echo
-#echo "Generating self-signed SSL certificate..."
-#sudo mkdir -p /var/lib/sonarr/ssl
-#sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/sonarr/ssl/key.pem -out /var/lib/sonarr/ssl/cert.pem &> /dev/null
-#sudo openssl rsa -in /var/lib/sonarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/sonarr/ssl/key.pvk &> /dev/null
-#sudo openssl x509 -inform pem -in /var/lib/sonarr/ssl/cert.pem -outform der -out /var/lib/sonarr/ssl/cert.crt &> /dev/null
-#sudo rm /var/lib/sonarr/ssl/*.pem
-#sudo chown -R sonarr:sonarr /var/lib/sonarr/ssl
-#sudo chmod 0755 /var/lib/sonarr/ssl
-#sudo chmod 0640 /var/lib/sonarr/ssl/*
-#echo
-#echo "Enabling HTTPS..."
-#sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pvk -cert /var/lib/sonarr/ssl/cert.crt" sonarr
-#sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/sonarr/config.xml
-#echo
-#echo "Disabling Analytics..."
-#sudo grep -q '<AnalyticsEnabled>False</AnalyticsEnabled>' /var/lib/sonarr/config.xml || sudo sed -i "`wc -l < /var/lib/sonarr/config.xml`i\\  <AnalyticsEnabled>False</AnalyticsEnabled>\\" /var/lib/sonarr/config.xml
-#sudo grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/sonarr/config.xml && sudo sed -i 's@<AnalyticsEnabled>True</AnalyticsEnabled>@<AnalyticsEnabled>False</AnalyticsEnabled>@' /var/lib/sonarr/config.xml
-#echo
-#echo
-#echo
-#echo
+echo "Configuring $var_service_friendly_name..."
+echo "============$var_service_friendly_name_length==="
+read -p "Press ENTER to continue..."
+echo
+echo "Enabling and starting web server to generate config files..."
+systemctl enable --now nginx php-fpm
+echo
+echo "Waiting 10 seconds for web server to start..."
+sleep 10
+echo
+echo "Stopping web server to edit config files..."
+systemctl stop nginx php-fpm
+echo
+echo "Generating self-signed SSL certificate..."
+mkdir -p /etc/nginx/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem &> /dev/null
+echo
+echo "Generating $var_service_friendly_name web server config..."
+mkdir /etc/nginx/sites-available
+cat <<EOF >/etc/nginx/sites-available/grocy.conf
+# HTTP server (redirects to HTTPS)
+server {
+    listen 80;
+    server_name _;
+    return 301 https://$host$request_uri;
+    }
+
+# HTTPS server
+server {
+    listen              443 ssl http2;
+    server_name         _;
+    ssl_protocols       TLSv1.3;
+    ssl_certificate     ssl/cert.pem;
+    ssl_certificate_key ssl/key.pem;
+
+    root /var/lib/grocy/public;
+
+    location / {
+        try_files $uri /index.php;
+    }
+
+    location ~ \.php$ {
+        # 404
+        try_files $fastcgi_script_name =404;
+
+        # default fastcgi_params
+        include fastcgi_params;
+
+        # fastcgi settings
+        fastcgi_buffers                 8 16k;
+        fastcgi_buffer_size             32k;
+        fastcgi_index                   index.php;
+        fastcgi_pass                    unix:/run/php-fpm/php-fpm.sock;
+        fastcgi_split_path_info         ^(.+?\.php)(|/.*)$;
+
+        # fastcgi params
+        fastcgi_param DOCUMENT_ROOT     $realpath_root;
+        fastcgi_param SCRIPT_FILENAME   $realpath_root$fastcgi_script_name;
+    }
+}
+EOF
+
+
+
+echo
+echo
+echo
+echo
 
 echo "Starting $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
