@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # begin of variables
-var_service_name="grocy"
+var_service_name="nginx php-fpm"
 var_service_friendly_name="Grocy"
 var_service_friendly_name_length="====="
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
@@ -53,19 +53,15 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Enabling and starting web server to generate config files..."
-systemctl enable --now nginx php-fpm
+systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for web server to start..."
 sleep 10
 echo
 echo "Stopping web server to edit config files..."
-systemctl stop nginx php-fpm
+systemctl stop $var_service_name
 echo
 echo "Configuring web server..."
-
-/etc/nginx/nginx.conf
-=====================
-
 sed -i '/    include       mime.types;/a \
     include       sites-available/*;' /etc/nginx/nginx.conf
 sed -i '/    keepalive_timeout  65;/a \
@@ -76,7 +72,6 @@ sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
 sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
 sed -i 's@;extension=pdo_sqlite@extension=pdo_sqlite@' /etc/php/php.ini
 sed -i 's@;extension=sqlite3@extension=sqlite3@' /etc/php/php.ini
-
 echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/nginx/ssl
@@ -126,9 +121,6 @@ server {
     }
 }
 EOF
-
-
-
 echo
 echo
 echo
@@ -141,7 +133,7 @@ echo "Proceed to start $var_service_friendly_name."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl start $var_service_name
+systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
@@ -152,4 +144,4 @@ echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl status $var_service_name
+systemctl status $var_service_name
