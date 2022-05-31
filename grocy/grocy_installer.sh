@@ -79,7 +79,6 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
 echo
 echo "Configuring Web Interface..."
 mkdir -p /etc/nginx/sites-available
-
 cat <<'EOF' >/etc/nginx/sites-available/grocy.conf
 # HTTP server (redirects to HTTPS)
 server {
