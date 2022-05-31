@@ -61,9 +61,7 @@ echo
 echo "Stopping web server to edit config files..."
 systemctl stop nginx php-fpm
 echo
-echo "Configuring dependencies..."
-
-sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
+echo "Configuring web server..."
 
 /etc/nginx/nginx.conf
 =====================
@@ -85,16 +83,11 @@ with...
     types_hash_max_size 4096;
 
 
-
-nano /etc/php/php.ini
-=====================
-# uncomment the necessary php extensions for grocy...
-;extension=gd
-;extension=iconv
-;extension=intl
-;extension=pdo_sqlite
-;extension=sqlite3
-
+sed -i 's@;extension=gd@extension=gd@' /etc/php/php.ini
+sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
+sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
+sed -i 's@;extension=pdo_sqlite@extension=pdo_sqlite@' /etc/php/php.ini
+sed -i 's@;extension=sqlite3@;extension=sqlite3@' /etc/php/php.ini
 
 echo
 echo "Generating self-signed SSL certificate..."
