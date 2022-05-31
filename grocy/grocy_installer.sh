@@ -77,7 +77,7 @@ echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/nginx/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem &> /dev/null
 echo
-echo "Configuring Web Interface..."
+echo "Configuring web interface..."
 mkdir -p /etc/nginx/sites-available
 cat <<'EOF' >/etc/nginx/sites-available/grocy.conf
 # HTTP server (redirects to HTTPS)
