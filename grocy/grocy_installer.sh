@@ -39,7 +39,7 @@ echo "Downloading $var_service_friendly_name..."
 wget https://releases.grocy.info/latest &> /dev/null
 echo
 echo "Installing $var_service_friendly_name..."
-unzip -q latest -d /var/lib/grocy
+unzip latest -d /var/lib/grocy &> /dev/null
 rm latest
 cp /var/lib/grocy/config-dist.php /var/lib/grocy/data/config.php
 chown -R http:http /var/lib/grocy
@@ -61,12 +61,48 @@ echo
 echo "Stopping web server to edit config files..."
 systemctl stop nginx php-fpm
 echo
+echo "Configuring dependencies..."
+
+sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
+
+/etc/nginx/nginx.conf
+=====================
+replace...
+    include       mime.types;
+
+with...
+    include       mime.types;
+    include       sites-available/*;
+
+and...
+
+    keepalive_timeout  65;
+    
+with...
+
+    keepalive_timeout  65;
+    
+    types_hash_max_size 4096;
+
+
+
+nano /etc/php/php.ini
+=====================
+# uncomment the necessary php extensions for grocy...
+;extension=gd
+;extension=iconv
+;extension=intl
+;extension=pdo_sqlite
+;extension=sqlite3
+
+
+echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/nginx/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem &> /dev/null
 echo
-echo "Generating $var_service_friendly_name web server config..."
-mkdir /etc/nginx/sites-available
+echo "Configuring Web Interface..."
+mkdir -p /etc/nginx/sites-available
 cat <<EOF >/etc/nginx/sites-available/grocy.conf
 # HTTP server (redirects to HTTPS)
 server {
