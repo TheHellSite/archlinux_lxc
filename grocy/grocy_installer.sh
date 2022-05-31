@@ -65,24 +65,12 @@ echo "Configuring web server..."
 
 /etc/nginx/nginx.conf
 =====================
-replace...
-    include       mime.types;
 
-with...
-    include       mime.types;
-    include       sites-available/*;
-
-and...
-
-    keepalive_timeout  65;
-    
-with...
-
-    keepalive_timeout  65;
-    
-    types_hash_max_size 4096;
-
-
+sed -i '/    include       mime.types;/a \
+    include       sites-available/*;' /etc/nginx/nginx.conf
+sed -i '/    keepalive_timeout  65;/a \
+\
+    types_hash_max_size 4096;' /etc/nginx/nginx.conf
 sed -i 's@;extension=gd@extension=gd@' /etc/php/php.ini
 sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
 sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
