@@ -87,7 +87,7 @@ sed -i 's@;extension=gd@extension=gd@' /etc/php/php.ini
 sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
 sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
 sed -i 's@;extension=pdo_sqlite@extension=pdo_sqlite@' /etc/php/php.ini
-sed -i 's@;extension=sqlite3@;extension=sqlite3@' /etc/php/php.ini
+sed -i 's@;extension=sqlite3@extension=sqlite3@' /etc/php/php.ini
 
 echo
 echo "Generating self-signed SSL certificate..."
