@@ -40,7 +40,7 @@ echo 'Creating user "qbittorrent"...'
 useradd -rU -d /var/lib/qbittorrent -s /usr/bin/nologin qbittorrent
 echo
 echo 'Creating service "qbittorrent"...'
-cat <<EOF >/etc/systemd/system/qbittorrent.service
+cat > /etc/systemd/system/qbittorrent.service << EOF
 [Unit]
 Description=qBittorrent-nox
 After=network.target
