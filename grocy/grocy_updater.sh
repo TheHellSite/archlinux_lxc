@@ -46,4 +46,4 @@ systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
-sudo systemctl status $var_service_name
+systemctl status $var_service_name
