@@ -2,7 +2,7 @@
 
 # begin of variables
 var_service_name="nginx php-fpm"
-var_service_friendly_name="Grocy"
+var_service_friendly_name="grocy"
 var_service_friendly_name_length="====="
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
@@ -110,7 +110,7 @@ http {
     # Mozilla Modern configuration
     ssl_protocols          TLSv1.3;
 
-    # Grocy server
+    # grocy server
     server {
         listen                             80;
         listen                             443 ssl http2;
