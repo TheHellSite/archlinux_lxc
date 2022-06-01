@@ -12,7 +12,7 @@
 <br />
 <hr>
 
-# Grocy Arch Linux update installation (run as non-root user inside the LXC)
+# Grocy Arch Linux update installation (run as root user inside the LXC)
 
 ### 1. Perform a full system upgrade and reboot the LXC.
 
@@ -23,5 +23,5 @@
 ### 2. Run the command inside of the Arch Linux LXC.
 
   ```
-  chmod +x /var/lib/grocy/update.sh && /var/lib/grocy/update.sh && systemctl restart nginx php-fpm
+  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/grocy/grocy_updater.sh)
   ```
