@@ -25,11 +25,11 @@ echo "=========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Stopping web server..."
-sudo systemctl stop $var_service_name
+systemctl stop $var_service_name
 echo
 echo "Updating $var_service_friendly_name..."
 chmod +x /var/lib/grocy/update.sh
-/var/lib/grocy/update.sh
+/var/lib/grocy/update.sh &> /dev/null
 echo
 echo
 echo
@@ -42,7 +42,7 @@ echo "Proceed to start $var_service_friendly_name and display the service status
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl start $var_service_name
+systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
