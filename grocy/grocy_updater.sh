@@ -29,7 +29,7 @@ systemctl stop $var_service_name
 echo
 echo "Updating $var_service_friendly_name..."
 chmod +x /var/lib/grocy/update.sh
-/bin/bash /var/lib/grocy/update.sh # &> /dev/null
+/bin/bash /var/lib/grocy/update.sh &> /dev/null
 echo
 echo
 echo
