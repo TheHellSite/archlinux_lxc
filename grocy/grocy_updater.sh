@@ -30,6 +30,13 @@ echo
 chmod +x /var/lib/grocy/update.sh
 /bin/bash /var/lib/grocy/update.sh
 echo
+echo "Migrating database..."
+systemctl start $var_service_name
+sleep 5
+curl -ksS https://$var_local_ip/ > /dev/null
+sleep 5
+systemctl stop $var_service_name
+echo
 echo
 echo
 echo
