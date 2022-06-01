@@ -61,12 +61,7 @@ echo
 echo "Stopping web server to edit config files..."
 systemctl stop $var_service_name
 echo
-echo "Configuring web server..."
-sed -i '/    include       mime.types;/a \
-    include       sites-available/*;' /etc/nginx/nginx.conf
-sed -i '/    keepalive_timeout  65;/a \
-\
-    types_hash_max_size 4096;' /etc/nginx/nginx.conf
+echo "Enabling dependencies..."
 sed -i 's@;extension=gd@extension=gd@' /etc/php/php.ini
 sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
 sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
@@ -77,47 +72,128 @@ echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/nginx/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem &> /dev/null
 echo
-echo "Configuring web interface..."
-mkdir -p /etc/nginx/sites-available
-cat <<'EOF' >/etc/nginx/sites-available/grocy.conf
-# HTTP server (redirects to HTTPS)
-server {
-    listen 80;
-    server_name _;
-    return 301 https://$host$request_uri;
-    }
+echo "Configuring web server..."
+cat > /etc/nginx/nginx.conf << 'EOF'
+user                 http;
+worker_processes     auto;
+worker_rlimit_nofile 65535;
 
-# HTTPS server
-server {
-    listen              443 ssl http2;
-    server_name         _;
-    ssl_protocols       TLSv1.3;
-    ssl_certificate     ssl/cert.pem;
-    ssl_certificate_key ssl/key.pem;
+events {
+    multi_accept       on;
+    worker_connections 65535;
+}
 
-    root /var/lib/grocy/public;
+http {
+    charset                utf-8;
+    sendfile               on;
+    tcp_nopush             on;
+    tcp_nodelay            on;
+    server_tokens          off;
+    log_not_found          off;
+    types_hash_max_size    4096;
+    types_hash_bucket_size 64;
+    client_max_body_size   16M;
 
-    location / {
-        try_files $uri /index.php;
-    }
+    # MIME
+    include                mime.types;
+    default_type           application/octet-stream;
 
-    location ~ \.php$ {
-        # 404
-        try_files $fastcgi_script_name =404;
+    # Logging
+    access_log             /var/log/nginx/access.log;
+    error_log              /var/log/nginx/error.log warn;
 
-        # default fastcgi_params
-        include fastcgi_params;
+    # SSL
+    ssl_session_timeout    1d;
+    ssl_session_cache      shared:SSL:10m;
+    ssl_session_tickets    off;
 
-        # fastcgi settings
-        fastcgi_buffers                 8 16k;
-        fastcgi_buffer_size             32k;
-        fastcgi_index                   index.php;
-        fastcgi_pass                    unix:/run/php-fpm/php-fpm.sock;
-        fastcgi_split_path_info         ^(.+?\.php)(|/.*)$;
+    # Mozilla Modern configuration
+    ssl_protocols          TLSv1.3;
 
-        # fastcgi params
-        fastcgi_param DOCUMENT_ROOT     $realpath_root;
-        fastcgi_param SCRIPT_FILENAME   $realpath_root$fastcgi_script_name;
+    # Grocy server
+    server {
+        listen                             80;
+        listen                             443 ssl http2;
+        server_name                        _;
+        set                                $base /var/lib/grocy;
+        root                               $base/public;
+
+        # SSL
+        ssl_certificate                    /etc/nginx/ssl/cert.pem;
+        ssl_certificate_key                /etc/nginx/ssl/key.pem;
+
+        # security headers
+        add_header X-XSS-Protection        "1; mode=block" always;
+        add_header X-Content-Type-Options  "nosniff" always;
+        add_header Referrer-Policy         "no-referrer-when-downgrade" always;
+        add_header Content-Security-Policy "default-src 'self' http: https: ws: wss: data: blob: 'unsafe-inline'; frame-ancestors 'self';" always;
+        add_header Permissions-Policy      "interest-cohort=()" always;
+
+        # . files
+        location ~ /\. {
+            deny all;
+        }
+
+        # index.php
+        index index.php;
+
+        # index.php fallback
+        location / {
+            try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # favicon.ico
+        location = /favicon.ico {
+            log_not_found off;
+            access_log    off;
+        }
+
+        # robots.txt
+        location = /robots.txt {
+            log_not_found off;
+            access_log    off;
+        }
+
+        # assets, media
+        location ~* \.(?:css(\.map)?|js(\.map)?|jpe?g|png|gif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ {
+            expires    7d;
+            access_log off;
+        }
+
+        # svg, fonts
+        location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff2?)$ {
+            add_header Access-Control-Allow-Origin "*";
+            expires    7d;
+            access_log off;
+        }
+
+        # gzip
+        gzip            on;
+        gzip_vary       on;
+        gzip_proxied    any;
+        gzip_comp_level 6;
+        gzip_types      text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
+
+        # handle .php
+        location ~ \.php$ {
+            fastcgi_pass                  unix:/run/php-fpm/php-fpm.sock;
+
+            # 404
+            try_files                     $fastcgi_script_name =404;
+
+            # default fastcgi_params
+            include                       fastcgi_params;
+
+            # fastcgi settings
+            fastcgi_index                 index.php;
+            fastcgi_buffers               8 16k;
+            fastcgi_buffer_size           32k;
+
+            # fastcgi params
+            fastcgi_param DOCUMENT_ROOT   $realpath_root;
+            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param PHP_ADMIN_VALUE "open_basedir=$base/:/usr/lib/php/:/tmp/";
+        }
     }
 }
 EOF
