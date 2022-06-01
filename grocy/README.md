@@ -12,37 +12,16 @@
 <br />
 <hr>
 
-# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
-# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
-# !!! DO NOT USE UPDATER !!! WORK IN PROGRESS !!!
-
-<br />
-<br />
-<br />
-<br />
-
 # Grocy Arch Linux update installation (run as non-root user inside the LXC)
 
 ### 1. Perform a full system upgrade and reboot the LXC.
 
   ```
-  sudo pacman -Syyu && sudo reboot
+  pacman -Syyu && reboot
   ```
 
-### 2. Run the script inside of the Arch Linux LXC.
+### 2. Run the command inside of the Arch Linux LXC.
 
   ```
-  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/grocy/grocy_updater.sh)
+  ./var/lib/grocy/updater.sh
   ```
