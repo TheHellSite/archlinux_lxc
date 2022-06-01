@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # begin of variables
-var_service_name="grocy"
-var_service_friendly_name="Grocy"
+var_service_name="nginx php-fpm"
+var_service_friendly_name="grocy"
 var_service_friendly_name_length="====="
+var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
 
 clear
@@ -23,15 +24,12 @@ echo "Updating $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo "Stopping $var_service_friendly_name..."
+echo "Stopping web server..."
 sudo systemctl stop $var_service_name
 echo
 echo "Updating $var_service_friendly_name..."
-git clone https://aur.archlinux.org/grocy.git
-cd grocy
-makepkg -sirc --noconfirm
-cd
-sudo rm -r grocy
+chmod +x /var/lib/grocy/update.sh
+/var/lib/grocy/update.sh
 echo
 echo
 echo
