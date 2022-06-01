@@ -23,5 +23,5 @@
 ### 2. Run the command inside of the Arch Linux LXC.
 
   ```
-  ./var/lib/grocy/updater.sh
+  ./var/lib/grocy/update.sh
   ```
