@@ -23,5 +23,5 @@
 ### 2. Run the command inside of the Arch Linux LXC.
 
   ```
-  chmod +x /var/lib/grocy/update.sh && ./var/lib/grocy/update.sh
+  chmod +x /var/lib/grocy/update.sh && /var/lib/grocy/update.sh
   ```
