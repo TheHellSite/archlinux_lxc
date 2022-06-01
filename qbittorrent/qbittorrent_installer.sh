@@ -77,7 +77,7 @@ chmod 0640 /var/lib/qbittorrent/ssl/*
 echo
 echo "Configuring qBittorrent..."
 mkdir -p /tmp/torrent
-cat <<EOF >/var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf
+cat > /var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf << EOF
 [AutoRun]
 enabled=false
 program=
