@@ -112,7 +112,6 @@ http {
 
     # grocy server
     server {
-        listen                             80;
         listen                             443 ssl http2;
         server_name                        _;
         set                                $base /var/lib/grocy;
