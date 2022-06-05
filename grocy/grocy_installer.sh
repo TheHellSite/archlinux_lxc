@@ -61,7 +61,7 @@ echo
 echo "Stopping web server to edit config files..."
 systemctl stop $var_service_name
 echo
-echo "Enabling dependencies..."
+echo "Enabling required php extensions..."
 sed -i 's@;extension=gd@extension=gd@' /etc/php/php.ini
 sed -i 's@;extension=iconv@extension=iconv@' /etc/php/php.ini
 sed -i 's@;extension=intl@extension=intl@' /etc/php/php.ini
