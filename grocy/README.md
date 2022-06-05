@@ -1,4 +1,4 @@
-# Grocy Arch Linux installation (run as root user inside the LXC)
+# grocy Arch Linux installation (run as root user inside the LXC)
 
 ### 1. Run the script inside of the Arch Linux LXC.
 
@@ -12,7 +12,7 @@
 <br />
 <hr>
 
-# Grocy Arch Linux update installation (run as root user inside the LXC)
+# grocy Arch Linux update installation (run as root user inside the LXC)
 
 ### 1. Perform a full system upgrade and reboot the LXC.
 
