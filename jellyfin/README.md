@@ -17,7 +17,7 @@
 ### 1. Perform a full system upgrade and reboot the LXC.
 
   ```
-  sudo pacman -Syy -noconfirm archlinux-keyring && sudo pacman -Syyu && sudo reboot
+  sudo pacman -Syy --noconfirm archlinux-keyring && sudo pacman -Su --noconfirm && sudo reboot
   ```
 
 ### 2. Run the script inside of the Arch Linux LXC.
