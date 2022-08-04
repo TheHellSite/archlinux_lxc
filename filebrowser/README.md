@@ -1,27 +1,21 @@
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
 
   ```
-  ; **************************************************************************
-  ; * Global options                                                         *
-  ; **************************************************************************
+; **************************************************************************
+; * Global options                                                         *
+; **************************************************************************
 
-  ; It is recommended to drop root privileges if stunnel is started by root
-  setuid = stunnel
-  setgid = stunnel
+; It is recommended to drop root privileges if stunnel is started by root
+setuid = stunnel
+setgid = stunnel
 
-  ; **************************************************************************
-  ; * Service definitions (remove all services for inetd mode)               *
-  ; **************************************************************************
+; **************************************************************************
+; * Service definitions (remove all services for inetd mode)               *
+; **************************************************************************
 
-  [filebrowser-https]
-  client = yes
-  accept = 0.0.0.0:6443
-  connect = 127.0.0.1:8080
-  cert = /etc/stunnel/cert.pem
-
-  [filebrowser-https-server]
-  client = no
-  accept = 0.0.0.0:8443
-  connect = 127.0.0.1:8080
-  cert = /etc/stunnel/cert.pem
+[filebrowser-https]
+client = no
+accept = 0.0.0.0:8443
+connect = 127.0.0.1:8080
+cert = /etc/stunnel/cert.pem
   ```
