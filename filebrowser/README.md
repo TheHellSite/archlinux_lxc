@@ -1,4 +1,4 @@
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout key.pem -out cert.pem
 
   ```
 ; **************************************************************************
@@ -18,4 +18,5 @@ client = no
 accept = 0.0.0.0:8443
 connect = 127.0.0.1:8080
 cert = /etc/stunnel/cert.pem
+key = /etc/stunnel/key.pem
   ```
