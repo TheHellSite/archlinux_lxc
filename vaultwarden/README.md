@@ -1,4 +1,4 @@
-# Vaultwarden installation (run as root user inside the LXC)
+# Vaultwarden Arch Linux installation (run as root user inside the LXC)
 
 ### 1. Run the script inside of the Arch Linux LXC.
 
@@ -12,7 +12,7 @@
 <br />
 <hr>
 
-# Vaultwarden update installation (run as root user inside the LXC)
+# Vaultwarden Arch Linux update installation (run as root user inside the LXC)
 
   ```
   pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
