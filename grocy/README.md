@@ -17,7 +17,7 @@
 ### 1. Perform a full system upgrade and reboot the LXC.
 
   ```
-  pacman -Syyu && reboot
+  pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
   ```
 
 ### 2. Run the command inside of the Arch Linux LXC.
