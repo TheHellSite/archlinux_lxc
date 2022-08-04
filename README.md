@@ -20,7 +20,7 @@
    To fix them you will have to do this: https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
    
    ```
-   pacman -Syy archlinux-keyring && pacman -Su && reboot
+   pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
    ```
 
 <br />
