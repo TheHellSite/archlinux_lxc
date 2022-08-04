@@ -14,16 +14,14 @@
 # Troubleshooting
 
 1. If you haven't updated your Arch Linux (LXC) in a while you will likely get some of the errors below when using any of my scripts.
-   - "invalid or corrupted package"
-   - "Signature from "User <email@example.org>" is unknown trust"
-
+   - invalid or corrupted package
+   - Signature from "User <email@example.org>" is unknown trust
+   
    To fix them you will have to do this: https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
    
    ```
    pacman -Syy archlinux-keyring
    ```
-   
-2. N/A
 
 <br />
 <br />
