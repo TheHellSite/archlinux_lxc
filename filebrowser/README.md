@@ -13,28 +13,15 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
   ; * Service definitions (remove all services for inetd mode)               *
   ; **************************************************************************
 
-  [filebrowser]
+  [filebrowser-https]
+  client = yes
+  accept = 0.0.0.0:6443
+  connect = 127.0.0.1:8080
+  cert = /etc/stunnel/cert.pem
+
+  [filebrowser-https-server]
   client = no
   accept = 0.0.0.0:8443
   connect = 127.0.0.1:8080
   cert = /etc/stunnel/cert.pem
-
-  ; ***************************************** Example TLS server mode services
-
-  ;[filebrowser]
-  ;accept = 8443
-  ;connect = 8080
-  ;cert = /etc/stunnel/cert.pem
-
-  ; TLS front-end to a web server
-  ;[https]
-  ;accept  = 443
-  ;connect = 80
-  ;cert = /etc/stunnel/stunnel.pem
-  ; "TIMEOUTclose = 0" is a workaround for a design flaw in Microsoft SChannel
-  ; Microsoft implementations do not use TLS close-notify alert and thus they
-  ; are vulnerable to truncation attacks
-  ;TIMEOUTclose = 0
-
-  ; vim:ft=dosini
   ```
