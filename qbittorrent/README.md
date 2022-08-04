@@ -12,7 +12,7 @@
 <br />
 <hr>
 
-# Vaultwarden update installation (run as root user inside the LXC)
+# qBittorrent-nox Arch Linux update installation (run as root user inside the LXC)
 
   ```
   pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
