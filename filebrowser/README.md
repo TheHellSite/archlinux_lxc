@@ -1,4 +1,5 @@
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout key.pem -out cert.pem
+1. pacman -Syyu stunnel
+2. openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout key.pem -out cert.pem
 
   ```
 ; **************************************************************************
