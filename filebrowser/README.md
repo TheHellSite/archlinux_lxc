@@ -1,6 +1,6 @@
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
 
-  ```
+  ````
   ; **************************************************************************
   ; * Global options                                                         *
   ; **************************************************************************
@@ -37,4 +37,4 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
   ;TIMEOUTclose = 0
 
 ; vim:ft=dosini
-  ```
+  ````
