@@ -1,6 +1,6 @@
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
 
-  ````
+  ```
   ; **************************************************************************
   ; * Global options                                                         *
   ; **************************************************************************
@@ -36,5 +36,5 @@ openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout 
   ; are vulnerable to truncation attacks
   ;TIMEOUTclose = 0
 
-; vim:ft=dosini
-  ````
+  ; vim:ft=dosini
+  ```
