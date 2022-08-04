@@ -1,158 +1,40 @@
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
 
   ```
-; Sample stunnel configuration file for Unix by Michal Trojnara 1998-2022
-; Some options used here may be inadequate for your particular configuration
-; This sample file does *not* represent stunnel.conf defaults
-; Please consult the manual for detailed description of available options
+  ; **************************************************************************
+  ; * Global options                                                         *
+  ; **************************************************************************
 
-; **************************************************************************
-; * Global options                                                         *
-; **************************************************************************
+  ; It is recommended to drop root privileges if stunnel is started by root
+  setuid = stunnel
+  setgid = stunnel
 
-; It is recommended to drop root privileges if stunnel is started by root
-setuid = stunnel
-setgid = stunnel
+  ; **************************************************************************
+  ; * Service definitions (remove all services for inetd mode)               *
+  ; **************************************************************************
 
-; PID file is created inside the chroot jail (if enabled)
-#pid = /var/run/stunnel.pid
+  [filebrowser]
+  client = no
+  accept = 0.0.0.0:8443
+  connect = 127.0.0.1:8080
+  cert = /etc/stunnel/cert.pem
 
-; Debugging stuff (may be useful for troubleshooting)
-;foreground = yes
-;debug = info
-;output = /var/log/stunnel.log
+  ; ***************************************** Example TLS server mode services
 
-; Enable FIPS 140-2 mode if needed for compliance
-;fips = yes
+  ;[filebrowser]
+  ;accept = 8443
+  ;connect = 8080
+  ;cert = /etc/stunnel/cert.pem
 
-; The pkcs11 engine allows for authentication with cryptographic
-; keys isolated in a hardware or software token
-; MODULE_PATH specifies the path to the pkcs11 module shared library,
-; e.g. softhsm2.dll or opensc-pkcs11.so
-; Each section using this feature also needs the "engineId = pkcs11" option
-;engine = pkcs11
-;engineCtrl = MODULE_PATH:/usr/lib/softhsm/libsofthsm2.so
-;engineCtrl = PIN:1234
-
-; **************************************************************************
-; * Service defaults may also be specified in individual service sections  *
-; **************************************************************************
-
-; Enable support for the insecure SSLv3 protocol
-;options = -NO_SSLv3
-
-; These options provide additional security at some performance degradation
-;options = SINGLE_ECDH_USE
-;options = SINGLE_DH_USE
-
-; **************************************************************************
-; * Include all configuration file fragments from the specified folder     *
-; **************************************************************************
-
-;include = /etc/stunnel/conf.d
-
-; **************************************************************************
-; * Service definitions (remove all services for inetd mode)               *
-; **************************************************************************
-
-; ***************************************** Example TLS client mode services
-
-; The following examples use /etc/ssl/certs, which is the common location
-; of a hashed directory containing trusted CA certificates.  This is not
-; a hardcoded path of the stunnel package, as it is not related to the
-; stunnel configuration in /etc/stunnel/.
-
-[filebrowser]
-client = no
-accept = 0.0.0.0:8443
-connect = 127.0.0.1:8080
-cert = /etc/stunnel/cert.pem
-
-[gmail-pop3]
-client = yes
-accept = 127.0.0.1:110
-connect = pop.gmail.com:995
-verifyChain = yes
-CApath = /etc/ssl/certs
-checkHost = pop.gmail.com
-OCSPaia = yes
-
-[gmail-imap]
-client = yes
-accept = 127.0.0.1:143
-connect = imap.gmail.com:993
-verifyChain = yes
-CApath = /etc/ssl/certs
-checkHost = imap.gmail.com
-OCSPaia = yes
-
-[gmail-smtp]
-client = yes
-accept = 127.0.0.1:25
-connect = smtp.gmail.com:465
-verifyChain = yes
-CApath = /etc/ssl/certs
-checkHost = smtp.gmail.com
-OCSPaia = yes
-
-; Encrypted HTTP proxy authenticated with a client certificate
-; located in a cryptographic token
-;[example-pkcs11]
-;client = yes
-;accept = 127.0.0.1:8080
-;connect = example.com:8443
-;engineId = pkcs11
-;cert = pkcs11:token=MyToken;object=MyCert
-;key = pkcs11:token=MyToken;object=MyKey
-
-; ***************************************** Example TLS server mode services
-
-;[filebrowser]
-;accept = 8443
-;connect = 8080
-;cert = /etc/stunnel/cert.pem
-
-;[pop3s]
-;accept  = 995
-;connect = 110
-;cert = /etc/stunnel/stunnel.pem
-
-;[imaps]
-;accept  = 993
-;connect = 143
-;cert = /etc/stunnel/stunnel.pem
-
-; Either only expose this service to trusted networks, or require
-; authentication when relaying emails originated from loopback.
-; Otherwise the following configuration creates an open relay.
-;[ssmtp]
-;accept  = 465
-;connect = 25
-;cert = /etc/stunnel/stunnel.pem
-
-; TLS front-end to a web server
-;[https]
-;accept  = 443
-;connect = 80
-;cert = /etc/stunnel/stunnel.pem
-; "TIMEOUTclose = 0" is a workaround for a design flaw in Microsoft SChannel
-; Microsoft implementations do not use TLS close-notify alert and thus they
-; are vulnerable to truncation attacks
-;TIMEOUTclose = 0
-
-; Remote shell protected with PSK-authenticated TLS
-; Create "/etc/stunnel/secrets.txt" containing IDENTITY:KEY pairs
-;[shell]
-;accept = 1337
-;exec = /bin/sh
-;execArgs = sh -i
-;PSKsecrets = /etc/stunnel/secrets.txt
-
-; Non-standard MySQL-over-TLS encapsulation connecting the Unix socket
-;[mysql]
-;cert = /etc/stunnel/stunnel.pem
-;accept = 3307
-;connect = /run/mysqld/mysqld.sock
+  ; TLS front-end to a web server
+  ;[https]
+  ;accept  = 443
+  ;connect = 80
+  ;cert = /etc/stunnel/stunnel.pem
+  ; "TIMEOUTclose = 0" is a workaround for a design flaw in Microsoft SChannel
+  ; Microsoft implementations do not use TLS close-notify alert and thus they
+  ; are vulnerable to truncation attacks
+  ;TIMEOUTclose = 0
 
 ; vim:ft=dosini
   ```
