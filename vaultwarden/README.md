@@ -15,5 +15,5 @@
 # Vaultwarden update installation (run as root user inside the LXC)
 
   ```
-  pacman -Syyu && reboot
+  pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
   ```
