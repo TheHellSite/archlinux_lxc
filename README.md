@@ -18,9 +18,11 @@
    - "Signature from "User <email@example.org>" is unknown trust"
 
    To fix them you will have to do this: https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
-   ´´´
+   
+   ```
    pacman -Syy archlinux-keyring
-   ´´´
+   ```
+   
 2. N/A
 
 <br />
