@@ -1,6 +1,6 @@
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout cert.pem -out cert.pem
 
-```
+  ```
 ; Sample stunnel configuration file for Unix by Michal Trojnara 1998-2022
 ; Some options used here may be inadequate for your particular configuration
 ; This sample file does *not* represent stunnel.conf defaults
@@ -155,4 +155,4 @@ OCSPaia = yes
 ;connect = /run/mysqld/mysqld.sock
 
 ; vim:ft=dosini
-```
+  ```
