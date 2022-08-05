@@ -62,7 +62,7 @@ cat > /var/lib/filebrowser/.filebrowser.yaml << EOF
 address: '0.0.0.0'
 baseURL: ''
 cert: '/var/lib/filebrowser/ssl/cert.pem'
-database: "/var/lib/filebrowser/database.db"
+database: '/var/lib/filebrowser/database.db'
 key: '/var/lib/filebrowser/ssl/key.pem'
 log: 'stdout'
 port: '8443'
