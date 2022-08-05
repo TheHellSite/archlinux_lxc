@@ -3,7 +3,7 @@
 # begin of variables
 var_service_name="filebrowser"
 var_service_friendly_name="File Browser"
-var_service_friendly_name_length="==========="
+var_service_friendly_name_length="============"
 var_service_default_port="8443"
 var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
@@ -56,7 +56,7 @@ After=network.target
 Type=simple
 User=filebrowser
 Group=filebrowser
-ExecStart=/usr/bin/filebrowser -r /root/
+ExecStart=/usr/local/bin/filebrowser -r /root/
 Restart=on-abort
 TimeoutSec=20
 
