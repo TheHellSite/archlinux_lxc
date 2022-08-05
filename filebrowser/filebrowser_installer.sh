@@ -56,7 +56,7 @@ After=network.target
 Type=simple
 User=filebrowser
 Group=filebrowser
-ExecStart=/usr/local/bin/filebrowser -r /root/
+ExecStart=/usr/local/bin/filebrowser -c /var/lib/filebrowser/.filebrowser.yaml
 Restart=on-abort
 TimeoutSec=20
 
@@ -64,19 +64,18 @@ TimeoutSec=20
 WantedBy=multi-user.target
 EOF
 echo
-echo "Enabling and starting $var_service_friendly_name to generate config files..."
+echo "Creating config file..."
 mkdir -p /var/lib/filebrowser
+cat > /var/lib/filebrowser/.filebrowser.yaml << EOF
+address: ''
+baseURL: ''
+database: "/database.db"
+log: stdout
+port: 8080
+root: "/root"
+EOF
 chown -R filebrowser:filebrowser /var/lib/filebrowser
-systemctl enable --now $var_service_name &> /dev/null
 echo
-echo "Waiting 10 seconds for $var_service_friendly_name to start..."
-sleep 10
-echo
-echo "Stopping $var_service_friendly_name to edit config files..."
-systemctl stop $var_service_name
-echo
-
-
 echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/stunnel/filebrowser
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/stunnel/filebrowser/key.pem -out /etc/stunnel/filebrowser/cert.pem &> /dev/null
@@ -107,8 +106,8 @@ key = /etc/stunnel/filebrowser/key.pem
 EOF
 systemctl enable --now stunnel &> /dev/null
 echo
-echo "Configuring PLACEHOLDER..."
-#sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
+echo "Enabling service $var_service_friendly_name..."
+systemctl enable $var_service_name &> /dev/null
 echo
 echo
 echo
@@ -131,5 +130,7 @@ echo
 echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
+echo
+systemctl status stunnel
 echo
 systemctl status $var_service_name
