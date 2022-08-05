@@ -25,7 +25,6 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo "Installing $var_service_friendly_name..."
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | /bin/bash
 echo
 echo
