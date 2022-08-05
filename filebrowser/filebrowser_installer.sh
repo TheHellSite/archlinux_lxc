@@ -3,7 +3,7 @@
 # begin of variables
 var_service_name="filebrowser"
 var_service_friendly_name="File Browser"
-var_service_friendly_name_length="======"
+var_service_friendly_name_length="==========="
 var_service_default_port="8443"
 var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
@@ -56,7 +56,7 @@ After=network.target
 Type=simple
 User=filebrowser
 Group=filebrowser
-ExecStart=/usr/bin/filebrowser
+ExecStart=/usr/bin/filebrowser -r /root/
 Restart=on-abort
 TimeoutSec=20
 
@@ -78,11 +78,11 @@ echo
 
 
 echo "Generating self-signed SSL certificate..."
-mkdir -p /var/lib/filebrowser/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/filebrowser/ssl/key.pem -out /var/lib/filebrowser/ssl/cert.pem &> /dev/null
-chown -R pyload:pyload /var/lib/filebrowser/ssl
-chmod 0755 /var/lib/filebrowser/ssl
-chmod 0640 /var/lib/filebrowser/ssl/*
+mkdir -p /etc/stunnel/filebrowser
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/stunnel/filebrowser/key.pem -out /etc/stunnel/filebrowser/cert.pem &> /dev/null
+chown -R stunnel:stunnel /etc/stunnel/filebrowser
+chmod 0755 /etc/stunnel/filebrowser
+chmod 0640 /etc/stunnel/filebrowser/*
 echo
 echo "Enabling HTTPS..."
 cat > /etc/stunnel/stunnel.conf << EOF
@@ -102,29 +102,13 @@ setgid = stunnel
 client = no
 accept = 0.0.0.0:8443
 connect = 127.0.0.1:8080
-cert = /etc/stunnel/cert.pem
-key = /etc/stunnel/key.pem
+cert = /etc/stunnel/filebrowser/cert.pem
+key = /etc/stunnel/filebrowser/key.pem
 EOF
+systemctl enable --now stunnel &> /dev/null
 echo
-
-
-echo "Configuring Download..."
-mkdir -p /tmp/pyload
-sed -i 's@int chunks : "Maximum connections for one download" =.*@int chunks : "Maximum connections for one download" = 4@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@ip interface : "Download interface to bind (IP Address)" =.*@ip interface : "Download interface to bind (IP Address)" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@int max_downloads : "Maximum parallel downloads" =.*@int max_downloads : "Maximum parallel downloads" = 4@' /var/lib/pyload/settings/pyload.cfg
-echo
-echo "Configuring General..."
-sed -i 's@bool debug_mode : "Debug mode" =.*@bool debug_mode : "Debug mode" = False@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@folder storage_folder : "Download folder" =.*@folder storage_folder : "Download folder" = /tmp/pyload@' /var/lib/pyload/settings/pyload.cfg
-echo
-echo "Configuring Web Interface..."
-sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@ip host : "IP address" =.*@ip host : "IP address" = 0.0.0.0@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =.*@file ssl_certchain : "CA'\''s intermediate certificate bundle (optional)" =@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@file ssl_certfile : "SSL Certificate" =.*@file ssl_certfile : "SSL Certificate" = /var/lib/pyload/ssl/cert.pem@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@file ssl_keyfile : "SSL Key" =.*@file ssl_keyfile : "SSL Key" = /var/lib/pyload/ssl/key.pem@' /var/lib/pyload/settings/pyload.cfg
-sed -i 's@bool use_ssl : "Use HTTPS" =.*@bool use_ssl : "Use HTTPS" = True@' /var/lib/pyload/settings/pyload.cfg
+echo "Configuring PLACEHOLDER..."
+#sed -i 's@bool develop : "Development mode" =.*@bool develop : "Development mode" = False@' /var/lib/pyload/settings/pyload.cfg
 echo
 echo
 echo
