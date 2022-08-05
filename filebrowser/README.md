@@ -1,3 +1,21 @@
+# File Browser Arch Linux installation (run as root user inside the LXC)
+
+### 1. Run the script inside of the Arch Linux LXC.
+
+  ```
+  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/filebrowser/filebrowser_installer.sh)
+  ```
+
+<br />
+<br />
+<br />
+<br />
+<hr>
+
+
+
+
+
 1. pacman -Syyu stunnel
 2. openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout key.pem -out cert.pem
 
