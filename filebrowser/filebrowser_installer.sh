@@ -25,15 +25,8 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo "Installing dependencies..."
-pacman -Syyu --needed --noconfirm stunnel
-echo
 echo "Installing $var_service_friendly_name..."
 curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | /bin/bash
-#curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh
-#sed -i 's@install_path="/usr/local/bin"@install_path="/var/lib"@' get.sh
-#chmod +x get.sh
-#rm get.sh
 echo
 echo
 echo
@@ -67,44 +60,22 @@ echo
 echo "Creating config file..."
 mkdir -p /var/lib/filebrowser
 cat > /var/lib/filebrowser/.filebrowser.yaml << EOF
-address: ''
+address: '0.0.0.0'
 baseURL: ''
-database: "/database.db"
+cert: '/var/lib/filebrowser/ssl/cert.pem'
+database: "/var/lib/filebrowser/database.db"
+key: '/var/lib/filebrowser/ssl/key.pem'
 log: stdout
-port: 8080
+port: 8443
 root: "/root"
 EOF
-chown -R filebrowser:filebrowser /var/lib/filebrowser
 echo
 echo "Generating self-signed SSL certificate..."
-mkdir -p /etc/stunnel/filebrowser
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/stunnel/filebrowser/key.pem -out /etc/stunnel/filebrowser/cert.pem &> /dev/null
-chown -R stunnel:stunnel /etc/stunnel/filebrowser
-chmod 0755 /etc/stunnel/filebrowser
-chmod 0640 /etc/stunnel/filebrowser/*
-echo
-echo "Enabling HTTPS..."
-cat > /etc/stunnel/stunnel.conf << EOF
-; **************************************************************************
-; * Global options                                                         *
-; **************************************************************************
-
-; It is recommended to drop root privileges if stunnel is started by root
-setuid = stunnel
-setgid = stunnel
-
-; **************************************************************************
-; * Service definitions (remove all services for inetd mode)               *
-; **************************************************************************
-
-[filebrowser-https]
-client = no
-accept = 0.0.0.0:8443
-connect = 127.0.0.1:8080
-cert = /etc/stunnel/filebrowser/cert.pem
-key = /etc/stunnel/filebrowser/key.pem
-EOF
-systemctl enable --now stunnel &> /dev/null
+mkdir -p /var/lib/filebrowser/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/filebrowser/ssl/key.pem -out /var/lib/filebrowser/ssl/cert.pem &> /dev/null
+chown -R filebrowser:filebrowser /var/lib/filebrowser
+chmod 0755 /var/lib/filebrowser/ssl
+chmod 0640 /var/lib/filebrowser/ssl/*
 echo
 echo "Enabling service $var_service_friendly_name..."
 systemctl enable $var_service_name &> /dev/null
@@ -130,7 +101,5 @@ echo
 echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
-echo
-systemctl status stunnel
 echo
 systemctl status $var_service_name
