@@ -86,7 +86,24 @@ chmod 0640 /var/lib/filebrowser/ssl/*
 echo
 echo "Enabling HTTPS..."
 cat > /etc/stunnel/stunnel.conf << EOF
-...
+; **************************************************************************
+; * Global options                                                         *
+; **************************************************************************
+
+; It is recommended to drop root privileges if stunnel is started by root
+setuid = stunnel
+setgid = stunnel
+
+; **************************************************************************
+; * Service definitions (remove all services for inetd mode)               *
+; **************************************************************************
+
+[filebrowser-https]
+client = no
+accept = 0.0.0.0:8443
+connect = 127.0.0.1:8080
+cert = /etc/stunnel/cert.pem
+key = /etc/stunnel/key.pem
 EOF
 echo
 
