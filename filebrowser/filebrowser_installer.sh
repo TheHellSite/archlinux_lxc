@@ -64,9 +64,9 @@ baseURL: ''
 cert: '/var/lib/filebrowser/ssl/cert.pem'
 database: "/var/lib/filebrowser/database.db"
 key: '/var/lib/filebrowser/ssl/key.pem'
-log: stdout
-port: 8443
-root: "/root"
+log: 'stdout'
+port: '8443'
+root: '/var/lib/filebrowser'
 EOF
 echo
 echo "Generating self-signed SSL certificate..."
