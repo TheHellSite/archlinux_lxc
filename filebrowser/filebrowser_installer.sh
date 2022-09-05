@@ -56,6 +56,13 @@ TimeoutSec=20
 WantedBy=multi-user.target
 EOF
 echo
+echo "Generating self-signed SSL certificate..."
+mkdir -p /var/lib/filebrowser/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/filebrowser/ssl/key.pem -out /var/lib/filebrowser/ssl/cert.pem &> /dev/null
+chown -R filebrowser:filebrowser /var/lib/filebrowser
+chmod 0755 /var/lib/filebrowser/ssl
+chmod 0640 /var/lib/filebrowser/ssl/*
+echo
 echo "Creating config file..."
 mkdir -p /var/lib/filebrowser
 cat > /var/lib/filebrowser/.filebrowser.yaml << EOF
@@ -68,13 +75,6 @@ log: 'stdout'
 port: '8443'
 root: '/var/lib/filebrowser'
 EOF
-echo
-echo "Generating self-signed SSL certificate..."
-mkdir -p /var/lib/filebrowser/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/filebrowser/ssl/key.pem -out /var/lib/filebrowser/ssl/cert.pem &> /dev/null
-chown -R filebrowser:filebrowser /var/lib/filebrowser
-chmod 0755 /var/lib/filebrowser/ssl
-chmod 0640 /var/lib/filebrowser/ssl/*
 echo
 echo "Enabling service $var_service_friendly_name..."
 systemctl enable $var_service_name &> /dev/null
