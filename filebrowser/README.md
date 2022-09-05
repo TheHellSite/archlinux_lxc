@@ -23,5 +23,5 @@
 ### 2. Run the command inside of the Arch Linux LXC.
 
   ```
-  bash <(curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh)
+  bash <(curl -s https://raw.githubusercontent.com/filebrowser/get/master/get.sh)
   ```
