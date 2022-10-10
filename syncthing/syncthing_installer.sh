@@ -49,7 +49,7 @@ After=network.target
 Type=simple
 User=syncthing
 Group=syncthing
-ExecStart=/usr/bin/syncthing
+ExecStart=/usr/bin/syncthing --home /var/lib/syncthing
 Restart=on-abort
 TimeoutSec=20
 
