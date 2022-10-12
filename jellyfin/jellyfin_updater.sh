@@ -33,6 +33,13 @@ makepkg -sirc --noconfirm
 cd
 sudo rm -r jellyfin-bin
 echo
+echo "Updating FFmpeg for Jellyfin ..."
+git clone https://aur.archlinux.org/jellyfin-ffmpeg5.git
+cd jellyfin-ffmpeg5
+makepkg -sirc --noconfirm
+cd
+sudo rm -r jellyfin-ffmpeg5
+echo
 echo
 echo
 echo
