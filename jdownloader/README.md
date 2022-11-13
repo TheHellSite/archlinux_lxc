@@ -11,3 +11,11 @@
 <br />
 <br />
 <hr>
+
+# JDownloader-headless Arch Linux update installation (run as root user inside the LXC)
+
+### 1. Perform a full system upgrade and reboot the LXC.
+
+  ```
+  pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
+  ```
