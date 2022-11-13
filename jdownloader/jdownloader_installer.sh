@@ -81,9 +81,12 @@ echo "=========$var_service_friendly_name_length==="
 echo "The installation of $var_service_friendly_name is complete."
 echo "Proceed to configure the MyJDownloader credentials and finish the configuration of $var_service_friendly_name."
 echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "!! After connecting your instance to https://my.jdownloader.org/ exit JDownloader and reboot the LXC. !!"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo '!! 1. Connect your instance to "https://my.jdownloader.org/"... !!'
+echo '!! 2. Wait for "Update Message: Check for updates" to appear... !!'
+echo '!! 3. Press "CTRL + C" to exit JDownloader...                   !!'
+echo "!! 4. Reboot the LXC...                                         !!'
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo
 read -p "Press ENTER to continue..."
 echo
