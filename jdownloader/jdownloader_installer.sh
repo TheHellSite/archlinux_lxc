@@ -61,7 +61,7 @@ TimeoutSec=20
 WantedBy=multi-user.target
 EOF
 echo
-echo "Enabling service $var_service_friendly_name..."
+echo 'Enabling service "jdownloader"...'
 chown -R jdownloader:jdownloader /var/lib/jdownloader
 systemctl enable $var_service_name &> /dev/null
 echo
