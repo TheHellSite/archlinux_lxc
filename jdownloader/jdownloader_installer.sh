@@ -68,7 +68,7 @@ echo
 echo "Starting JDownloader to install available updates and generate config files..."
 echo "This process can take a while depending on your internet speed!"
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart 1> /dev/null
 echo
 echo
 echo
