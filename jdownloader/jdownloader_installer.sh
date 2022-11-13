@@ -81,4 +81,4 @@ echo "After connecting your instance to MyJDownloader press CTRL+C and reboot th
 echo
 read -p "Press ENTER to continue..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar &> /dev/null
