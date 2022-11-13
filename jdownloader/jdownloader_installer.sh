@@ -65,11 +65,11 @@ echo 'Enabling service "jdownloader"...'
 chown -R jdownloader:jdownloader /var/lib/jdownloader
 systemctl enable $var_service_name &> /dev/null
 echo
-echo "Starting JDownloader to generate config files and install all available updates..."
+echo "Proceed to start JDownloader to generate config files and install all available updates..."
 echo "This process can take a while depending on your internet speed!"
+echo
 read -p "Press ENTER to continue..."
 echo
-#/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart &> /dev/null
 /usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart
 echo
 echo
