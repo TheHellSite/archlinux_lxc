@@ -85,7 +85,7 @@ echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo '!! 1. Connect your instance to "https://my.jdownloader.org/"... !!'
 echo '!! 2. Wait for "Update Message: Check for updates" to appear... !!'
 echo '!! 3. Press "CTRL + C" to exit JDownloader...                   !!'
-echo "!! 4. Reboot the LXC...                                         !!'
+echo "!! 4. Reboot the LXC...                                         !!"
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo
 read -p "Press ENTER to continue..."
