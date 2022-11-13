@@ -53,7 +53,7 @@ After=network.target
 Type=simple
 User=jdownloader
 Group=jdownloader
-ExecStart=/usr/bin/java -Djava.awt.headless=true -jar --userdir /var/lib/jdownloader/JDownloader.jar
+ExecStart=/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
 Restart=on-abort
 TimeoutSec=20
 
@@ -67,7 +67,7 @@ systemctl enable $var_service_name &> /dev/null
 echo
 echo "Starting JDownloader to install available updates..."
 sleep 5
-/usr/bin/java -Djava.awt.headless=true -jar --userdir /var/lib/jdownloader/JDownloader.jar
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
 echo
 echo
 echo
@@ -81,4 +81,4 @@ echo "After connecting your instance to MyJdownloader press CTRL+C and reboot th
 echo
 read -p "Press ENTER to continue..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar --userdir /var/lib/jdownloader/JDownloader.jar
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
