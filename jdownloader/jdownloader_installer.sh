@@ -70,7 +70,7 @@ echo "This process can take a while depending on your internet speed!"
 echo
 read -p "Press ENTER to continue..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart
+su - jdownloader -s /bin/bash -c "/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart"
 echo
 echo
 echo
@@ -87,4 +87,5 @@ echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 echo
 read -p "Press ENTER to continue..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
+su - jdownloader -s /bin/bash -c "/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar"
+#/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
