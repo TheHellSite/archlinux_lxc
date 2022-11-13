@@ -88,4 +88,3 @@ echo
 read -p "Press ENTER to continue..."
 echo
 su - jdownloader -s /bin/bash -c "/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar"
-#/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
