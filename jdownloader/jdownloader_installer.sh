@@ -77,8 +77,11 @@ echo "Starting $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
 echo "The installation of $var_service_friendly_name is complete."
 echo "Proceed to configure the MyJDownloader credentials and finish the configuration of $var_service_friendly_name."
-echo "After connecting your instance to MyJDownloader press CTRL+C and reboot the LXC."
+echo
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "!! After connecting your instance to MyJDownloader press CTRL+C and reboot the LXC. !!"
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 echo
 read -p "Press ENTER to continue..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar &> /dev/null
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
