@@ -66,9 +66,9 @@ chown -R jdownloader:jdownloader /var/lib/jdownloader
 systemctl enable $var_service_name &> /dev/null
 echo
 echo "Starting JDownloader to install available updates and generate config files..."
-echo "This process can take a while depending on your internet speed!"
+echo "This process can take a while depending on your internet speed..."
 echo
-/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart 1> /dev/null
+/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar -norestart > /dev/null
 echo
 echo
 echo
@@ -76,8 +76,8 @@ echo
 
 echo "Starting $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
-echo "The installation and configuration of $var_service_friendly_name is almost complete."
-echo "Proceed to start $var_service_friendly_name and enter your MyJDownloader credentials."
+echo "The installation of $var_service_friendly_name is complete."
+echo "Proceed to configure the MyJDownloader credentials and finish the configuration of $var_service_friendly_name."
 echo "After connecting your instance to MyJDownloader press CTRL+C and reboot the LXC."
 echo
 read -p "Press ENTER to continue..."
