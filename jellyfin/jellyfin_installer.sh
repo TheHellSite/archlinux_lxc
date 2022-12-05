@@ -42,6 +42,10 @@ cd
 sudo rm -r jellyfin-bin
 #echo
 #echo "Installing FFmpeg for Jellyfin ..."
+#
+# WAIT FOR JELLYFIN-FFMPEG5-BIN AUR release.
+# https://aur.archlinux.org/packages/jellyfin-ffmpeg5#comment-892529
+#
 #git clone https://aur.archlinux.org/jellyfin-ffmpeg5.git
 #cd jellyfin-ffmpeg5
 #makepkg -sirc --noconfirm
