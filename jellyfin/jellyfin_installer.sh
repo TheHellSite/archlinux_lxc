@@ -80,6 +80,7 @@ sudo sed -i 's@<EnableHttps>false</EnableHttps>@<EnableHttps>true</EnableHttps>@
 sudo sed -i 's@<RequireHttps>false</RequireHttps>@<RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
 echo
 echo "Enabling FFmpeg5 for Jellyfin"
+sudo sed -i 's@<EncoderAppPath>/usr/bin/ffmpeg</EncoderAppPath>@<EncoderAppPath>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPath>@' /var/lib/jellyfin/config/encoding.xml
 sudo sed -i 's@<EncoderAppPathDisplay>/usr/bin/ffmpeg</EncoderAppPathDisplay>@<EncoderAppPathDisplay>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPathDisplay>@' /var/lib/jellyfin/config/encoding.xml
 echo
 echo
