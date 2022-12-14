@@ -32,14 +32,18 @@
 <br />
 <hr>
 
-# Jellyfin LXC GPU passthrough (run as root user)
+# Jellyfin VA-API hardware transcoding (run as root user)
 
-The GPU passthrough guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
-
-### 1. Follow this tutorial.
+### 1. Follow this tutorial to passthrough the render device to the LXC.
 https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
-### 2. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin dependencies.
+### 2. Install the Mesa drivers.
+
+  ```
+  pacman -Syyu --needed --noconfirm mesa
+  ```
+
+### 3. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin dependencies.
 
 **AMD specific dependencies**  
 libva-mesa-driver: for AMD VAAPI support  
@@ -63,7 +67,7 @@ vulkan-intel: for Intel ANV Vulkan support
   Please select the relevant packages on your own. I don't have any Intel (i)GPUs and therefore can't validate the needed ones.
   ```
 
-### 3. Jellyfin: Enable VAAPI.
+### 4. Jellyfin: Enable VA-API.
 
   Go to: Admin --> Server --> Dashboard --> Playback
   ```
@@ -74,9 +78,9 @@ vulkan-intel: for Intel ANV Vulkan support
 
 ### 3. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
 
-  **Method 1:** Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
+  **Method 1:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
+
+  **Method 2:** Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
   ```
   pacman -Syyu --needed --noconfirm radeontop && radeontop
   ```
-
-  **Method 2:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
