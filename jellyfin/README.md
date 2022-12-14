@@ -82,7 +82,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
   **Method 1:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
 
-  **Method 2:** Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
+  **Method 2:** (AMD only) Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
   ```
   pacman -Syyu --needed --noconfirm radeontop && radeontop
   ```
