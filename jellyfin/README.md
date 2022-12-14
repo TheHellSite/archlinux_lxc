@@ -59,7 +59,9 @@ libva-intel-driver: for Intel legacy VAAPI support (10th Gen and older)
 nvidia-utils: for Nvidia NVDEC/NVENC support  
 vulkan-intel: for Intel ANV Vulkan support  
 
-Please select the relevant packages on your own. I don't have any Intel (i)GPUs and therefore can't validate the needed ones.
+  ```
+  Please select the relevant packages on your own. I don't have any Intel (i)GPUs and therefore can't validate the needed ones.
+  ```
 
 ### 3. Jellyfin: Enable VAAPI.
 
