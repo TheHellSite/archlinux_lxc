@@ -32,7 +32,9 @@
 <br />
 <hr>
 
-# Jellyfin VA-API hardware transcoding (run as root user)
+# Jellyfin VA-API hardware accelerated video encoding (run as root user)
+
+The guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
 
 ### 1. Follow this tutorial to passthrough the render device to the LXC.
 https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
