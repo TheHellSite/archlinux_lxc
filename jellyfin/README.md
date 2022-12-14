@@ -39,7 +39,29 @@ The GPU passthrough guide below should work for all GPUs listed here: https://do
 ### 1. Follow this tutorial.
 https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
-### 2. Jellyfin: Enable VAAPI.
+### 2. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin dependencies.
+
+**AMD specific dependencies**  
+libva-mesa-driver: for AMD VAAPI support  
+opencl-amd: for AMD OpenCL runtime based Tonemapping  
+vulkan-radeon: for AMD RADV Vulkan support  
+
+  ```
+  pacman -Syyu --needed --noconfirm libva-mesa-driver opencl-mesa vulkan-radeon
+  ```
+
+**Intel specific extras**  
+intel-media-driver: for Intel VAAPI support (Broadwell and newer)  
+intel-media-sdk: for Intel Quick Sync Video  
+onevpl-intel-gpu: for Intel Quick Sync Video (12th Gen and newer)  
+intel-compute-runtime: for Intel OpenCL runtime based Tonemapping  
+libva-intel-driver: for Intel legacy VAAPI support (10th Gen and older)  
+nvidia-utils: for Nvidia NVDEC/NVENC support  
+vulkan-intel: for Intel ANV Vulkan support  
+
+Please select the relevant packages on your own. I don't have any Intel (i)GPUs and therefore can't validate the needed ones.
+
+### 3. Jellyfin: Enable VAAPI.
 
   Go to: Admin --> Server --> Dashboard --> Playback
   ```
