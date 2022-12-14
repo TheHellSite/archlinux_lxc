@@ -53,7 +53,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 `opencl-amd`: AMD OpenCL runtime based Tonemapping *(only for Jellyfin v10.8.x and older)*  
 
   ```
-  pacman -Syyu --needed --noconfirm libva-mesa-driver opencl-mesa vulkan-radeon
+  pacman -Syyu --needed --noconfirm libva-mesa-driver vulkan-radeon
   ```
 
 **Intel specific extras**  
