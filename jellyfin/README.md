@@ -45,7 +45,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
   pacman -Syyu --needed --noconfirm mesa
   ```
 
-### 3. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin dependencies.
+### 3. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin.
 
 **AMD specific dependencies**  
 `libva-mesa-driver`: AMD VAAPI support  
