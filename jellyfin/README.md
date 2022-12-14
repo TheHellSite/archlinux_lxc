@@ -32,7 +32,7 @@
 <br />
 <hr>
 
-# Jellyfin VA-API hardware accelerated video encoding (run as root user)
+# Jellyfin VA-API hardware accelerated video transcoding (run as root user)
 
 The guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
 
