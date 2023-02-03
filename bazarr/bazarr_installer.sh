@@ -4,7 +4,7 @@
 var_service_name="bazarr"
 var_service_friendly_name="Bazarr"
 var_service_friendly_name_length="======"
-var_service_default_port="7676"
+var_service_default_port="6767"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
@@ -75,8 +75,44 @@ sudo chmod 0755 /etc/stunnel/bazarr
 sudo chmod 0640 /etc/stunnel/bazarr/*
 echo
 echo "Enabling HTTPS..."
-#sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/bazarr/ssl/key.pvk -cert /var/lib/bazarr/ssl/cert.crt" bazarr
-#sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/bazarr/config.xml
+#sudo sed -i '/\[General\]/,/^$/{/ip = 0.0.0.0/s/0.0.0.0/127.0.0.1/}' /var/lib/bazarr/config/config.ini
+#sudo sed -i '/\[General\]/,/^$/{/^ip = 0.0.0.0/s/0.0.0.0/127.0.0.1/}' /var/lib/bazarr/config/config.ini
+#sudo sed -i '/^\[General\]$/,/^$/{s/^port = 6767$/port = 7676/}' /var/lib/bazarr/config/config.ini
+####################
+this
+[general]
+ip = 0.0.0.0
+port = 6767
+
+changed to this
+[general]
+ip = 127.0.0.1
+port = 7676
+####################
+
+echo
+echo "Configuring Stunnel..."
+sudo bash -c "cat > /etc/stunnel/stunnel.conf << EOF
+; **************************************************************************
+; * Global options                                                         *
+; **************************************************************************
+
+; It is recommended to drop root privileges if stunnel is started by root
+setuid = stunnel
+setgid = stunnel
+
+; **************************************************************************
+; * Service definitions (remove all services for inetd mode)               *
+; **************************************************************************
+
+[bazarr-https]
+client = no
+accept = 0.0.0.0:6767
+connect = 127.0.0.1:7676
+cert = /etc/stunnel/bazarr/cert.pem
+key = /etc/stunnel/bazarr/key.pem
+EOF
+"
 sudo systemctl enable --now stunnel &> /dev/null
 echo
 echo "Disabling Analytics..."
