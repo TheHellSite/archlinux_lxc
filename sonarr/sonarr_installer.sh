@@ -74,9 +74,9 @@ sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/sonarr/ssl/key.pv
 sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/sonarr/config.xml
 echo
 echo "Disabling Analytics..."
-if grep -q "<AnalyticsEnabled>True</AnalyticsEnabled>" /var/lib/sonarr/config.xml; then
+sudo sh -c "if grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/sonarr/config.xml; then
   sed -i 's/<AnalyticsEnabled>True<\/AnalyticsEnabled>/<AnalyticsEnabled>False<\/AnalyticsEnabled>/' /var/lib/sonarr/config.xml
-fi
+fi"
 echo
 echo
 echo
