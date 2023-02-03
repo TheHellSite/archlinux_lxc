@@ -4,7 +4,7 @@
 var_service_name="bazarr"
 var_service_friendly_name="Bazarr"
 var_service_friendly_name_length="======"
-var_service_default_port="6767"
+var_service_default_port="7676"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
@@ -26,7 +26,7 @@ echo "Preparing AUR..."
 echo "================"
 read -p "Press ENTER to continue..."
 echo
-sudo pacman -Syyu --needed --noconfirm git base-devel
+sudo pacman -Syyu --needed --noconfirm git base-devel stunnel
 echo
 echo
 echo
@@ -66,24 +66,23 @@ sleep 10
 echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
-#echo
-#echo "Generating self-signed SSL certificate..."
-#sudo mkdir -p /var/lib/bazarr/ssl
-#sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/bazarr/ssl/key.pem -out /var/lib/bazarr/ssl/cert.pem &> /dev/null
-#sudo openssl rsa -in /var/lib/bazarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/bazarr/ssl/key.pvk &> /dev/null
-#sudo openssl x509 -inform pem -in /var/lib/bazarr/ssl/cert.pem -outform der -out /var/lib/bazarr/ssl/cert.crt &> /dev/null
-#sudo rm /var/lib/bazarr/ssl/*.pem
-#sudo chown -R bazarr:bazarr /var/lib/bazarr/ssl
-#sudo chmod 0755 /var/lib/bazarr/ssl
-#sudo chmod 0640 /var/lib/bazarr/ssl/*
-#echo
-#echo "Enabling HTTPS..."
+echo
+echo "Generating self-signed SSL certificate..."
+sudo mkdir -p /etc/stunnel/bazarr
+sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/stunnel/bazarr/key.pem -out /etc/stunnel/bazarr/cert.pem &> /dev/null
+sudo chown -R stunnel:stunnel /etc/stunnel/bazarr
+sudo chmod 0755 /etc/stunnel/bazarr
+sudo chmod 0640 /etc/stunnel/bazarr/*
+echo
+echo "Enabling HTTPS..."
 #sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/bazarr/ssl/key.pvk -cert /var/lib/bazarr/ssl/cert.crt" bazarr
 #sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/bazarr/config.xml
-#echo
-#echo "Disabling Analytics..."
-#sudo grep -q '<AnalyticsEnabled>False</AnalyticsEnabled>' /var/lib/bazarr/config.xml || sudo sed -i "`wc -l < /var/lib/bazarr/config.xml`i\\  <AnalyticsEnabled>False</AnalyticsEnabled>\\" /var/lib/bazarr/config.xml
-#sudo grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/bazarr/config.xml && sudo sed -i 's@<AnalyticsEnabled>True</AnalyticsEnabled>@<AnalyticsEnabled>False</AnalyticsEnabled>@' /var/lib/bazarr/config.xml
+sudo systemctl enable --now stunnel &> /dev/null
+echo
+echo "Disabling Analytics..."
+sudo sh -c "if grep -A1 '\[analytics\]' /var/lib/bazarr/config/config.ini | grep -q 'enabled = True'; then
+  sed -i '/\[analytics\]/,/^$/{/enabled = True/s/True/False/}' /var/lib/bazarr/config/config.ini
+fi"
 echo
 echo
 echo
