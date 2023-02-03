@@ -75,7 +75,7 @@ sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/l
 echo
 echo "Disabling Analytics..."
 if grep -q "<AnalyticsEnabled>True</AnalyticsEnabled>" /var/lib/sonarr/config.xml; then
-  sed -i 's/<AnalyticsEnabled>True<\/AnalyticsEnabled>/<AnalyticsEnabled>False<\/AnalyticsEnabled>/g' /var/lib/sonarr/config.xml
+  sed -i 's/<AnalyticsEnabled>True<\/AnalyticsEnabled>/<AnalyticsEnabled>False<\/AnalyticsEnabled>/' /var/lib/sonarr/config.xml
 fi
 echo
 echo
