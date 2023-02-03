@@ -36,6 +36,14 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
+echo "Installing dependencies..."
+git clone https://aur.archlinux.org/python-webrtcvad-wheels.git
+cd python-webrtcvad-wheels
+makepkg -sirc --noconfirm
+cd
+sudo rm -r python-webrtcvad-wheels
+echo
+echo "Installing $var_service_friendly_name..."
 git clone https://aur.archlinux.org/bazarr.git
 cd bazarr
 makepkg -sirc --noconfirm
