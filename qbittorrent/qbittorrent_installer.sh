@@ -36,7 +36,7 @@ echo "Configuring $var_service_friendly_name..."
 echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo 'Creating user "qbittorrent"...'
+echo 'Creating user and group "qbittorrent"...'
 useradd -rU -d /var/lib/qbittorrent -s /usr/bin/nologin qbittorrent
 echo
 echo 'Creating service "qbittorrent"...'
