@@ -75,6 +75,12 @@ echo 'Unable to save passwords as they might contain special characters which "s
 echo 'Please provide the correct password using "nano /etc/vaultwarden.env".'
 echo 'Place the password in "SMTP_PASSWORD=password".'
 echo "!!! Attention !!!"
+# possible fix - 20230204 - need to verify
+#read -r -s -p "Enter password: " password
+#echo
+#echo "Password entered: $password"
+#
+#sed -i "s/Password_Placeholder/${password//\//\\/}" /path/to/config/file
 echo
 read -p "Press ENTER to finish configuring SMTP..."
 sed -i "s;^# SMTP_HOST=.*;SMTP_HOST=$smtp_server_var;" /etc/vaultwarden.env
