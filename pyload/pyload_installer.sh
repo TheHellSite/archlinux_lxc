@@ -54,7 +54,7 @@ Type=simple
 User=pyload
 Group=pyload
 ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
-Restart=on-abort
+Restart=on-failure
 TimeoutSec=20
 
 [Install]
