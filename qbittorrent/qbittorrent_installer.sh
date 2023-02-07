@@ -51,6 +51,7 @@ User=qbittorrent
 Group=qbittorrent
 ExecStart=/usr/bin/qbittorrent-nox
 Restart=on-failure
+RestartSec=5s
 TimeoutSec=20
 
 [Install]
