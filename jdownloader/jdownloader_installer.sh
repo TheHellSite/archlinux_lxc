@@ -54,7 +54,7 @@ Type=simple
 User=jdownloader
 Group=jdownloader
 ExecStart=/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
-Restart=on-abort
+Restart=on-failure
 TimeoutSec=20
 
 [Install]
