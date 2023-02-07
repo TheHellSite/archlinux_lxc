@@ -51,6 +51,7 @@ User=syncthing
 Group=syncthing
 ExecStart=/usr/bin/syncthing --home /var/lib/syncthing
 Restart=on-failure
+RestartSec=5s
 TimeoutSec=20
 
 [Install]
