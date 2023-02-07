@@ -35,6 +35,7 @@
 # Jellyfin VA-API hardware accelerated video transcoding (run as root user)
 
 The guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html
+Please note that 'pacman' is the package manager in Arch Linux, if you are using another distro as your LXC base system, f.e. Debian, you will have to use the respective package manager to install the below dependencies.
 
 ### 1. Follow this tutorial to passthrough the render device to the LXC.
 https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
@@ -56,7 +57,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
   pacman -Syyu --needed --noconfirm libva-mesa-driver vulkan-radeon
   ```
 
-**Intel specific extras**  
+**Intel specific dependencies**  
 `intel-media-driver`: Intel VAAPI support (Broadwell and newer)  
 `libva-intel-driver`: Intel legacy VAAPI support (10th Gen and older)  
 `intel-media-sdk`: Intel Quick Sync Video  
