@@ -42,8 +42,7 @@ echo "Configuring Pacman..."
 echo "====================="
 read -p "Press ENTER to continue..."
 echo
-echo "Getting latest mirrors from: https://archlinux.org/mirrorlist/all/https/"
-echo
+echo 'Getting latest mirrors from "https://archlinux.org/mirrorlist/all/https/"...'
 var_mirrorlist=$(curl -s 'https://archlinux.org/mirrorlist/all/https/' | sed -n '/^## Worldwide$/,/^$/p' | sed '/^$/d' | sed 's/^#Server/Server/')
 echo "$var_mirrorlist" >| /etc/pacman.d/mirrorlist
 echo
