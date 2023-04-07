@@ -43,8 +43,7 @@ echo "====================="
 read -p "Press ENTER to continue..."
 echo
 echo 'Getting latest mirrors from "https://archlinux.org/mirrorlist/all/https/"...'
-var_mirrorlist=$(curl -s 'https://archlinux.org/mirrorlist/all/https/' | sed -n '/^## Worldwide$/,/^$/p' | sed '/^$/d' | sed 's/^#Server/Server/')
-echo "$var_mirrorlist" >| /etc/pacman.d/mirrorlist
+curl -s 'https://archlinux.org/mirrorlist/all/https/' | sed -n '/^## Worldwide$/,/^$/p' | sed '/^$/d' | sed 's/^#Server/Server/' >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
 sed -i 's@^#NoExtract   =@NoExtract   = etc/pacman.conf etc/pacman.d/mirrorlist@' /etc/pacman.conf
