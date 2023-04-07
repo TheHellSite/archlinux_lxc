@@ -29,9 +29,25 @@ echo "Configuring locales..."
 echo "======================"
 read -p "Press ENTER to continue..."
 echo
-echo 'LC_ALL=en_US.UTF-8' >| /etc/environment
-echo 'en_US.UTF-8 UTF-8' >| /etc/locale.gen
-echo 'LANG=en_US.UTF-8' >| /etc/locale.conf
+# Extract all available locales that end with UTF-8
+var_available_locales=($(grep -oP '^[^#]*?\.UTF-8' /usr/share/i18n/SUPPORTED))
+# Add all available locales to a selection menu
+select locale in "${var_available_locales[@]}"; do
+    if [[ " ${var_available_locales[@]} " =~ " ${locale} " ]]; then
+        echo "Selected Locale: ${locale}"
+        # Configure the locale settings
+        echo "LC_ALL=${locale}" > /etc/environment
+        echo "${locale} UTF-8" > /etc/locale.gen
+        echo "LANG=${locale}" > /etc/locale.conf
+        locale-gen
+        break
+    else
+        echo "Invalid selection. Please try again."
+    fi
+done
+#echo 'LC_ALL=en_US.UTF-8' >| /etc/environment
+#echo 'en_US.UTF-8 UTF-8' >| /etc/locale.gen
+#echo 'LANG=en_US.UTF-8' >| /etc/locale.conf
 locale-gen
 echo
 echo
