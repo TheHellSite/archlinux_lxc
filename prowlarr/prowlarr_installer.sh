@@ -4,7 +4,7 @@
 var_service_name="prowlarr"
 var_service_friendly_name="Prowlarr"
 var_service_friendly_name_length="======"
-var_service_default_port="9898"
+var_service_default_port="9696"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
@@ -59,24 +59,24 @@ echo
 echo "Stopping $var_service_friendly_name to edit config files..."
 sudo systemctl stop $var_service_name
 echo
-echo "Generating self-signed SSL certificate..."
-sudo mkdir -p /var/lib/prowlarr/ssl
-sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/prowlarr/ssl/key.pem -out /var/lib/prowlarr/ssl/cert.pem &> /dev/null
-sudo openssl rsa -in /var/lib/prowlarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/prowlarr/ssl/key.pvk &> /dev/null
-sudo openssl x509 -inform pem -in /var/lib/prowlarr/ssl/cert.pem -outform der -out /var/lib/prowlarr/ssl/cert.crt &> /dev/null
-sudo rm /var/lib/prowlarr/ssl/*.pem
-sudo chown -R prowlarr:prowlarr /var/lib/prowlarr/ssl
-sudo chmod 0755 /var/lib/prowlarr/ssl
-sudo chmod 0640 /var/lib/prowlarr/ssl/*
-echo
-echo "Enabling HTTPS..."
-sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/prowlarr/ssl/key.pvk -cert /var/lib/prowlarr/ssl/cert.crt" prowlarr
-sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/prowlarr/config.xml
-echo
-echo "Disabling Analytics..."
-sudo sh -c "if grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/prowlarr/config.xml; then
-  sed -i 's/<AnalyticsEnabled>True<\/AnalyticsEnabled>/<AnalyticsEnabled>False<\/AnalyticsEnabled>/' /var/lib/prowlarr/config.xml
-fi"
+#echo "Generating self-signed SSL certificate..."
+#sudo mkdir -p /var/lib/prowlarr/ssl
+#sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/prowlarr/ssl/key.pem -out /var/lib/prowlarr/ssl/cert.pem &> /dev/null
+#sudo openssl rsa -in /var/lib/prowlarr/ssl/key.pem -outform pvk -pvk-none -out /var/lib/prowlarr/ssl/key.pvk &> /dev/null
+#sudo openssl x509 -inform pem -in /var/lib/prowlarr/ssl/cert.pem -outform der -out /var/lib/prowlarr/ssl/cert.crt &> /dev/null
+#sudo rm /var/lib/prowlarr/ssl/*.pem
+#sudo chown -R prowlarr:prowlarr /var/lib/prowlarr/ssl
+#sudo chmod 0755 /var/lib/prowlarr/ssl
+#sudo chmod 0640 /var/lib/prowlarr/ssl/*
+#echo
+#echo "Enabling HTTPS..."
+#sudo su -s /bin/bash -c "httpcfg -add -port 9898 -pvk /var/lib/prowlarr/ssl/key.pvk -cert /var/lib/prowlarr/ssl/cert.crt" prowlarr
+#sudo sed -i 's@<EnableSsl>False</EnableSsl>@<EnableSsl>True</EnableSsl>@' /var/lib/prowlarr/config.xml
+#echo
+#echo "Disabling Analytics..."
+#sudo sh -c "if grep -q '<AnalyticsEnabled>True</AnalyticsEnabled>' /var/lib/prowlarr/config.xml; then
+#  sed -i 's/<AnalyticsEnabled>True<\/AnalyticsEnabled>/<AnalyticsEnabled>False<\/AnalyticsEnabled>/' /var/lib/prowlarr/config.xml
+#fi"
 echo
 echo
 echo
