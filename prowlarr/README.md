@@ -1,5 +1,7 @@
 # Prowlarr Arch Linux installation (run as non-root user inside the LXC)
 
+# DO NOT USE! Work in progress.
+
 ### 1. Run the script inside of the Arch Linux LXC.
 
   ```
