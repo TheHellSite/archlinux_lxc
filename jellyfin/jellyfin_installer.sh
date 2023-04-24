@@ -56,8 +56,13 @@ echo "Configuring $var_service_friendly_name..."
 echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo 'Editing service file to set the restart behaviour to "on-failure"...'
+echo 'Enabling auto-restart after crashes...'
 sed -i 's@^Restart=.*@Restart=on-failure@' /usr/lib/systemd/system/jellyfin.service
+if grep -q '^RestartSec=' /usr/lib/systemd/system/jellyfin.service; then
+  sed -i 's@^RestartSec=.*@RestartSec=5s@' /usr/lib/systemd/system/jellyfin.service
+else
+  sed -i '/^Restart=on-failure/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
+fi
 sudo systemctl daemon-reload
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
