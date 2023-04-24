@@ -6,7 +6,6 @@ var_service_friendly_name="Prowlarr"
 var_service_friendly_name_length="========"
 var_service_default_port="6969"
 var_local_ip=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
-var_local_subnet=$(ip route get 8.8.8.8 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}' | sed 's@[^.]*$@0/24@')
 # end of variables
 
 clear
