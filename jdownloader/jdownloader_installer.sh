@@ -4,8 +4,6 @@
 var_service_name="jdownloader"
 var_service_friendly_name="JDownloader"
 var_service_friendly_name_length="==========="
-var_service_default_port="0"
-var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 # end of variables
 
 clear
