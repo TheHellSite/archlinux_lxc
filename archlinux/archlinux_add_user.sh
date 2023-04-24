@@ -19,9 +19,9 @@ echo 'You can now create a non-root user that is a member of group "wheel", ther
 echo "This is essential if you intend to install packages from the Arch User Repository (AUR)."
 echo
 while true; do
-  read -p "Would you like to create a non-root user? [no]: " -r
-  # Set default value for REPLY to "no"
-  REPLY=${REPLY:-"no"}
+  read -p "Would you like to create a non-root user? [yes]: " -r
+  # Set default value for REPLY to "yes"
+  REPLY=${REPLY:-"yes"}
   if [[ "${REPLY,,}" == "y" || "${REPLY,,}" == "yes" ]]; then
     echo
     var_username_default="aur"
