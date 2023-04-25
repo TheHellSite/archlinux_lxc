@@ -26,7 +26,7 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing $var_service_friendly_name..."
-pacman -Syyu --needed --noconfirm syncthing
+pacman -Syu --needed --noconfirm syncthing
 echo
 echo
 echo

@@ -20,7 +20,7 @@
    To fix them you will have to do this: https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
    
    ```
-   pacman -Syy --noconfirm archlinux-keyring && pacman -Su && reboot
+   pacman -Sy --noconfirm archlinux-keyring && pacman -Su && pacman -Qtdq | pacman -Rns --noconfirm - 2> >(grep -v "error: argument '-' specified with empty stdin" >&2); yes | pacman -Scc; reboot
    ```
 
 <br />

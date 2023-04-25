@@ -99,7 +99,7 @@ echo "Initializing, populating and updating keyring..."
 echo
 pacman-key --init
 pacman-key --populate archlinux
-pacman -Syy --noconfirm archlinux-keyring
+pacman -Sy --noconfirm archlinux-keyring
 echo
 echo
 echo
@@ -109,7 +109,7 @@ echo "Updating system"
 echo "==============="
 read -p "Press ENTER to continue..."
 echo
-pacman -Syyu --noconfirm
+pacman -Syu --noconfirm
 echo
 echo
 echo

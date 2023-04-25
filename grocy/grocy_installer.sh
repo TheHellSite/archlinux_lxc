@@ -25,7 +25,7 @@ echo "=========================="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syyu --needed --noconfirm nginx php-fpm php-gd php-intl php-sqlite sqlite unzip wget
+pacman -Syu --needed --noconfirm nginx php-fpm php-gd php-intl php-sqlite sqlite unzip wget
 echo
 echo
 echo

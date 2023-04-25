@@ -14,10 +14,10 @@
 
 # Jellyfin Arch Linux update installation (run as non-root user inside the LXC)
 
-### 1. Perform a full system upgrade and reboot the LXC.
+### 1. Perform a full system maintenance and reboot the LXC.
 
   ```
-  sudo pacman -Syy --noconfirm archlinux-keyring && sudo pacman -Su && sudo reboot
+  sudo sh -c 'pacman -Sy --noconfirm archlinux-keyring && pacman -Su && pacman -Qtdq | pacman -Rns --noconfirm - 2> >(grep -v "error: argument '-' specified with empty stdin" >&2); yes | pacman -Scc; reboot'
   ```
 
 ### 2. Run the script inside of the Arch Linux LXC.
@@ -43,7 +43,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 ### 2. Install the Mesa driver.
 
   ```
-  pacman -Syyu --needed --noconfirm mesa
+  pacman -Syu --needed --noconfirm mesa
   ```
 
 ### 3. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin.
@@ -54,7 +54,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 `opencl-amd`: AMD OpenCL runtime based Tonemapping *(only for Jellyfin v10.8.x and older)*  
 
   ```
-  pacman -Syyu --needed --noconfirm libva-mesa-driver vulkan-radeon
+  pacman -Syu --needed --noconfirm libva-mesa-driver vulkan-radeon
   ```
 
 **Intel specific dependencies**  
@@ -85,5 +85,5 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
   **Method 2:** (AMD only) Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
   ```
-  pacman -Syyu --needed --noconfirm radeontop && radeontop
+  pacman -Syu --needed --noconfirm radeontop && radeontop
   ```

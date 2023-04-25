@@ -25,7 +25,7 @@ echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-pacman -Syyu --needed --noconfirm vaultwarden vaultwarden-web
+pacman -Syu --needed --noconfirm vaultwarden vaultwarden-web
 echo
 echo
 echo

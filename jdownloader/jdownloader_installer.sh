@@ -24,7 +24,7 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syyu --needed --noconfirm jre-openjdk-headless ffmpeg
+pacman -Syu --needed --noconfirm jre-openjdk-headless ffmpeg
 echo
 echo "Installing $var_service_friendly_name..."
 mkdir -p /var/lib/jdownloader

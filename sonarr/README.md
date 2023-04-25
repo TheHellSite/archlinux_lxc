@@ -14,10 +14,10 @@
 
 # Sonarr Arch Linux update installation (run as non-root user inside the LXC)
 
-### 1. Perform a full system upgrade and reboot the LXC.
+### 1. Perform a full system maintenance and reboot the LXC.
 
   ```
-  sudo pacman -Syy --noconfirm archlinux-keyring && sudo pacman -Su && sudo reboot
+  sudo sh -c 'pacman -Sy --noconfirm archlinux-keyring && pacman -Su && pacman -Qtdq | pacman -Rns --noconfirm - 2> >(grep -v "error: argument '-' specified with empty stdin" >&2); yes | pacman -Scc; reboot'
   ```
 
 ### 2. Run the script inside of the Arch Linux LXC.
