@@ -17,5 +17,5 @@
 ### 1. Perform a full system maintenance and reboot the LXC.
 
   ```
-  pacman -Sy --noconfirm archlinux-keyring && pacman -Su && pacman -Qtdq | pacman -Rns --noconfirm - 2> >(grep -v "error: argument '-' specified with empty stdin" >&2); yes | pacman -Scc; reboot
+  pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
   ```
