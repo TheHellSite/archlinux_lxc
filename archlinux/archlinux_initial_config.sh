@@ -109,7 +109,7 @@ echo "Updating system"
 echo "==============="
 read -p "Press ENTER to continue..."
 echo
-pacman -Syu --noconfirm
+pacman -Su --noconfirm
 echo
 echo
 echo
