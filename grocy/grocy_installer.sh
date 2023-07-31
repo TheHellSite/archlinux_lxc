@@ -42,6 +42,7 @@ echo "Installing $var_service_friendly_name..."
 unzip grocy_latest.zip -d /var/lib/grocy &> /dev/null
 rm grocy_latest.zip
 cp /var/lib/grocy/config-dist.php /var/lib/grocy/data/config.php
+chown -R http:http /var/lib/grocy
 echo
 echo
 echo
@@ -50,10 +51,6 @@ echo
 echo "Configuring $var_service_friendly_name..."
 echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
-echo
-echo 'Creating user "grocy"...'
-useradd -rU -d /var/lib/grocy -s /usr/bin/nologin grocy
-chown -R grocy:grocy /var/lib/grocy
 echo
 echo "Enabling and starting web server to generate config files..."
 systemctl enable --now $var_service_name &> /dev/null
@@ -74,13 +71,13 @@ echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /etc/nginx/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem &> /dev/null
-chown -R grocy:grocy /etc/nginx/ssl
+chown -R http:http /etc/nginx/ssl
 chmod 0755 /etc/nginx/ssl
 chmod 0640 /etc/nginx/ssl/*
 echo
 echo "Configuring web server..."
 cat > /etc/nginx/nginx.conf << 'EOF'
-user                 grocy;
+user                 http;
 worker_processes     auto;
 worker_rlimit_nofile 65535;
 
