@@ -25,7 +25,7 @@ echo "=========================="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syu --needed --noconfirm nginx php-fpm php-gd php-intl php-sqlite sqlite unzip wget
+pacman -Syu --needed --noconfirm nginx php-fpm php-gd php-intl php-sqlite sqlite unzip
 echo
 echo
 echo
@@ -36,11 +36,11 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Downloading $var_service_friendly_name..."
-wget https://releases.grocy.info/latest &> /dev/null
+curl -o grocy_latest.zip https://releases.grocy.info/latest
 echo
 echo "Installing $var_service_friendly_name..."
-unzip latest -d /var/lib/grocy &> /dev/null
-rm latest
+unzip grocy_latest.zip -d /var/lib/grocy &> /dev/null
+rm grocy_latest.zip
 cp /var/lib/grocy/config-dist.php /var/lib/grocy/data/config.php
 chown -R http:http /var/lib/grocy
 echo
