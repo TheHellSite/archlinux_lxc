@@ -29,7 +29,7 @@ echo "Installing dependencies..."
 pacman -Syu --needed --noconfirm gcc p7zip python-pipx
 echo
 echo "Installing $var_service_friendly_name..."
-PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install pyload-ng
+PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install pyload-ng[plugins]
 echo
 echo
 echo
