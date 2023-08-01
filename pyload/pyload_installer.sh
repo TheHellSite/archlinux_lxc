@@ -26,11 +26,10 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
-pacman -Syu --needed --noconfirm gcc p7zip python-pip
+pacman -Syu --needed --noconfirm gcc p7zip python-pipx
 echo
 echo "Installing $var_service_friendly_name..."
-pip install --pre pyload-ng[plugins]
-pip install --upgrade https://github.com/pyload/pyload/archive/refs/heads/develop.zip
+PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx install pyload-ng
 echo
 echo
 echo
@@ -53,7 +52,7 @@ After=network.target
 Type=simple
 User=pyload
 Group=pyload
-ExecStart=/usr/bin/pyload --userdir /var/lib/pyload
+ExecStart=/usr/local/bin/pyload --userdir /var/lib/pyload
 Restart=on-failure
 RestartSec=5s
 TimeoutSec=20
