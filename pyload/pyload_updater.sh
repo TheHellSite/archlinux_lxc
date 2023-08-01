@@ -28,7 +28,7 @@ systemctl stop $var_service_name
 echo
 echo "Updating $var_service_friendly_name..."
 pip install --upgrade setuptools
-pip install --upgrade --pre pyload-ng[plugins]
+PIPX_HOME=/opt/pipx PIPX_BIN_DIR=/usr/local/bin pipx upgrade pyload-ng[plugins]
 echo
 echo
 echo
