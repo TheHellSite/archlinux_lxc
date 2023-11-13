@@ -17,8 +17,8 @@
    - invalid or corrupted package
    - Signature from "User <email@example.org>" is unknown trust
    
-   To fix them you will have to do what is shown in the following links or use my all-in-one command below.
-   https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
+   To fix them you will have to do what is shown in the following links or use my all-in-one command below.\
+   https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly  
    https://wiki.archlinux.org/title/Pacman/Package_signing#Resetting_all_the_keys
    
    ```
