@@ -17,10 +17,12 @@
    - invalid or corrupted package
    - Signature from "User <email@example.org>" is unknown trust
    
-   To fix them you will have to do this: https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
+   To fix them you will have to do what is shown in the following links or use my all-in-one command below.
+   https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
+   https://wiki.archlinux.org/title/Pacman/Package_signing#Resetting_all_the_keys
    
    ```
-   pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
+   rm -rf /etc/pacman.d/gnupg && pacman-key --init && pacman-key --populate archlinux && pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
    ```
 
 <br />
