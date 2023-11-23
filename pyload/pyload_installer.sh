@@ -53,7 +53,7 @@ Type=simple
 User=pyload
 Group=pyload
 ExecStart=/usr/local/bin/pyload --userdir /var/lib/pyload
-Restart=on-failure
+Restart=always
 RestartSec=5s
 TimeoutSec=20
 
