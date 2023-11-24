@@ -50,7 +50,7 @@ Type=simple
 User=syncthing
 Group=syncthing
 ExecStart=/usr/bin/syncthing --home /var/lib/syncthing
-Restart=on-failure
+Restart=always
 RestartSec=5s
 TimeoutSec=20
 
