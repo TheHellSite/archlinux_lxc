@@ -45,7 +45,7 @@ sudo sed -i 's@^Restart=.*@Restart=always@' /usr/lib/systemd/system/jellyfin.ser
 if grep -q '^RestartSec=' /usr/lib/systemd/system/jellyfin.service; then
   sudo sed -i 's@^RestartSec=.*@RestartSec=5s@' /usr/lib/systemd/system/jellyfin.service
 else
-  sudo sed -i '/^Restart=on-failure/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
+  sudo sed -i '/^Restart=always/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
 fi
 sudo systemctl daemon-reload
 echo
