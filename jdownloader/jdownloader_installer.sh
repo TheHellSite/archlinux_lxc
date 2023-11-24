@@ -52,7 +52,7 @@ Type=simple
 User=jdownloader
 Group=jdownloader
 ExecStart=/usr/bin/java -Djava.awt.headless=true -jar /var/lib/jdownloader/JDownloader.jar
-Restart=on-failure
+Restart=always
 RestartSec=5s
 TimeoutSec=20
 
