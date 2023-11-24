@@ -57,11 +57,11 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Enabling auto-restart after crashes...'
-sudo sed -i 's@^Restart=.*@Restart=on-failure@' /usr/lib/systemd/system/jellyfin.service
+sudo sed -i 's@^Restart=.*@Restart=always@' /usr/lib/systemd/system/jellyfin.service
 if grep -q '^RestartSec=' /usr/lib/systemd/system/jellyfin.service; then
   sudo sed -i 's@^RestartSec=.*@RestartSec=5s@' /usr/lib/systemd/system/jellyfin.service
 else
-  sudo sed -i '/^Restart=on-failure/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
+  sudo sed -i '/^Restart=always/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
 fi
 sudo systemctl daemon-reload
 echo
