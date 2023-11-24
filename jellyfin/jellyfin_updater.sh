@@ -41,7 +41,7 @@ cd
 sudo rm -r jellyfin-ffmpeg5-bin
 echo
 echo 'Enabling auto-restart after crashes...'
-sudo sed -i 's@^Restart=.*@Restart=on-failure@' /usr/lib/systemd/system/jellyfin.service
+sudo sed -i 's@^Restart=.*@Restart=always@' /usr/lib/systemd/system/jellyfin.service
 if grep -q '^RestartSec=' /usr/lib/systemd/system/jellyfin.service; then
   sudo sed -i 's@^RestartSec=.*@RestartSec=5s@' /usr/lib/systemd/system/jellyfin.service
 else
