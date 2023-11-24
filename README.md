@@ -5,13 +5,13 @@
 
 2. Each subfolder contains an indiviual README.md file explaining how to install and configure certain services.
 
-3. **Watch out for scripts and commands that need to be run as non-root user! (i.e. Jellyfin, Plex Media Server, ...)**
+3. :warning: **Watch out for scripts and commands that need to be run as non-root user!** :warning:
 
 <br />
 <br />
 <hr>
 
-# Troubleshooting
+# :warning: Troubleshooting :warning:
 
 1. If you haven't updated your Arch Linux (LXC) in a while you will likely get some of the errors below when using any of my scripts.
    - invalid or corrupted package
