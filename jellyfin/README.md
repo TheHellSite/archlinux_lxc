@@ -34,7 +34,7 @@ Please note that `pacman` is the package manager in Arch Linux, if you are using
 ### 1. Follow this tutorial to passthrough the render device to the LXC.
 https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
-### 2. Install the Mesa driver.
+### 2. LXC Guest: Install the Mesa driver.
 
   ```
   pacman -Syu --needed --noconfirm mesa
