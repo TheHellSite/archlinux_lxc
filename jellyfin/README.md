@@ -73,7 +73,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
   Enable hardware decoding for: Check all codecs supported by your GPU.
   ```
 
-### 3. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
+### 5. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
 
   **Method 1:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
 
