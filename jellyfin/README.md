@@ -1,4 +1,4 @@
-# Jellyfin Arch Linux installation (run as non-root user inside the LXC)
+# Jellyfin Arch Linux installation (run as root user inside the LXC)
 
 ### 1. Run the script inside of the Arch Linux LXC.
 
@@ -12,18 +12,12 @@
 <br />
 <hr>
 
-# Jellyfin Arch Linux update installation (run as non-root user inside the LXC)
+# Jellyfin Arch Linux update installation (run as root user inside the LXC)
 
 ### 1. Perform a full system maintenance and reboot the LXC.
 
   ```
-  sudo sh -c 'pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot'
-  ```
-
-### 2. Run the script inside of the Arch Linux LXC.
-
-  ```
-  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/jellyfin/jellyfin_updater.sh)
+  pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
   ```
 
 <br />
@@ -46,7 +40,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
   pacman -Syu --needed --noconfirm mesa
   ```
 
-### 3. LXC Guest: Install dependencies for FFmpeg5 for Jellyfin.
+### 3. LXC Guest: Install dependencies for FFmpeg for Jellyfin.
 
 **AMD specific dependencies**  
 `libva-mesa-driver`: AMD VAAPI support  
