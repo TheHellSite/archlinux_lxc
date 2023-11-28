@@ -21,32 +21,12 @@ echo
 echo
 echo
 
-echo "Preparing AUR..."
-echo "================"
-read -p "Press ENTER to continue..."
-echo
-sudo pacman -Syu --needed --noconfirm git base-devel
-echo
-echo
-echo
-echo
-
 echo "Installing $var_service_friendly_name..."
 echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-git clone https://aur.archlinux.org/jellyfin-bin.git
-cd jellyfin-bin
-makepkg -sirc --noconfirm
-cd
-sudo rm -r jellyfin-bin
-echo
-echo "Installing FFmpeg5 for Jellyfin ..."
-git clone https://aur.archlinux.org/jellyfin-ffmpeg5-bin.git
-cd jellyfin-ffmpeg5-bin
-makepkg -sirc --noconfirm
-cd
-sudo rm -r jellyfin-ffmpeg5-bin
+echo "Installing $var_service_friendly_name..."
+pacman -Syu --needed --noconfirm jellyfin-server jellyfin-web jellyfin-ffmpeg
 echo
 echo
 echo
@@ -57,40 +37,81 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Enabling auto-restart after crashes...'
-sudo sed -i 's@^Restart=.*@Restart=always@' /usr/lib/systemd/system/jellyfin.service
-if grep -q '^RestartSec=' /usr/lib/systemd/system/jellyfin.service; then
-  sudo sed -i 's@^RestartSec=.*@RestartSec=5s@' /usr/lib/systemd/system/jellyfin.service
+sed -i 's@^Restart =.*@Restart = always@' /usr/lib/systemd/system/jellyfin.service
+if grep -q '^RestartSec =' /usr/lib/systemd/system/jellyfin.service; then
+  sed -i 's@^RestartSec =.*@RestartSec = 5s@' /usr/lib/systemd/system/jellyfin.service
 else
-  sudo sed -i '/^Restart=always/a RestartSec=5s' /usr/lib/systemd/system/jellyfin.service
+  sed -i '/^Restart = always/a RestartSec = 5s' /usr/lib/systemd/system/jellyfin.service
 fi
-sudo systemctl daemon-reload
+systemctl daemon-reload
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
-sudo systemctl enable --now $var_service_name &> /dev/null
+systemctl enable --now $var_service_name &> /dev/null
 echo
 echo "Waiting 10 seconds for $var_service_friendly_name to start..."
 sleep 10
 echo
 echo "Stopping $var_service_friendly_name to edit config files..."
-sudo systemctl stop $var_service_name
+systemctl stop $var_service_name
 echo
+# START TEMPORARY INCLUDED (until fixed upstream)
+# if not exist create network.xml
+echo "Generating network config..."
+if [ ! -e "/etc/jellyfin/network.xml" ]; then
+  cat > /etc/jellyfin/network.xml << EOF
+<NetworkConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RequireHttps>false</RequireHttps>
+  <CertificatePath />
+  <CertificatePassword />
+  <BaseUrl />
+  <PublicHttpsPort>8920</PublicHttpsPort>
+  <HttpServerPortNumber>8096</HttpServerPortNumber>
+  <HttpsPortNumber>8920</HttpsPortNumber>
+  <EnableHttps>false</EnableHttps>
+  <PublicPort>8096</PublicPort>
+  <UPnPCreateHttpPortMap>false</UPnPCreateHttpPortMap>
+  <UDPPortRange />
+  <EnableIPV6>false</EnableIPV6>
+  <EnableIPV4>true</EnableIPV4>
+  <EnableSSDPTracing>false</EnableSSDPTracing>
+  <SSDPTracingFilter />
+  <UDPSendCount>2</UDPSendCount>
+  <UDPSendDelay>100</UDPSendDelay>
+  <IgnoreVirtualInterfaces>true</IgnoreVirtualInterfaces>
+  <VirtualInterfaceNames>vEthernet*</VirtualInterfaceNames>
+  <GatewayMonitorPeriod>60</GatewayMonitorPeriod>
+  <TrustAllIP6Interfaces>false</TrustAllIP6Interfaces>
+  <HDHomerunPortRange />
+  <PublishedServerUriBySubnet />
+  <AutoDiscoveryTracing>false</AutoDiscoveryTracing>
+  <AutoDiscovery>true</AutoDiscovery>
+  <RemoteIPFilter />
+  <IsRemoteIPFilterBlacklist>false</IsRemoteIPFilterBlacklist>
+  <EnableUPnP>false</EnableUPnP>
+  <EnableRemoteAccess>true</EnableRemoteAccess>
+  <LocalNetworkSubnets />
+  <LocalNetworkAddresses />
+  <KnownProxies />
+  <EnablePublishedServerUriByRequest>false</EnablePublishedServerUriByRequest>
+</NetworkConfiguration>
+EOF
+chown jellyfin:jellyfin /etc/jellyfin/network.xml
+fi
+echo
+# END TEMPORARY INCLUDED (until fixed upstream)
 echo "Generating self-signed SSL certificate..."
-sudo mkdir -p /var/lib/jellyfin/ssl
-sudo openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/jellyfin/ssl/key.pem -out /var/lib/jellyfin/ssl/cert.pem &> /dev/null
-sudo openssl pkcs12 -export -inkey /var/lib/jellyfin/ssl/key.pem -in /var/lib/jellyfin/ssl/cert.pem -out /var/lib/jellyfin/ssl/cert.pfx -passout pass:
-sudo rm /var/lib/jellyfin/ssl/*.pem
-sudo chown -R jellyfin:jellyfin /var/lib/jellyfin/ssl
-sudo chmod 0755 /var/lib/jellyfin/ssl
-sudo chmod 0640 /var/lib/jellyfin/ssl/*
+mkdir -p /etc/jellyfin/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /etc/jellyfin/ssl/key.pem -out /etc/jellyfin/ssl/cert.pem &> /dev/null
+openssl pkcs12 -export -inkey /etc/jellyfin/ssl/key.pem -in /etc/jellyfin/ssl/cert.pem -out /etc/jellyfin/ssl/cert.pfx -passout pass:
+rm /etc/jellyfin/ssl/*.pem
+chown -R jellyfin:jellyfin /etc/jellyfin/ssl
+chmod 0755 /etc/jellyfin/ssl
+chmod 0640 /etc/jellyfin/ssl/*
 echo
 echo "Enabling HTTPS..."
-sudo sed -i 's@<CertificatePath />@<CertificatePath>/var/lib/jellyfin/ssl/cert.pfx</CertificatePath>@' /var/lib/jellyfin/config/network.xml
-sudo sed -i 's@<EnableHttps>false</EnableHttps>@<EnableHttps>true</EnableHttps>@' /var/lib/jellyfin/config/network.xml
-sudo sed -i 's@<RequireHttps>false</RequireHttps>@<RequireHttps>true</RequireHttps>@' /var/lib/jellyfin/config/network.xml
-echo
-echo "Enabling FFmpeg5 for Jellyfin"
-sudo sed -i 's@<EncoderAppPath>/usr/bin/ffmpeg</EncoderAppPath>@<EncoderAppPath>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPath>@' /var/lib/jellyfin/config/encoding.xml
-sudo sed -i 's@<EncoderAppPathDisplay>/usr/bin/ffmpeg</EncoderAppPathDisplay>@<EncoderAppPathDisplay>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPathDisplay>@' /var/lib/jellyfin/config/encoding.xml
+sed -i 's@<CertificatePath />@<CertificatePath>/etc/jellyfin/ssl/cert.pfx</CertificatePath>@' /etc/jellyfin/network.xml
+sed -i 's@<EnableHttps>false</EnableHttps>@<EnableHttps>true</EnableHttps>@' /etc/jellyfin/network.xml
+sed -i 's@<RequireHttps>false</RequireHttps>@<RequireHttps>true</RequireHttps>@' /etc/jellyfin/network.xml
 echo
 echo
 echo
@@ -103,15 +124,15 @@ echo "Proceed to start $var_service_friendly_name."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl start $var_service_name
+systemctl start $var_service_name
 echo "Waiting 5 seconds for $var_service_friendly_name to start..."
 sleep 5
 echo
 echo "You can now access the $var_service_friendly_name web interface."
-echo "https://$var_local_ip:$var_service_default_port/web/index.html"
+echo "https://$var_local_ip:$var_service_default_port"
 echo
 echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
 echo
-sudo systemctl status $var_service_name
+systemctl status $var_service_name
