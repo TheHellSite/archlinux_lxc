@@ -69,7 +69,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
   Go to: Admin --> Server --> Dashboard --> Playback
   ```
   Hardware acceleration: VAAPI
-  VA API Device: /dev/dri/renderD128
+  VA-API-Device: /dev/dri/renderD128
   Enable hardware decoding for: Check all codecs supported by your GPU.
   ```
 
@@ -77,7 +77,7 @@ https://github.com/TheHellSite/proxmox_tutorials/tree/main/lxc_gpu_passthrough
 
   **Method 1:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
 
-  **Method 2:** (AMD only) Install ```radeontop``` in the LXC. You should see activity, f.e. at the "Graphics pipe".
+  **Method 2:** Install ```vainfo``` in the LXC and check for the line `libva info: va_openDriver() returns 0`.
   ```
-  pacman -Syu --needed --noconfirm radeontop && radeontop
+  pacman -Syu --needed --noconfirm libva-utils && vainfo
   ```
