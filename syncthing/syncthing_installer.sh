@@ -37,7 +37,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Creating user "syncthing"...'
-useradd -rU -d /var/lib/syncthing -s /usr/bin/nologin syncthing
+useradd -r -d /var/lib/syncthing -s /usr/bin/nologin syncthing
 echo
 echo 'Creating service "syncthing"...'
 cat > /etc/systemd/system/syncthing.service << EOF
