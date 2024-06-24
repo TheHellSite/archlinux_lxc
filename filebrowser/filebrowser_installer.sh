@@ -36,7 +36,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Creating user "filebrowser"...'
-useradd -rU -d /var/lib/filebrowser -s /usr/bin/nologin filebrowser
+useradd -r -d /var/lib/filebrowser -s /usr/bin/nologin filebrowser
 echo
 echo 'Creating service "filebrowser"...'
 cat > /etc/systemd/system/filebrowser.service << EOF
