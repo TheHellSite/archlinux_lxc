@@ -39,7 +39,7 @@ echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo 'Creating user "jdownloader"...'
-useradd -rU -d /var/lib/jdownloader -s /usr/bin/nologin jdownloader
+useradd -r -d /var/lib/jdownloader -s /usr/bin/nologin jdownloader
 echo
 echo 'Creating service "jdownloader"...'
 cat > /etc/systemd/system/jdownloader.service << EOF
