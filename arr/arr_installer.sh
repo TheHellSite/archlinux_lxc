@@ -143,7 +143,7 @@ After=network.target
 Type=simple
 User=${var_service_name}
 Group=${var_service_name}
-ExecStart=/opt/${var_service_name}/${var_service_friendly_name} -nobrowser -data=/var/lib/${var_service_name}/
+ExecStart=/opt/${var_service_name}/${var_service_friendly_name} -nobrowser -data=/var/lib/${var_service_name}
 Restart=always
 RestartSec=5s
 TimeoutSec=20
@@ -154,7 +154,7 @@ EOF
 echo
 echo "Enabling and starting ${var_service_friendly_name} to generate config files..."
 mkdir -p /var/lib/${var_service_name}
-chown -R ${var_service_name}:${var_service_name} /opt/${var_service_name} /var/lib/${var_service_name}/
+chown -R ${var_service_name}:${var_service_name} /opt/${var_service_name} /var/lib/${var_service_name}
 systemctl enable --now ${var_service_name} &> /dev/null
 echo
 echo "Waiting 10 seconds for ${var_service_friendly_name} to start..."
