@@ -20,4 +20,8 @@
   see main page
   ```
 
-### 2. Use the built-in updater.
+### 2. Run the script inside of the Arch Linux LXC.
+
+  ```
+  bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/sabnzbd/sabnzbd_updater.sh)
+  ```
