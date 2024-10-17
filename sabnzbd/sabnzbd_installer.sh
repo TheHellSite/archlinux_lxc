@@ -11,11 +11,11 @@ var_service_name=${var_service_friendly_name,,}
 # end of variables
 
 clear
-echo "====================$var_service_friendly_name_length============="
-echo "== Arch Linux LXC - $var_service_friendly_name Installer =="
-echo "====================$var_service_friendly_name_length============="
+echo "====================${var_service_friendly_name_length}============="
+echo "== Arch Linux LXC - ${var_service_friendly_name} Installer =="
+echo "====================${var_service_friendly_name_length}============="
 echo
-echo "This script will install $var_service_friendly_name."
+echo "This script will install ${var_service_friendly_name}."
 echo
 read -p "Press ENTER to start the script."
 echo
@@ -23,14 +23,14 @@ echo
 echo
 echo
 
-echo "Installing $var_service_friendly_name..."
-echo "===========$var_service_friendly_name_length==="
+echo "Installing ${var_service_friendly_name}..."
+echo "===========${var_service_friendly_name_length}==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
 pacman -Syu --needed --noconfirm ${var_service_dependencies}
 echo
-echo "Installing $var_service_friendly_name..."
+echo "Installing ${var_service_friendly_name}..."
 mkdir -p /tmp/${var_service_name}_installer/${var_service_name}
 curl -L -o /tmp/${var_service_name}_installer/${var_service_name}_latest_linux.tar.gz "${var_service_download_url}"
 tar -xzf /tmp/${var_service_name}_installer/${var_service_name}_latest_linux.tar.gz --strip-components=1 -C /tmp/${var_service_name}_installer/${var_service_name}
@@ -46,8 +46,8 @@ echo
 echo
 echo
 
-echo "Configuring $var_service_friendly_name..."
-echo "============$var_service_friendly_name_length==="
+echo "Configuring ${var_service_friendly_name}..."
+echo "============${var_service_friendly_name_length}==="
 read -p "Press ENTER to continue..."
 echo
 echo "Creating user \"${var_service_name}\"..."
@@ -99,22 +99,22 @@ echo
 echo
 echo
 
-echo "Starting $var_service_friendly_name..."
-echo "=========$var_service_friendly_name_length==="
-echo "The installation and configuration of $var_service_friendly_name is complete."
-echo "Proceed to start $var_service_friendly_name."
+echo "Starting ${var_service_friendly_name}..."
+echo "=========${var_service_friendly_name_length}==="
+echo "The installation and configuration of ${var_service_friendly_name} is complete."
+echo "Proceed to start ${var_service_friendly_name}."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl start $var_service_name
-echo "Waiting 5 seconds for $var_service_friendly_name to start..."
+systemctl start ${var_service_name}
+echo "Waiting 5 seconds for ${var_service_friendly_name} to start..."
 sleep 5
 echo
-echo "You can now access the $var_service_friendly_name web interface."
+echo "You can now access the ${var_service_friendly_name} web interface."
 echo "https://$var_local_ip:$var_service_default_port"
 echo
 echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl status $var_service_name
+systemctl status ${var_service_name}
