@@ -35,10 +35,10 @@ mkdir -p /tmp/${var_service_name}_installer/${var_service_name}
 curl -L -o /tmp/${var_service_name}_installer/${var_service_name}_latest_linux.tar.gz "${var_service_download_url}"
 tar -xzf /tmp/${var_service_name}_installer/${var_service_name}_latest_linux.tar.gz --strip-components=1 -C /tmp/${var_service_name}_installer/${var_service_name}
 mv /tmp/${var_service_name}_installer/${var_service_name} /opt/${var_service_name}
-python3 -m venv /opt/${var_service_name}/python_venv
+python -m venv /opt/${var_service_name}/python_venv
 source /opt/${var_service_name}/python_venv/bin/activate
-python3 -m pip install --upgrade pip wheel
-pip install --cache-dir /tmp/${var_service_name}_installer/pip-cache -r /opt/${var_service_name}/requirements.txt
+python -m pip install --upgrade pip wheel
+python -m pip install --cache-dir /tmp/${var_service_name}_installer/pip-cache -r /opt/${var_service_name}/requirements.txt
 deactivate
 rm -r /tmp/${var_service_name}_installer
 echo
