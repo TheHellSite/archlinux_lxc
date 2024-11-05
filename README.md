@@ -11,16 +11,18 @@
 <br />
 <hr>
 
-# :warning: Troubleshooting :warning:
+# :warning: Troubleshooting / full system maintenance :warning:
 
-1. If you haven't updated your Arch Linux (LXC) in a while you will likely get some of the errors below when using any of my scripts.
+1. If you haven't updated your Arch Linux (LXC) in a while you will likely get some of the errors below when using any of my scripts or while trying to perform a normal system update:
    - invalid or corrupted package
    - Signature from "User <email@example.org>" is unknown trust
    
-   To fix them you will have to do what is shown in the following links or use my all-in-one command below.\
+   To fix that you will have to do what is shown in the following links or use my all-in-one command in step 2.\
    https://wiki.archlinux.org/title/Pacman/Package_signing#Resetting_all_the_keys  
    https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly
-   
+
+2. This command will basically perform a full system maintenance (remove chunk & update all packages and signatures) as described in the links above.
+
    ```
    rm -rf /etc/pacman.d/gnupg && pacman-key --init && pacman-key --populate archlinux && pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
    ```
