@@ -5,6 +5,13 @@
   ```
   bash <(curl -s https://raw.githubusercontent.com/TheHellSite/archlinux_lxc/main/rclone-webui/rclone-webui_installer.sh)
   ```
+### 2. Configure a remote on a headless machine.
+
+1. Login as root to the LXC running Rclone WebUI.
+2. Run the command below to start the configuration of a new remote. For help refer to the documentation of Rclone.
+   ```
+   runuser -u rclone-webui -- rclone config
+   ```
 
 <br />
 <br />
