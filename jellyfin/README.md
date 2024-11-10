@@ -43,8 +43,8 @@ https://github.com/TheHellSite/proxmox_collection/tree/main/lxc/device_passthrou
 ### 3. LXC Guest: Install dependencies for FFmpeg for Jellyfin.
 
 **AMD specific dependencies**  
-`libva-mesa-driver`: AMD VAAPI support  
-`vulkan-radeon`: AMD RADV Vulkan support  
+`libva-mesa-driver`: AMD VA-API support  
+`vulkan-radeon`: AMD RADV support  
 `opencl-amd`: AMD OpenCL runtime based Tonemapping *(only for Jellyfin v10.8.x and older)*  
 
   ```
