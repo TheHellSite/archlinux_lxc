@@ -19,6 +19,16 @@ echo
 echo
 echo
 
+echo "Preparing AUR..."
+echo "================"
+read -p "Press ENTER to continue..."
+echo
+sudo pacman -Syu --needed --noconfirm git base-devel
+echo
+echo
+echo
+echo
+
 echo "Updating $var_service_friendly_name..."
 echo "=========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
