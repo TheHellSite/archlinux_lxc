@@ -3,7 +3,7 @@
 # begin of variables
 var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
 var_service_default_port="8080"
-var_service_dependencies="p7zip par2cmdline python python-pip python-setuptools unrar"
+var_service_dependencies="p7zip python python-pip python-setuptools unrar"
 var_service_download_url=$(curl -s https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest | grep 'browser_download_url' | grep 'src.tar.gz' | cut -d\" -f4)
 var_service_friendly_name="SABnzbd"
 var_service_friendly_name_length=${var_service_friendly_name//?/=}
@@ -29,6 +29,13 @@ read -p "Press ENTER to continue..."
 echo
 echo "Installing dependencies..."
 pacman -Syu --needed --noconfirm ${var_service_dependencies}
+echo
+echo "Installing par2cmdline-turbo..."
+mkdir -p /tmp/${var_service_name}_installer
+var_par2cmdlineturbo_download_url=$(curl -s https://api.github.com/repos/animetosho/par2cmdline-turbo/releases/latest | grep 'browser_download_url' | grep 'linux-amd64.xz' | cut -d\" -f4)
+curl -L -o /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.xz "${var_par2cmdlineturbo_download_url}"
+xz -dc /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.xz > /usr/bin/par2
+chmod +x /usr/bin/par2
 echo
 echo "Installing ${var_service_friendly_name}..."
 mkdir -p /tmp/${var_service_name}_installer/${var_service_name}
