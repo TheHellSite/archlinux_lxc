@@ -34,7 +34,7 @@ Please note that `pacman` is the package manager in Arch Linux, if you are using
 ### 1. PVE Host: Passthrough the render device to the LXC and assign it to group render (GID=989).
 
   > [!IMPORTANT]
-  > The tone mapping device `/dev/kfd` is specific to AMD (i)GPUs and therefore not needed on other (i)GPUs.
+  > The tone mapping device `/dev/kfd` is specific to AMD (i)GPUs and therefore not available on other (i)GPUs.
 
   ```
   cat <<EOF >> /etc/pve/lxc/LXC_ID.conf
