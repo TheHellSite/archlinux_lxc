@@ -31,16 +31,31 @@
 The guide below should work for all GPUs listed here: https://docs.mesa3d.org/systems.html  
 Please note that `pacman` is the package manager in Arch Linux, if you are using another distro as your LXC base system, f.e. Debian, you will have to use the respective package manager to install the below dependencies.
 
-### 1. Follow this tutorial to passthrough the render device to the LXC.
-https://github.com/TheHellSite/proxmox_collection/tree/main/lxc/device_passthrough
+### 1. PVE Host: Passthrough the render device to the LXC and assign it to group render (GID=989).
 
-### 2. LXC Guest: Install the Mesa driver.
+  > [!IMPORTANT]
+  > The tone mapping device `/dev/kfd` is specific to AMD (i)GPUs and therefore not needed on other (i)GPUs.
+
+  ```
+  cat <<EOF >> /etc/pve/lxc/LXC_ID.conf
+  dev0: /dev/dri/renderD128,gid=989
+  dev1: /dev/kfd,gid=989
+  EOF
+  ```
+
+### 2. LXC Guest: Add the service user "jellyfin" to group "render".
+
+  ```
+  gpasswd -a jellyfin render
+  ```
+
+### 3. LXC Guest: Install the Mesa driver.
 
   ```
   pacman -Syu --needed --noconfirm mesa
   ```
 
-### 3. LXC Guest: Install dependencies for FFmpeg for Jellyfin.
+### 4. LXC Guest: Install dependencies for FFmpeg for Jellyfin.
 
 **AMD specific dependencies**  
 `libva-mesa-driver`: AMD VA-API support  
@@ -64,7 +79,7 @@ https://github.com/TheHellSite/proxmox_collection/tree/main/lxc/device_passthrou
   Please select the relevant packages on your own. I don't have any Intel (i)GPUs and therefore can't validate the needed ones.
   ```
 
-### 4. Jellyfin: Enable VA-API.
+### 5. Jellyfin: Enable VA-API.
 
   Go to: Admin --> Server --> Dashboard --> Playback
   ```
@@ -73,7 +88,7 @@ https://github.com/TheHellSite/proxmox_collection/tree/main/lxc/device_passthrou
   Enable hardware decoding for: Check all codecs supported by your GPU.
   ```
 
-### 5. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
+### 6. (optional) LXC Guest: Check if transcoding is working, f.e. by playing and downscaling a video.
 
   **Method 1:** Watch the transcodes folder. Jellyfin should constantly create new files during playback and delete them afterwards.
 
