@@ -1,19 +1,21 @@
 #!/bin/bash
 
 # begin of variables
-var_service_name="qbittorrent"
-var_service_friendly_name="qBittorrent-nox"
-var_service_friendly_name_length="==============="
-var_service_default_port="8080"
 var_local_ip=$(ip route get 1.1.1.1 | sed -n '/src/{s/.*src *\([^ ]*\).*/\1/p;q}')
+var_service_name="qbittorrent"
+var_service_username="qbt"
+var_service_friendly_name="qBittorrent-nox"
+var_service_friendly_name_length=${var_service_friendly_name//?/=}
+var_service_default_port="8080"
+var_service_dependencies="python qbittorrent-nox"
 # end of variables
 
 clear
-echo "====================$var_service_friendly_name_length============="
-echo "== Arch Linux LXC - $var_service_friendly_name Installer =="
-echo "====================$var_service_friendly_name_length============="
+echo "====================${var_service_friendly_name_length}============="
+echo "== Arch Linux LXC - ${var_service_friendly_name} Installer =="
+echo "====================${var_service_friendly_name_length}============="
 echo
-echo "This script will install $var_service_friendly_name."
+echo "This script will install ${var_service_friendly_name}."
 echo
 read -p "Press ENTER to start the script."
 echo
@@ -21,34 +23,31 @@ echo
 echo
 echo
 
-echo "Installing $var_service_friendly_name..."
-echo "===========$var_service_friendly_name_length==="
+echo "Installing ${var_service_friendly_name}..."
+echo "===========${var_service_friendly_name_length}==="
 read -p "Press ENTER to continue..."
 echo
-echo "Installing $var_service_friendly_name..."
-pacman -Syu --needed --noconfirm python qbittorrent-nox
+echo "Installing ${var_service_friendly_name}..."
+pacman -Syu --needed --noconfirm ${var_service_dependencies}
 echo
 echo
 echo
 echo
 
-echo "Configuring $var_service_friendly_name..."
-echo "============$var_service_friendly_name_length==="
+echo "Configuring ${var_service_friendly_name}..."
+echo "============${var_service_friendly_name_length}==="
 read -p "Press ENTER to continue..."
 echo
-echo 'Creating user and group "qbittorrent"...'
-useradd -r -d /var/lib/qbittorrent -s /usr/bin/nologin qbittorrent
-echo
-echo 'Creating service "qbittorrent"...'
-cat > /etc/systemd/system/qbittorrent.service << EOF
+echo "Creating service \"${var_service_name}\"..."
+cat > /etc/systemd/system/${var_service_name}.service << EOF
 [Unit]
 Description=qBittorrent-nox
 After=network.target
 
 [Service]
 Type=simple
-User=qbittorrent
-Group=qbittorrent
+User=${var_service_username}
+Group=${var_service_username}
 ExecStart=/usr/bin/qbittorrent-nox
 Restart=always
 RestartSec=5s
@@ -58,27 +57,26 @@ TimeoutSec=20
 WantedBy=multi-user.target
 EOF
 echo
-echo "Enabling and starting $var_service_friendly_name to generate config files..."
-mkdir -p /var/lib/qbittorrent
-chown -R qbittorrent:qbittorrent /var/lib/qbittorrent
-systemctl enable --now $var_service_name &> /dev/null
+echo "Enabling and starting ${var_service_friendly_name} to generate config files..."
+chown -R ${var_service_username}:${var_service_username} /var/lib/${var_service_name}
+systemctl enable --now ${var_service_name} &> /dev/null
 echo
-echo "Waiting 10 seconds for $var_service_friendly_name to start..."
+echo "Waiting 10 seconds for ${var_service_friendly_name} to start..."
 sleep 10
 echo
-echo "Stopping $var_service_friendly_name to edit config files..."
-systemctl stop $var_service_name
+echo "Stopping ${var_service_friendly_name} to edit config files..."
+systemctl stop ${var_service_name}
 echo
 echo "Generating self-signed SSL certificate..."
-mkdir -p /var/lib/qbittorrent/ssl
-openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/qbittorrent/ssl/key.pem -out /var/lib/qbittorrent/ssl/cert.pem &> /dev/null
-chown -R qbittorrent:qbittorrent /var/lib/qbittorrent/ssl
-chmod 0755 /var/lib/qbittorrent/ssl
-chmod 0640 /var/lib/qbittorrent/ssl/*
+mkdir -p /var/lib/${var_service_name}/ssl
+openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/${var_service_name}/ssl/key.pem -out /var/lib/${var_service_name}/ssl/cert.pem &> /dev/null
+chown -R ${var_service_username}:${var_service_username} /var/lib/${var_service_name}/ssl
+chmod 0755 /var/lib/${var_service_name}/ssl
+chmod 0640 /var/lib/${var_service_name}/ssl/*
 echo
 echo "Configuring qBittorrent..."
 mkdir -p /tmp/torrent
-cat > /var/lib/qbittorrent/.config/qBittorrent/qBittorrent.conf << EOF
+cat > /var/lib/${var_service_name}/.config/qBittorrent/qBittorrent.conf << EOF
 [AutoRun]
 enabled=false
 program=
@@ -168,22 +166,22 @@ echo
 echo
 echo
 
-echo "Starting $var_service_friendly_name..."
-echo "=========$var_service_friendly_name_length==="
-echo "The installation and configuration of $var_service_friendly_name is complete."
-echo "Proceed to start $var_service_friendly_name."
+echo "Starting ${var_service_friendly_name}..."
+echo "=========${var_service_friendly_name_length}==="
+echo "The installation and configuration of ${var_service_friendly_name} is complete."
+echo "Proceed to start ${var_service_friendly_name}."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl start $var_service_name
-echo "Waiting 5 seconds for $var_service_friendly_name to start..."
+systemctl start ${var_service_name}
+echo "Waiting 5 seconds for ${var_service_friendly_name} to start..."
 sleep 5
 echo
-echo "You can now access the $var_service_friendly_name web interface."
-echo "https://$var_local_ip:$var_service_default_port"
+echo "You can now access the ${var_service_friendly_name} web interface."
+echo "https://${var_local_ip}:${var_service_default_port}"
 echo
 echo "Proceed to display the service status and end the script."
 echo
 read -p "Press ENTER to continue..."
 echo
-systemctl status $var_service_name
+systemctl status ${var_service_name}
