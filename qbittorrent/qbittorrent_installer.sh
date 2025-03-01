@@ -41,7 +41,7 @@ echo
 echo "Creating service \"${var_service_name}\"..."
 cat > /etc/systemd/system/${var_service_name}.service << EOF
 [Unit]
-Description=qBittorrent-nox
+Description=${var_service_friendly_name}
 After=network.target
 
 [Service]
@@ -74,7 +74,7 @@ chown -R ${var_service_username}:${var_service_username} /var/lib/${var_service_
 chmod 0755 /var/lib/${var_service_name}/ssl
 chmod 0640 /var/lib/${var_service_name}/ssl/*
 echo
-echo "Configuring qBittorrent..."
+echo "Configuring ${var_service_friendly_name}..."
 mkdir -p /tmp/torrent
 cat > /var/lib/${var_service_name}/.config/qBittorrent/qBittorrent.conf << EOF
 [AutoRun]
