@@ -17,5 +17,5 @@
 ### 1. Perform a full system maintenance and reboot the LXC.
 
   ```
-  pacman -Sy --noconfirm archlinux-keyring && pacman -Su --noconfirm && if pacman -Qtdq >/dev/null; then pacman -Rns --noconfirm $(pacman -Qtdq); fi && yes | pacman -Scc && reboot
+  see main page
   ```
