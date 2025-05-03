@@ -93,7 +93,7 @@ echo 'Getting latest mirrors from "https://archlinux.org/mirrorlist/all/https/".
 curl -s 'https://archlinux.org/mirrorlist/all/https/' | sed -n '/^## Worldwide$/,/^$/p' | sed '/^$/d' | sed 's/^#Server/Server/' >| /etc/pacman.d/mirrorlist
 echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
-sed -i 's@^#NoExtract   =@NoExtract   = etc/pacman.conf etc/pacman.d/mirrorlist@' /etc/pacman.conf
+sed -i 's@^#NoExtract   =@NoExtract   = etc/pacman.d/mirrorlist@' /etc/pacman.conf
 echo
 echo "Initializing, populating and updating keyring..."
 echo
