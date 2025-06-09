@@ -39,10 +39,6 @@ echo "Enabling Web Vault..."
 sed -i 's@^# WEB_VAULT_FOLDER=.*@WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web@' /etc/vaultwarden.env
 sed -i 's@^WEB_VAULT_ENABLED=.*@# WEB_VAULT_ENABLED=true@' /etc/vaultwarden.env
 echo
-echo "Enabling Admin Interface..."
-admin_token_var=`openssl rand -base64 48`
-sed -i "s@^# ADMIN_TOKEN=.*@ADMIN_TOKEN=$admin_token_var@" /etc/vaultwarden.env
-echo
 echo "Generating self-signed SSL certificate..."
 mkdir -p /var/lib/vaultwarden/ssl
 openssl req -x509 -newkey rsa:4096 -sha512 -days 36500 -nodes -subj "/" -keyout /var/lib/vaultwarden/ssl/key.pem -out /var/lib/vaultwarden/ssl/cert.pem &> /dev/null
