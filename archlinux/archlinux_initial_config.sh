@@ -95,6 +95,9 @@ echo
 echo 'Disabling extraction of "mirrorlist.pacnew"...'
 sed -i 's@^#NoExtract   =@NoExtract   = etc/pacman.d/mirrorlist@' /etc/pacman.conf
 echo
+echo 'Disabling pacman sandbox to avoid landlock issues...'
+sed -i 's@^#DisableSandbox@DisableSandbox@' /etc/pacman.conf
+echo
 echo "Initializing, populating and updating keyring..."
 echo
 pacman-key --init
