@@ -36,13 +36,14 @@ echo "Configuring $var_service_friendly_name..."
 echo "============$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
-echo 'Enabling auto-restart after crashes...'
-sed -i 's@^Restart =.*@Restart = always@' /usr/lib/systemd/system/jellyfin.service
-if grep -q '^RestartSec =' /usr/lib/systemd/system/jellyfin.service; then
-  sed -i 's@^RestartSec =.*@RestartSec = 5s@' /usr/lib/systemd/system/jellyfin.service
-else
-  sed -i '/^Restart = always/a RestartSec = 5s' /usr/lib/systemd/system/jellyfin.service
-fi
+echo "Configuring systemd overrides (Restart, RestartSec, LimitCORE) for jellyfin..."
+mkdir -p /etc/systemd/system/jellyfin.service.d
+cat > /etc/systemd/system/jellyfin.service.d/override.conf << EOF
+[Service]
+Restart=always
+RestartSec=5s
+LimitCORE=0
+EOF
 systemctl daemon-reload
 echo
 echo "Enabling and starting $var_service_friendly_name to generate config files..."
