@@ -31,9 +31,9 @@ systemctl stop ${var_service_name}
 echo
 echo "Updating par2cmdline-turbo..."
 mkdir -p /tmp/${var_service_name}_installer
-var_par2cmdlineturbo_download_url=$(curl -s https://api.github.com/repos/animetosho/par2cmdline-turbo/releases/latest | grep 'browser_download_url' | grep 'linux-amd64.xz' | cut -d\" -f4)
-curl -L -o /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.xz "${var_par2cmdlineturbo_download_url}"
-xz -dc /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.xz > /usr/bin/par2
+var_par2cmdlineturbo_download_url=$(curl -s https://api.github.com/repos/animetosho/par2cmdline-turbo/releases/latest | grep 'browser_download_url' | grep 'linux-amd64.zip' | cut -d\" -f4)
+curl -L -o /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.zip "${var_par2cmdlineturbo_download_url}"
+bsdtar -xOf /tmp/${var_service_name}_installer/par2cmdline-turbo_latest_linux.zip > /usr/bin/par2
 chmod +x /usr/bin/par2
 echo
 echo "Updating ${var_service_friendly_name}..."
