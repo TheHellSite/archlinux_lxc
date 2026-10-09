@@ -26,9 +26,9 @@ echo "===========$var_service_friendly_name_length==="
 read -p "Press ENTER to continue..."
 echo
 echo "Installing $var_service_friendly_name..."
-pacman -Syu --needed --noconfirm jellyfin-server jellyfin-web jellyfin-ffmpeg noto-fonts
+pacman -Syu --needed --noconfirm jellyfin-server jellyfin-web jellyfin-ffmpeg
 echo
-echo "Installing optional dependencies..."
+echo "Installing optional dependencies for jellyfin-server..."
 pacman -Syu --needed --noconfirm noto-fonts
 echo
 echo
